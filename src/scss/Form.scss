@@ -1,0 +1,112 @@
+.form {    
+    text-align: center;
+    width: 100%;
+
+    .form-title {
+        font-size: 23px;
+        font-weight: lighter;
+        margin: 0;
+        padding: 0 0 20px;
+    }  
+    
+    .form-paragraph {
+        font-size: 17px;        
+        margin: 0;
+        padding: 10px 0 20px;
+    }
+
+    label {
+        text-align: left;
+        width: 100%;
+    }
+
+    .form-check {
+        margin: 0 auto;
+    }
+
+    .image-container {
+        padding: 0 5px;
+
+        img {        
+            height: 300px;                
+            margin: 0 auto 15px;        
+            width: 100%;
+        }
+    }        
+    
+    .btn-primary {        
+        background-color: $dark-violet;
+        border-color: $dark-violet;
+        margin-top: 20px;
+        padding: 7px 30px;           
+
+        &:hover, &:focus, &:active {
+            background-color: $dark-violet !important;
+            border-color: $dark-violet !important;            
+        }
+    }
+
+    .text-link {
+        font-size: 15px;
+        font-weight: lighter;        
+        padding: 25px 0;  
+        
+        a {            
+            text-decoration: none;
+        }
+    }
+
+    .light, .dark {
+        border-radius: 5px;    
+        padding: 40px;
+    }
+    
+    .light {
+        background-color: $white;
+        border: 1px solid $dark-violet;        
+
+        .text-link {            
+            
+            a {
+                color: $electric-purple;                
+    
+                &:hover {
+                    color: $dark-violet;
+                }
+            }
+        }
+    }
+
+    .dark {        
+        background-color: $jagger;
+        border: 1px solid $studio;        
+
+        .text-link {            
+            
+            a {
+                color: $mauve;
+            }
+        }
+
+        .form-control {
+            color: $whisper;
+            background-color: $jagger;
+
+            &::placeholder {
+                color: $pink-swan;
+            }
+        }
+
+        .form-control:focus, .form-control.is-valid {
+            border-width: 2px;
+        }
+
+        .form-control.is-invalid {
+            border: 2px solid $carissma;
+        }
+        
+        .invalid-feedback {
+            color: $carissma;
+        }
+    }
+}

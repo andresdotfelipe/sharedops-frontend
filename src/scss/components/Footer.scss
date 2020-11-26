@@ -1,0 +1,29 @@
+.footer {
+    margin: 0;
+    padding: 0;
+
+    .row {            
+        bottom: 0;
+        padding: 2px 0;
+        position: fixed;
+        text-align: center;
+        width: 100%;
+
+        a {
+            color: $white;
+            text-decoration: underline;
+        }    
+    }
+
+    .light {
+        background-color: $dark-violet;
+    }
+
+    .dark {
+        background-color: $honey-flower;
+    }
+
+    @include phones {
+        font-size: 11px;
+    }
+}

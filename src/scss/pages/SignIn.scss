@@ -1,0 +1,15 @@
+.sign-in {
+    @include containerPadding;       
+
+    .sign-in-form {
+        max-width: 350px;    
+        width: 100%;
+    }    
+
+    @include phones {
+
+        .sign-in-form {
+            max-width: 300px;                
+        }           
+    }
+}

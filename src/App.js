@@ -1,0 +1,46 @@
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Container } from 'react-bootstrap';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import CreateOpinion from './pages/CreateOpinion';
+import Comments from './pages/Comments';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import './scss/Styles.scss';
+
+const App = () => {
+
+    const darkTheme = useSelector(state => state.UserReducer.darkTheme);
+
+    useEffect(() => {
+        const body = document.getElementsByTagName('body');   
+        if (darkTheme) {
+            body[0].style.color = '#FFFFFF';
+            body[0].style.backgroundColor = '#26182D';
+        } else {
+            body[0].style.color = '#000000';
+            body[0].style.backgroundColor = '#FBF2FF';
+        }
+    }, [darkTheme]);    
+
+    return (
+        <Container fluid>
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path={'/'} component={Home} />
+                    <Route exact path={'/signin'} component={SignIn} />
+                    <Route exact path={'/signup'} component={SignUp} />
+                    <Route exact path={'/create-opinion'} component={CreateOpinion} />
+                    {/* <Route exact path={'/profile'} component={Profile} /> */}
+                    {/* <Route exact path={'/user/:userName'} component={User} /> */}
+                    <Route exact path={'/comments/:opinionId/:opinionTitle?'} component={Comments} />
+                </Switch>
+            </BrowserRouter>
+        </Container>
+    );
+};
+
+export default App;

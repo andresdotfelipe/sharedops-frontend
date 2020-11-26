@@ -1,0 +1,191 @@
+.header {
+    margin: 0;
+    padding: 0;
+    
+    .navbar {            
+        margin: 0 -15px;
+        padding: 9px 35px;
+    
+        .brand {         
+            color: $white;
+            font-size: 32px;
+            font-weight: 600;            
+            margin-right: 16px;
+            padding: 5px 9px 10px 0;
+            text-decoration: none;
+        }            
+    
+        .dropdown-toggle.nav-link, .nav-link {
+            color: $whisper;
+            font-size: 17px;
+            margin: 0 15px 0 0;
+
+            &:hover, &:focus, &:active {
+                color: $white;
+            }            
+        }
+
+        .dropdown-item {
+            padding: 8px 0 8px 15px;
+
+            &:hover {
+                background-color: $whisper;
+            }
+
+            &:focus, &:active {
+                background-color: $electric-purple;
+                color: $white;         
+            }
+        }
+
+        .sign-in-button {
+            background-color: transparent;
+            border-color: $white;
+            color: $white;
+            margin-right: 15px;
+            width: 87px;            
+        }
+
+        .sign-up-button {
+            background-color: $white;
+            border-color: $white;
+            color: $dark-violet;            
+            width: 87px;            
+        }        
+
+        .sign-out-button  {
+            background-color: transparent;
+            border-color: $white;
+            color: $white;        
+            width: 87px;
+
+            &:hover {
+                background-color: $white;
+                border-color: $white;
+                color: $dark-violet;
+            }
+        }
+        
+        .profile-pic {
+            margin-left: -8px;
+
+            img {                
+                border-radius: 50%;
+                margin-right: 8px;
+                width: 25px;
+            }            
+        }
+
+        .navbar-toggler {
+            border-color: $white;
+            color: $white;
+            
+            &:focus {
+                outline: 0px auto;
+            }
+        }
+    
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");        
+        }
+    
+        #basic-navbar-nav {
+            transition: 0.5s all;
+        }
+        
+    }
+
+    .dark-theme-toggler {                  
+        padding-right: 35px;       
+        position: absolute;
+        top: 100px;
+        
+        .react-toggle {
+            margin-left: 8px;            
+        }
+    }    
+
+    .light {
+
+        .navbar {
+            background-image: linear-gradient(to bottom, $dark-violet, $electric-purple);
+        }        
+    }
+    
+    .dark {
+        
+        .navbar {
+            background-color: $scarlet-gum;
+        }    
+
+        .react-toggle-track {
+            background-color: $blue-violet;
+        }
+        
+        .react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {
+            background-color: $dark-violet;            
+        }        
+        
+        .react-toggle-thumb {
+            border-color: $blue-violet;   
+        }       
+
+    }
+
+    @include phones {
+
+        .sign-in-button {
+            margin-top: 12px
+        }
+
+        .sign-up-button {
+            margin: 20px 0 25px;
+        }
+
+        .sign-out-button {
+            margin: 10px 0 20px;
+        }
+
+        .profile-pic {
+            margin-left: 0 !important;
+        }
+    }
+
+    @include large-phones {
+
+        .sign-in-button {
+            margin-top: 12px
+        }
+
+        .sign-up-button {
+            margin: 20px 0 25px;
+        }
+
+        .sign-out-button {
+            margin: 10px 0 20px;
+        }
+
+        .profile-pic {
+            margin-left: 0 !important;
+        }
+    }
+
+    @include tablets {
+
+        .sign-in-button {
+            margin-top: 12px
+        }
+
+        .sign-up-button {
+            margin: 20px 0 25px;
+        }
+
+        .sign-out-button {
+            margin: 10px 0 20px;
+        }
+
+        .profile-pic {
+            margin-left: 0 !important;
+        }
+    }
+}

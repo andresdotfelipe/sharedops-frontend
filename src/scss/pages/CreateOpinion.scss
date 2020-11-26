@@ -1,0 +1,9 @@
+.create-opinion {
+    @include containerPadding;
+    width: 90%;    
+
+    .create-opinion-form {                
+        margin: 10px;
+        max-width: 800px;;
+    }
+}

@@ -1,0 +1,14 @@
+* {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.container-fluid, .container-lg, .container-md, .container-sm, .container-xl {    
+    min-height: 100vh;
+    position: relative;
+}
+
+button:active {
+    outline: 0;
+}

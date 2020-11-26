@@ -1,0 +1,53 @@
+.sign-up {
+    @include containerPadding;
+    
+    .hero {
+
+        p {
+            color: $nandor;
+        }
+
+        .opinions-img {            
+            text-align: center;
+
+            img {
+                margin-top: 20px;
+                width: 350px;
+            }
+        }        
+    }
+
+    .sign-up-form {
+        max-width: 350px;    
+        width: 100%;
+    }    
+
+    @include phones {
+
+        .hero {
+            margin-bottom: 30px;
+            text-align: center;
+
+            img{
+                display: none;
+            }
+        }
+
+        .sign-up-form {
+            max-width: 300px;                
+        }           
+    }
+
+    @include large-phones {
+
+        .hero {
+            margin-bottom: 30px;
+            text-align: center;
+
+            img {
+                display: none;
+            }
+        }
+    }
+
+}
