@@ -1,0 +1,21 @@
+import React from 'react';
+import configureStore from 'redux-mock-store';
+import * as redux from 'react-redux';
+import { shallow } from 'enzyme';
+import Footer from '../components/Footer';
+
+describe('Footer component', () => {        
+    const mockStore = configureStore();
+    let store, wrapper;
+    beforeEach(() => {
+        store = mockStore({});
+        jest
+            .spyOn(redux, 'useSelector')
+            .mockImplementation(state => store.getState());       
+        wrapper = shallow(<Footer/>);
+    });
+
+    it('has a link to portfolio', () => {               
+        expect(wrapper.find('a').prop('href')).toEqual('https://andresfelipedev.github.io/resume');            
+    });
+});
