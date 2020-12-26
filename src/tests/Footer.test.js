@@ -1,6 +1,6 @@
 import React from 'react';
 import configureStore from 'redux-mock-store';
-import * as redux from 'react-redux';
+import * as reactRedux from 'react-redux';
 import { shallow } from 'enzyme';
 import Footer from '../components/Footer';
 
@@ -10,7 +10,7 @@ describe('Footer component', () => {
     beforeEach(() => {
         store = mockStore({});
         jest
-            .spyOn(redux, 'useSelector')
+            .spyOn(reactRedux, 'useSelector')
             .mockImplementation(state => store.getState());       
         wrapper = shallow(<Footer/>);
     });
