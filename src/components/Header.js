@@ -5,6 +5,8 @@ import { Col, Container, Button, Nav, Navbar, NavDropdown, Row } from 'react-boo
 import { getSession, getUser, removeSession, signOut, setDarkTheme } from '../actions/users';
 import Toggle from 'react-toggle';
 import 'react-toggle/style.css';
+import SunIcon from '../assets/icons/sun.svg';
+import MoonIcon from '../assets/icons/moon.svg';
 
 const Header = () => {    
 
@@ -41,7 +43,20 @@ const Header = () => {
                 <Row className={`${darkTheme ? 'dark' : 'light'}`}>
                     <Col xs={12}>
                         <Navbar expand="lg" fixed="top">
-                            <Link to="/" className="brand">Sharedops <i className="fas fa-bullhorn"></i></Link>                    
+                            <Row>
+                                <Col>
+                                    <Link to="/" className="brand">Sharedops <i className="fas fa-bullhorn"></i></Link>
+                                    <Toggle 
+                                        checked={darkTheme}
+                                        onChange={changeTheme}
+                                        icons={{                                    
+                                            checked: <img src={MoonIcon} alt={'Moon'}/>,
+                                            unchecked: <img src={SunIcon} alt={'Sun'}/>
+                                        }}
+                                        aria-label="Dark theme"
+                                    />
+                                </Col>
+                            </Row>                            
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
                             <Navbar.Collapse id="basic-navbar-nav">
                                 <Nav className="mr-auto">
@@ -55,7 +70,7 @@ const Header = () => {
                                         <Link className="nav-link" to="/">Opinions</Link>                                
                                     }                            
                                     <Link className="nav-link" to="/random">Random</Link>                                                        
-                                </Nav>                        
+                                </Nav>                            
                                 {
                                     session && user ?
                                     <Fragment>
@@ -83,17 +98,7 @@ const Header = () => {
                                 }                                                
                             </Navbar.Collapse>
                         </Navbar>
-                    </Col>
-                    <Col xs={12} className="dark-theme-toggler">
-                        <Row className="justify-content-end align-items-center">
-                            <span>Dark theme</span>
-                            <Toggle 
-                                checked={darkTheme}
-                                onChange={changeTheme}
-                                aria-label="Dark theme"
-                            />
-                        </Row>                    
-                    </Col>
+                    </Col>                    
                 </Row>
             </Container>
         </Fragment>
