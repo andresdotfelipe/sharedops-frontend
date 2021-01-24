@@ -25,10 +25,11 @@ const Header = () => {
         dispatch(getUser);
     }, [dispatch]);
 
-    const changeTheme = () => {        
+    const changeTheme = (e) => {
+        const { checked } = e.target;        
         localStorage.removeItem('darkTheme');
-        localStorage.setItem('darkTheme', !darkTheme);             
-        dispatch(setDarkTheme(!darkTheme));        
+        localStorage.setItem('darkTheme', checked);             
+        dispatch(setDarkTheme(checked));        
     }
 
     const handleSignOut = () => {
