@@ -3,7 +3,7 @@ import configureStore from 'redux-mock-store';
 import * as redux from 'react-redux';
 import { shallow } from 'enzyme';
 import Header from '../components/Header';
-import { signOut, setDarkTheme } from '../actions/users';
+import { signOut, removeSession, setDarkTheme } from '../actions/users';
 
 describe('Header component (user signed out)', () => {
     const mockStore = configureStore();
@@ -95,6 +95,7 @@ describe('Header component (user signed in)', () => {
         const signOutButton = wrapper.find('Button.sign-out-button');
         expect(signOutButton).toHaveLength(1);
         signOutButton.simulate('click');
+        expect(store.dispatch).toHaveBeenCalledWith(removeSession);
         expect(store.dispatch).toHaveBeenCalledWith(signOut);
     });
 });
