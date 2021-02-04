@@ -8,6 +8,7 @@ import { signOut, removeSession, setDarkTheme } from '../actions/users';
 describe('Header component (user signed out)', () => {
     const mockStore = configureStore();
     let store, wrapper;    
+
     beforeEach(() => {
         store = mockStore({ session: false });
         jest
@@ -58,6 +59,7 @@ describe('Header component (user signed out)', () => {
 describe('Header component (user signed in)', () => {
     const mockStore = configureStore();
     let store, wrapper;    
+    
     beforeEach(() => {
         store = mockStore({ session: true, user: { name: 'user' } });
         jest

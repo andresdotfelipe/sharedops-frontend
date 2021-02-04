@@ -4,9 +4,10 @@ import * as reactRedux from 'react-redux';
 import { shallow } from 'enzyme';
 import Footer from '../components/Footer';
 
-describe('Footer component', () => {        
+describe('Footer component', () => {    
     const mockStore = configureStore();
     let store, wrapper;
+
     beforeEach(() => {
         store = mockStore({});
         jest
