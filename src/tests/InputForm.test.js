@@ -23,8 +23,7 @@ describe('InputForm component', () => {
         const inputTextProps = {
             ...defaultProps, 
             type: 'text',
-            ph: 'placeholder',
-            disabled: false
+            ph: 'placeholder'            
         }
         const tree = renderer.create(<InputForm {...inputTextProps} />).toJSON();
         expect(tree).toMatchSnapshot();
@@ -35,8 +34,7 @@ describe('InputForm component', () => {
             ...defaultProps, 
             as: 'textarea',
             rows: 10,
-            ph: 'placeholder',
-            disabled: false
+            ph: 'placeholder'            
         }
         const tree = renderer.create(<InputForm {...inputTextAreaProps} />).toJSON();
         expect(tree).toMatchSnapshot();
@@ -45,8 +43,7 @@ describe('InputForm component', () => {
     it('renders correctly when input is file', () => {
         const inputFileProps = {
             ...defaultProps, 
-            type: 'file',                        
-            disabled: false
+            type: 'file'            
         }
         const tree = renderer.create(<InputForm {...inputFileProps} />).toJSON();
         expect(tree).toMatchSnapshot();
