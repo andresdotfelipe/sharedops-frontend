@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputForm component renders correctly when input is file 1`] = `
+<div
+  className="form-group col-md-12"
+>
+  <label
+    className="form-label"
+  >
+    label
+  </label>
+  <input
+    className="form-control-file"
+    name="name"
+    onBlur={[Function]}
+    onChange={[Function]}
+    type="file"
+  />
+  <div
+    className="invalid-feedback"
+  />
+</div>
+`;
+
+exports[`InputForm component renders correctly when input is text 1`] = `
+<div
+  className="form-group col-md-12"
+>
+  <label
+    className="form-label"
+  >
+    label
+  </label>
+  <input
+    className="form-control"
+    disabled={false}
+    name="name"
+    onBlur={[MockFunction]}
+    onChange={[MockFunction]}
+    placeholder="placeholder"
+    type="text"
+    value="value"
+  />
+  <div
+    className="invalid-feedback"
+  />
+</div>
+`;
+
+exports[`InputForm component renders correctly when input is textarea 1`] = `
+<div
+  className="form-group col-md-12"
+>
+  <label
+    className="form-label"
+  >
+    label
+  </label>
+  <textarea
+    className="form-control"
+    disabled={false}
+    name="name"
+    onBlur={[MockFunction]}
+    onChange={[MockFunction]}
+    placeholder="placeholder"
+    rows={10}
+    value="value"
+  />
+  <div
+    className="invalid-feedback"
+  />
+</div>
+`;
