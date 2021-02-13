@@ -31,7 +31,7 @@ const CreateOpinion = () => {
             <Container className="create-opinion">
                 <Row className="justify-content-center">
                     <Col xs={12} className="create-opinion-form">
-                        <OpinionForm title={'Create new opinion'} submitOpinion={handleSubmitOpinion} />
+                        <OpinionForm submitOpinion={handleSubmitOpinion} />
                     </Col>
                 </Row>
             </Container>            

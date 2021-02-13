@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import { Button, Col, Form, Row, Spinner } from 'react-bootstrap';
 import InputForm from '../components/InputForm';
 
-const OpinionForm = ({ title, submitOpinion, handleSubmit }) => {
+const OpinionForm = ({ submitOpinion, handleSubmit }) => {
 
     const { submitting, darkTheme } = useSelector(state => ({
         submitting: state.UserReducer.submitting,
@@ -16,7 +16,7 @@ const OpinionForm = ({ title, submitOpinion, handleSubmit }) => {
             <Row>
                 <Col xs={12} className="form">
                     <Form className={`${darkTheme ? 'dark' : 'light'}`}>
-                        <Form.Text className="form-title">{title}</Form.Text>
+                        <Form.Text className="form-title">Create new opinion</Form.Text>
                         <Form.Row>
                             <Field name={'title'} label={'Title'} type={'text'} component={InputForm} />
                         </Form.Row>
