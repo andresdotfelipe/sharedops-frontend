@@ -1,7 +1,7 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { stopSubmit, clearSubmitErrors } from 'redux-form';
 import UserProvider from '../providers/UserProvider';
-import { setSession, setUser, getUser, setSubmitting, setError, signOut } from '../../actions/users';
+import { setSession, setUnauthenticated, setUser, getUser, setSubmitting, setError, signOut } from '../../actions/users';
 import { actionTypes } from '../../config/actionTypes';
 
 function* signInGenerator(action) {
@@ -10,6 +10,7 @@ function* signInGenerator(action) {
         const session = yield call(UserProvider.signIn, action.data);
         window.localStorage.setItem('session', JSON.stringify(session));
         yield put(setSession(session));
+        yield put(setUnauthenticated(false));
         yield put(getUser);
         yield put(setSubmitting(false));
     } catch (error) {        
@@ -24,6 +25,7 @@ function* signUpGenerator(action) {
         const session = yield call(UserProvider.signUp, action.data);
         window.localStorage.setItem('session', JSON.stringify(session));                
         yield put(setSession(session));
+        yield put(setUnauthenticated(false));
         yield put(getUser);
         yield put(setSubmitting(false));
     } catch (error) {

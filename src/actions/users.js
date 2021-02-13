@@ -27,6 +27,11 @@ export const removeSession = {
     type: actionTypes.REMOVE_SESSION
 };
 
+export const setUnauthenticated = unauthenticated => ({
+    type: actionTypes.SET_UNAUTHENTICATED,
+    unauthenticated
+});
+
 export const setUser = user => ({
     type: actionTypes.SET_USER,
     user
