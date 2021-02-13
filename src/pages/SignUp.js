@@ -10,7 +10,7 @@ import OpinionsImg from '../assets/images/opinions.jpg';
 
 const SignUp = () => {
 
-    const session = useSelector(state => state.UserReducer.session);
+    const unauthenticated = useSelector(state => state.UserReducer.unauthenticated);
 
     const dispatch = useDispatch();
 
@@ -18,7 +18,7 @@ const SignUp = () => {
         dispatch(signUp(data));
     };
 
-    if (session) return <Redirect to={{ pathname: '/'}} />            
+    if (!unauthenticated) return <Redirect to={{ pathname: '/' }} />            
 
     return (
         <Fragment>

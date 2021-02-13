@@ -8,8 +8,8 @@ import Footer from '../components/Footer';
 import SignInForm from '../forms/SignInForm';
 
 const SignIn = () => {
-
-    const session = useSelector(state => state.UserReducer.session);
+    
+    const unauthenticated = useSelector(state => state.UserReducer.unauthenticated);
 
     const dispatch = useDispatch();
 
@@ -17,7 +17,7 @@ const SignIn = () => {
         dispatch(signIn(data));
     };
 
-    if (session) return <Redirect to={{ pathname: '/' }} />
+    if (!unauthenticated) return <Redirect to={{ pathname: '/' }} />
 
     return (
         <Fragment>
