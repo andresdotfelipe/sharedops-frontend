@@ -23,7 +23,9 @@ const Header = () => {
     useEffect(() => {
         dispatch(getSession);
         dispatch(getUser);
-    }, [dispatch]);
+        if (!user & session) handleSignOut();
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dispatch]); 
 
     const changeTheme = (e) => {
         const { checked } = e.target;        
