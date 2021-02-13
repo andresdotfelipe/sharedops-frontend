@@ -14,7 +14,7 @@ const defaultProps = {
         onChange,
         onBlur: jest.fn()
     },
-    label: 'label',                
+    label: 'Label',                
     disabled: false
 };
 
@@ -28,10 +28,22 @@ describe('InputForm component', () => {
         const inputTextProps = {
             ...defaultProps, 
             type: 'text',
-            ph: 'placeholder'            
+            ph: 'Text'            
         };
         const wrapper = shallow(<InputForm {...inputTextProps} />);
-        const event = { target: { value: 'Test value' } };
+        const event = { target: { value: 'Text test' } };
+        wrapper.find('FormControl').simulate('change', event);
+        expect(onChange).toHaveBeenCalledWith(event);
+    });
+
+    it('updates input password value when changed', () => {
+        const inputTextProps = {
+            ...defaultProps, 
+            type: 'password',
+            ph: 'Password'            
+        };
+        const wrapper = shallow(<InputForm {...inputTextProps} />);
+        const event = { target: { value: 'Password test' } };
         wrapper.find('FormControl').simulate('change', event);
         expect(onChange).toHaveBeenCalledWith(event);
     });
@@ -41,10 +53,10 @@ describe('InputForm component', () => {
             ...defaultProps, 
             as: 'textarea',
             rows: 10,
-            ph: 'placeholder'            
+            ph: 'Text area'            
         };
         const wrapper = shallow(<InputForm {...inputTextAreaProps} />);        
-        const event = { target: { value: 'Test value' } };
+        const event = { target: { value: 'Text area test' } };
         wrapper.find('FormControl').simulate('change', event);
         expect(onChange).toHaveBeenCalledWith(event);
         
