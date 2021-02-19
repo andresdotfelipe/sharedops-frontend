@@ -1,7 +1,8 @@
 import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Button, Col, Container, Row, Spinner } from 'react-bootstrap';
-import { getOpinions } from '../actions/opinions';
+import { setOpinion, getOpinions } from '../actions/opinions';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
@@ -12,7 +13,8 @@ const Home = () => {
     };    
 
     const [isFetching, setIsFetching] = useState(false);
-    const [isHalfPage, setIsHalfPage] = useState(false);    
+    const [isHalfPage, setIsHalfPage] = useState(false);
+    const history = useHistory();
 
     const { session, darkTheme, opinions, opinionPageCount, totalOpinionCount, currentOpinionCount } = useSelector(state => ({
         session: state.UserReducer.session,
@@ -44,6 +46,11 @@ const Home = () => {
         },
         [dispatch, totalOpinionCount, currentOpinionCount, isFetching, opinionPageCount]
     );
+
+    const handleClickOpinion = opinion => {
+        dispatch(setOpinion(opinion));
+        history.push(`/comments/${opinion._id}/${opinion.title}`);
+    };
 
     const handleAddFavorite = () => {
         if (!session) window.location = `/signin`;        
@@ -83,7 +90,11 @@ const Home = () => {
                             {
                                 opinions.map((opinion, index) => {
                                     return (
-                                        <Col key={opinion._id} xs={12} tabIndex={'0'} className="opinion-box">
+                                        <Col 
+                                            key={opinion._id} 
+                                            xs={12} tabIndex={'0'} 
+                                            className="opinion-box"
+                                            onClick={() => handleClickOpinion(opinion)}>
                                             <Row>
                                                 <Col xs={12} className="details">
                                                     <span className="name">
