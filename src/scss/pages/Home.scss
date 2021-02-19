@@ -43,13 +43,18 @@
                 padding: 5px;
                 max-height: 300px;
                 max-width: 100%;                 
-            }
+            }        
 
-            .body {
+            .body {                
                 margin-top: 35px;
-                overflow-wrap: break-word;                
-                text-align: justify;
-                white-space: pre-wrap; 
+                mask-image: linear-gradient(180deg, $black 60%, transparent);
+                max-height: 200px;
+                overflow: hidden;
+                overflow-wrap: break-word;
+                padding: 5px 8px 10px;
+                text-align: justify;                
+                white-space: pre-line;
+                -webkit-mask-image: linear-gradient(180deg, $black 60%, transparent);                
             }
 
             .options {
