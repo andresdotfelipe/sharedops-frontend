@@ -52,7 +52,8 @@ const Home = () => {
         history.push(`/comments/${opinion._id}/${opinion.title}`);
     };
 
-    const handleAddFavorite = () => {
+    const handleAddFavorite = e => {
+        e.stopPropagation();
         if (!session) window.location = `/signin`;        
     };
     
