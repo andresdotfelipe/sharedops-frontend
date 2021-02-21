@@ -32,15 +32,12 @@ function* getOpinionsGenerator(action) {
 }
 
 function* getOpinionGenerator(action) {
-    try {
-        const session = yield select(state => state.UserReducer.session);
-        if (session) {            
-            const opinion = yield call(OpinionProvider.getOpinion, action.id);
-            opinion.createdAt = String(new Date(opinion.createdAt));
-            opinion.updatedAt = String(new Date(opinion.updatedAt));
-            yield put(setOpinion(opinion));
-            yield put(setLoading(false));
-        }
+    try {                    
+        const opinion = yield call(OpinionProvider.getOpinion, action.id);
+        opinion.createdAt = String(new Date(opinion.createdAt));
+        opinion.updatedAt = String(new Date(opinion.updatedAt));
+        yield put(setOpinion(opinion));
+        yield put(setLoading(false));        
     } catch (error) {
         console.log('Something\'s gone wrong:', error);
         yield put(setOpinion(null));
