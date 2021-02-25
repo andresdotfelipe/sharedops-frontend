@@ -1,5 +1,5 @@
 .comments {
     @include containerPadding;
-    overflow-wrap: break-word;
-    white-space: pre-wrap;
+    @include opinionsGrid(10px auto 0, auto, none, auto, $studio);
+    text-align: center;
 }
