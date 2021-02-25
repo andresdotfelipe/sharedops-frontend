@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { Button, Col, Container, Row, Spinner } from 'react-bootstrap';
 import { setOpinion, getOpinions } from '../actions/opinions';
 import Header from '../components/Header';
@@ -99,19 +99,25 @@ const Home = () => {
                                             <Row>
                                                 <Col xs={12} className="details">
                                                     <span className="name">
-                                                        Opinion by <b>{opinion.author.name}</b>
-                                                    </span>
-                                                    <img 
-                                                        src={opinion.author.profilePicUrl}                                                    
-                                                        alt={opinion.author.name}
-                                                        className="profile-pic"
-                                                    />                                                    
+                                                        Opinion by <Link 
+                                                            to="/signup" 
+                                                            onClick={e => e.stopPropagation()}>
+                                                                {opinion.author.name}
+                                                                <img 
+                                                                    src={opinion.author.profilePicUrl}                                                    
+                                                                    alt={opinion.author.name}
+                                                                    className="profile-pic"
+                                                                /> 
+                                                        </Link>
+                                                    </span>                                                                                                       
                                                     <span className="date">
                                                         on {opinion.createdAt}
                                                     </span>
                                                 </Col>
                                                 <Col xs={12} className="title">
-                                                    {opinion.title}
+                                                    <Link to={`/comments/${opinion._id}/${opinion.title}`}>
+                                                        {opinion.title}
+                                                    </Link>
                                                 </Col>
                                                 {
                                                     opinion.opinionImageUrl &&
