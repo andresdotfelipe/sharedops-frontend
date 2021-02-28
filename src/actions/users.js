@@ -46,6 +46,11 @@ export const updateUser = data => ({
     data
 });
 
+export const updateUserFavoriteOpinions = opinionId => ({
+    type: actionTypes.UPDATE_USER_FAVORITE_OPINIONS,
+    opinionId
+});
+
 export const setLoading = loading => ({
     type: actionTypes.SET_LOADING,
     loading
