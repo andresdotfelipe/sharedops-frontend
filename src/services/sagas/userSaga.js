@@ -98,6 +98,19 @@ function* updateUserGenerator(action) {
     }
 }
 
+function* updateUserFavoriteOpinions(action) {
+    try {
+        const session = yield select(state => state.UserReducer.session);
+        if (session) {
+            const data = { opinionId: action.opinionId };
+            yield call(UserProvider.updateUserFavoriteOpinions, data);
+            yield put(getUser);
+        }
+    } catch (error) {        
+        yield put(setError(error.response.data.error)); 
+    }
+};
+
 export function* userSaga() {
     yield takeLatest(actionTypes.SIGN_IN, signInGenerator);
     yield takeLatest(actionTypes.SIGN_UP, signUpGenerator);
@@ -105,4 +118,5 @@ export function* userSaga() {
     yield takeLatest(actionTypes.REMOVE_SESSION, removeSessionGenerator);
     yield takeLatest(actionTypes.GET_USER, getUserGenerator);
     yield takeLatest(actionTypes.UPDATE_USER, updateUserGenerator);
+    yield takeLatest(actionTypes.UPDATE_USER_FAVORITE_OPINIONS, updateUserFavoriteOpinions);
 }
