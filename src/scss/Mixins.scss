@@ -100,8 +100,12 @@
                     }
                 }                
     
-                .favorite {
+                .favorite-unchecked, .favorite-checked {
                     margin-right: 15px;                    
+                }
+
+                .favorite-checked {
+                    color: $electric-purple;
                 }
     
             }
