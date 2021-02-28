@@ -17,8 +17,8 @@ export default class UserProvider {
         return HttpProvider.get('user').then(response => response.data);
     }
 
-    static updateUser(data) {
-        return HttpProvider.put('user', data).then(response => response.data);
+    static updateUserFavoriteOpinions(data) {
+        return HttpProvider.put('user/favorite-opinions', data).then(response => response.data);
     }
 
     static uploadUserProfilePic(image) {
