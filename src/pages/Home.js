@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
 import { Button, Col, Container, Row, Spinner } from 'react-bootstrap';
+import { updateUserFavoriteOpinions } from '../actions/users';
 import { setOpinion, getOpinions } from '../actions/opinions';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -16,9 +17,10 @@ const Home = () => {
     const [isHalfPage, setIsHalfPage] = useState(false);
     const history = useHistory();
 
-    const { session, darkTheme, opinions, opinionPageCount, totalOpinionCount, currentOpinionCount } = useSelector(state => ({
+    const { session, darkTheme, user, opinions, opinionPageCount, totalOpinionCount, currentOpinionCount } = useSelector(state => ({
         session: state.UserReducer.session,
         darkTheme: state.UserReducer.darkTheme,
+        user: state.UserReducer.user,
         opinions: state.OpinionReducer.opinions,
         opinionPageCount: state.OpinionReducer.opinionPageCount,
         totalOpinionCount: state.OpinionReducer.totalOpinionCount,
@@ -52,9 +54,9 @@ const Home = () => {
         history.push(`/comments/${opinion._id}/${opinion.title}`);
     };
 
-    const handleAddFavorite = e => {
+    const handleAddFavorite = (e, opinion) => {
         e.stopPropagation();
-        if (!session) window.location = `/signin`;        
+        !session ? window.location = `/signin` : dispatch(updateUserFavoriteOpinions(opinion._id));        
     };
     
     const handleBackToTop = () => {
@@ -133,11 +135,21 @@ const Home = () => {
                                                     {opinion.body}
                                                 </Col>
                                                 <Col xs={12} className="options">
-                                                    <Button 
-                                                        className="favorite"
-                                                        onClick={handleAddFavorite}>
-                                                        <i className="fas fa-star"></i>
-                                                    </Button>
+                                                    {
+                                                        user ?
+                                                        <Button 
+                                                            className={`${user.favoriteOpinions.some(e => e === opinion._id) ? 
+                                                                'favorite-checked' : 'favorite-unchecked'}`
+                                                            }
+                                                            onClick={e => handleAddFavorite(e, opinion)}>
+                                                            <i className="fas fa-star"></i>
+                                                        </Button> :
+                                                        <Button 
+                                                            className="favorite-unchecked"
+                                                            onClick={handleAddFavorite}>
+                                                            <i className="fas fa-star"></i>
+                                                        </Button>
+                                                    }                                                    
                                                     <Button className="comment">
                                                         <i className="fas fa-comments"></i>
                                                     </Button>
