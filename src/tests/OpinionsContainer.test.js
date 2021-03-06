@@ -4,7 +4,7 @@ import * as reactRedux from 'react-redux';
 import { shallow } from 'enzyme';
 import { updateUserFavoriteOpinions } from '../actions/users';
 import { setOpinion } from '../actions/opinions';
-import Home from '../pages/Home';
+import OpinionsContainer from '../components/OpinionsContainer';
 
 const users = [
     {
@@ -51,7 +51,15 @@ const opinions = [
         createdAt: '03/02/03',
         modifiedAt: '02/02/03'
     },
-]
+];
+
+const props = {
+    initialMessage: 'Initial message',
+    opinions,
+    opinionPageCount: 2,
+    currentOpinionCount: 2,
+    totalOpinionCount: 3
+};
 
 jest.mock('react-router-dom', () => {
     const originalModule = jest.requireActual('react-router-dom');
@@ -68,19 +76,11 @@ jest.mock('react-router-dom', () => {
 });
 
 describe('Home component (user signed out)', () => {
-    const mockStore = configureStore();
-    const initialState = {
-        session: false,        
-        opinions,
-        opinionPageCount: 2,
-        currentOpinionCount: 2,
-        totalOpinionCount: 3
-    };
-
+    const mockStore = configureStore();    
     let store, wrapper;   
 
     beforeEach(() => {
-        store = mockStore(initialState);
+        store = mockStore({ session: false });
         jest
             .spyOn(reactRedux, 'useSelector')
             .mockImplementation(state => store.getState());
@@ -89,7 +89,7 @@ describe('Home component (user signed out)', () => {
             .mockImplementation(() => store.dispatch);
         store.clearActions();
         store.dispatch = jest.fn();
-        wrapper = shallow(<Home/>);
+        wrapper = shallow(<OpinionsContainer {...props} />);
     });
 
     it('has an initial message', () => {
@@ -126,19 +126,11 @@ describe('Home component (user signed out)', () => {
 });
 
 describe('Home component (user signed in)', () => {
-    const mockStore = configureStore();
-    const initialState = {
-        session: true,
-        user: users[0], 
-        opinions,
-        opinionPageCount: 2,
-        currentOpinionCount: 2,
-        totalOpinionCount: 3
-    };
+    const mockStore = configureStore();    
     let store, wrapper;    
 
     beforeEach(() => {
-        store = mockStore(initialState);
+        store = mockStore({ session: true, user: users[0] });
         jest
             .spyOn(reactRedux, 'useSelector')
             .mockImplementation(state => store.getState());
@@ -147,7 +139,7 @@ describe('Home component (user signed in)', () => {
             .mockImplementation(() => store.dispatch);
         store.clearActions();
         store.dispatch = jest.fn();
-        wrapper = shallow(<Home/>);
+        wrapper = shallow(<OpinionsContainer {...props} />);
     });
 
     it('has opinions with options (favorite checked or unchecked and comment)', () => {
