@@ -2,61 +2,82 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import * as reactRedux from 'react-redux';
 import { shallow } from 'enzyme';
+import { updateUserFavoriteOpinions } from '../actions/users';
+import { setOpinion } from '../actions/opinions';
 import Home from '../pages/Home';
+
+const users = [
+    {
+        _id: '0',
+        name: 'User 0',
+        favoriteOpinions: ['0', '2'],
+        createdAt: '01/01/01',
+        modifiedAt: '01/01/01'
+    },
+    {
+        _id: '1',
+        name: 'User 1',
+        favoriteOpinions: ['1'],
+        createdAt: '02/01/01',
+        modifiedAt: '02/01/01'
+    }
+];
+
+const opinions = [
+    {
+        _id: '0',
+        title: 'Opinion 0',
+        body: 'Body 0',
+        opinionImageUrl: 'https://images.com/0',
+        author: users[0],
+        createdAt: '01/02/03',
+        modifiedAt: '01/02/03'
+    },
+    {
+        _id: '1',
+        title: 'Opinion 1',
+        body: 'Body 1',
+        opinionImageUrl: 'https://images.com/1',
+        author: users[0],
+        createdAt: '02/02/03',
+        modifiedAt: '02/02/03'
+    },
+    {
+        _id: '2',
+        title: 'Opinion 2',
+        body: 'Body 2',
+        opinionImageUrl: 'https://images.com/2',
+        author: users[1],
+        createdAt: '03/02/03',
+        modifiedAt: '02/02/03'
+    },
+]
+
+jest.mock('react-router-dom', () => {
+    const originalModule = jest.requireActual('react-router-dom');
+  
+    return {
+      ...originalModule,
+      useHistory: jest.fn(() => {
+        return { push: jest.fn() };
+      }),
+      useRouteMatch: jest.fn(() => {
+        return { url: '/entry' };
+      }),
+    };
+});
 
 describe('Home component (user signed out)', () => {
     const mockStore = configureStore();
     const initialState = {
-        session: false,
-        opinions: [
-            {
-                _id: 0,
-                title: 'Opinion 0',
-                body: 'Body 0',
-                opinionImageUrl: 'https://images.com/0',
-                author: {
-                    _id: 0,
-                    name: 'User 0',
-                    createdAt: '01/01/01',
-                    modifiedAt: '01/01/01'
-                },
-                createdAt: '01/02/03',
-                modifiedAt: '01/02/03'
-            },
-            {
-                _id: 1,
-                title: 'Opinion 1',
-                body: 'Body 1',
-                opinionImageUrl: 'https://images.com/1',
-                author: {
-                    _id: 0,
-                    name: 'User 0',
-                    createdAt: '01/01/01',
-                    modifiedAt: '01/01/01'
-                },
-                createdAt: '02/02/03',
-                modifiedAt: '02/02/03'
-            },
-            {
-                _id: 2,
-                title: 'Opinion 2',
-                body: 'Body 2',
-                opinionImageUrl: 'https://images.com/2',
-                author: {
-                    _id: 1,
-                    name: 'User 1',
-                    createdAt: '02/01/01',
-                    modifiedAt: '02/01/01'
-                },
-                createdAt: '03/02/03',
-                modifiedAt: '02/02/03'
-            },
-        ],
+        session: false,        
+        opinions,
         opinionPageCount: 2,
         currentOpinionCount: 2,
         totalOpinionCount: 3
     };
-    let store, wrapper;    
+
+    let store, wrapper;   
 
     beforeEach(() => {
         store = mockStore(initialState);
@@ -93,8 +114,50 @@ describe('Home component (user signed out)', () => {
         expect(wrapper.find('Col.body')).toHaveLength(3);        
     });
 
-    it('has opinions with options (favorite and comment)', () => { 
-        expect(wrapper.find('Button.favorite')).toHaveLength(3);
+    it('has opinions with options (favorite unchecked and comment)', () => { 
+        expect(wrapper.find('Button.favorite-unchecked')).toHaveLength(3);
         expect(wrapper.find('Button.comment')).toHaveLength(3);
+    });
+
+    it('sets opinion on click', () => {        
+        wrapper.find('Col.opinion-box').at(0).simulate('click');
+        expect(store.dispatch).toHaveBeenCalledWith(setOpinion(opinions[0]));        
+    });    
+});
+
+describe('Home component (user signed in)', () => {
+    const mockStore = configureStore();
+    const initialState = {
+        session: true,
+        user: users[0], 
+        opinions,
+        opinionPageCount: 2,
+        currentOpinionCount: 2,
+        totalOpinionCount: 3
+    };
+    let store, wrapper;    
+
+    beforeEach(() => {
+        store = mockStore(initialState);
+        jest
+            .spyOn(reactRedux, 'useSelector')
+            .mockImplementation(state => store.getState());
+        jest
+            .spyOn(reactRedux, 'useDispatch')
+            .mockImplementation(() => store.dispatch);
+        store.clearActions();
+        store.dispatch = jest.fn();
+        wrapper = shallow(<Home/>);
+    });
+
+    it('has opinions with options (favorite checked or unchecked and comment)', () => {
+        expect(wrapper.find('Button.favorite-checked')).toHaveLength(2);
+        expect(wrapper.find('Button.favorite-unchecked')).toHaveLength(1);
+        expect(wrapper.find('Button.comment')).toHaveLength(3);
+    });
+
+    it('updates user\'s favorite opinions after clicking favorite button', () => {        
+        wrapper.find('Button.favorite-checked').at(0).simulate('click', { stopPropagation() {} });
+        expect(store.dispatch).toHaveBeenCalledWith(updateUserFavoriteOpinions(opinions[0]._id));
     });
 });
