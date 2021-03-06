@@ -56,9 +56,9 @@ const opinions = [
 const props = {
     initialMessage: 'Initial message',
     opinions,
-    opinionPageCount: 2,
-    currentOpinionCount: 2,
-    totalOpinionCount: 3
+    pageCount: 2,
+    currentCount: 2,
+    totalCount: 3
 };
 
 jest.mock('react-router-dom', () => {

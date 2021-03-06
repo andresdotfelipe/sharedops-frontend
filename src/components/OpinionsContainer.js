@@ -5,7 +5,7 @@ import { Button, Col, Container, Row, Spinner } from 'react-bootstrap';
 import { updateUserFavoriteOpinions } from '../actions/users';
 import { setOpinion, getOpinions } from '../actions/opinions';
 
-const OpinionsContainer = ({ initialMessage, opinions, opinionPageCount, currentOpinionCount, totalOpinionCount }) => {
+const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, totalCount }) => {
 
     const [isFetching, setIsFetching] = useState(false);
     const [isHalfPage, setIsHalfPage] = useState(false);
@@ -22,7 +22,7 @@ const OpinionsContainer = ({ initialMessage, opinions, opinionPageCount, current
     const loadOnScroll = useCallback(
         e => {
             window.pageYOffset > 3572 ? setIsHalfPage(true) : setIsHalfPage(false);
-            if (currentOpinionCount === totalOpinionCount) return;            
+            if (currentCount === totalCount) return;            
             const opinionsEnd = document.getElementById('opinions-end');            
             const rect = opinionsEnd.getBoundingClientRect();
             const isAtEnd = (
@@ -32,11 +32,11 @@ const OpinionsContainer = ({ initialMessage, opinions, opinionPageCount, current
             if (isAtEnd) {                
                 if (isFetching) return;                  
                 setIsFetching(true);                
-                dispatch(getOpinions(`page=${opinionPageCount}`));
+                dispatch(getOpinions(`page=${pageCount}`));
                 setIsFetching(false);
             }            
         },
-        [dispatch, totalOpinionCount, currentOpinionCount, isFetching, opinionPageCount]
+        [dispatch, totalCount, currentCount, isFetching, pageCount]
     );
 
     const handleClickOpinion = opinion => {
@@ -55,7 +55,7 @@ const OpinionsContainer = ({ initialMessage, opinions, opinionPageCount, current
 
     useEffect(() => {               
         if (opinions.length === 0) {            
-            dispatch(getOpinions(`page=${opinionPageCount}`));            
+            dispatch(getOpinions(`page=${pageCount}`));            
             //setIsFetching(false);                                  
         } else {                   
             window.addEventListener('scroll', loadOnScroll);
@@ -63,7 +63,7 @@ const OpinionsContainer = ({ initialMessage, opinions, opinionPageCount, current
         return () => {            
             window.removeEventListener('scroll', loadOnScroll);            
         };
-    }, [dispatch, opinions, opinionPageCount, loadOnScroll]);
+    }, [dispatch, opinions, pageCount, loadOnScroll]);
     
     return (        
         <Container className="opinions-container">
@@ -150,7 +150,7 @@ const OpinionsContainer = ({ initialMessage, opinions, opinionPageCount, current
 
                 }
                 {
-                    (currentOpinionCount !== totalOpinionCount) ?
+                    (currentCount !== totalCount) ?
                     <Col xs={12} id="opinions-end">
                         <Spinner
                             as="span"
