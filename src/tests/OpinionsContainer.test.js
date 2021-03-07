@@ -58,7 +58,8 @@ const props = {
     opinions,
     pageCount: 2,
     currentCount: 2,
-    totalCount: 3
+    totalCount: 3,
+    type: 'type'
 };
 
 jest.mock('react-router-dom', () => {
