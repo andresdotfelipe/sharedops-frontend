@@ -1,32 +1,81 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { stopSubmit } from 'redux-form';
 import OpinionProvider from '../providers/OpinionProvider';
-import { setOpinions, setOpinion, setOpinionPageCount, setCurrentOpinionCount, setTotalOpinionCount } from '../../actions/opinions';
+import { setAllOpinions, setMyOpinions, setFavoriteOpinions, setOpinion, 
+    setAllOpinionsPageCount, setAllOpinionsCurrentCount, setAllOpinionsTotalCount,
+    setMyOpinionsPageCount, setMyOpinionsCurrentCount, setMyOpinionsTotalCount,
+    setFavoriteOpinionsPageCount, setFavoriteOpinionsCurrentCount, setFavoriteOpinionsTotalCount } from '../../actions/opinions';
 import { setLoading, setSubmitting, setError } from '../../actions/users';
 import { actionTypes } from '../../config/actionTypes';
 
 function* getOpinionsGenerator(action) {
     try {                                                   
-        const opinionPageCount = yield select(state => state.OpinionReducer.opinionPageCount);               
-        const currentOpinionCount = yield select(state => state.OpinionReducer.currentOpinionCount);
-        const totalOpinionCount = yield select(state => state.OpinionReducer.totalOpinionCount);      
-        if (currentOpinionCount !== totalOpinionCount) {                        
-            const res = yield call(OpinionProvider.getOpinions, action.filter);
-            res.opinions.forEach(opinion => {
-                opinion.createdAt = String(new Date(opinion.createdAt));
-                opinion.updatedAt = String(new Date(opinion.updatedAt));
-            });
-            yield put(setOpinions(res.opinions));        
-            yield put(setTotalOpinionCount(res.opinionsCount));
-            yield put(setCurrentOpinionCount(currentOpinionCount + res.opinions.length));
-            yield put(setOpinionPageCount(opinionPageCount + 1));
-        } /*else {
-            yield put(setOpinionPageCount(null));
-        }   */                    
+        const allOpinionsPageCount = yield select(state => state.OpinionReducer.allOpinionsPageCount);               
+        const allOpinionsCurrentCount = yield select(state => state.OpinionReducer.allOpinionsCurrentCount);
+        const allOpinionsTotalCount = yield select(state => state.OpinionReducer.allOpinionsTotalCount);
+
+        const myOpinionsPageCount = yield select(state => state.OpinionReducer.myOpinionsPageCount);               
+        const myOpinionsCurrentCount = yield select(state => state.OpinionReducer.myOpinionsCurrentCount);
+        const myOpinionsTotalCount = yield select(state => state.OpinionReducer.myOpinionsTotalCount);
+
+        const favoriteOpinionsPageCount = yield select(state => state.OpinionReducer.favoriteOpinionsPageCount);               
+        const favoriteOpinionsCurrentCount = yield select(state => state.OpinionReducer.favoriteOpinionsCurrentCount);
+        const favoriteOpinionsTotalCount = yield select(state => state.OpinionReducer.favoriteOpinionsTotalCount);
+        switch (action.data.type) {            
+            case 'myOpinions':
+                if (myOpinionsCurrentCount !== myOpinionsTotalCount) {                        
+                    const res = yield call(OpinionProvider.getOpinions, action.data.filter);
+                    res.opinions.forEach(opinion => {
+                        opinion.createdAt = String(new Date(opinion.createdAt));
+                        opinion.updatedAt = String(new Date(opinion.updatedAt));
+                    });
+                    yield put(setMyOpinions(res.opinions));        
+                    yield put(setMyOpinionsTotalCount(res.opinionsCount));
+                    yield put(setMyOpinionsCurrentCount(myOpinionsCurrentCount + res.opinions.length));
+                    yield put(setMyOpinionsPageCount(myOpinionsPageCount + 1));
+                }
+                break;
+            case 'favorites':
+                if (favoriteOpinionsCurrentCount !== favoriteOpinionsTotalCount) {                        
+                    const res = yield call(OpinionProvider.getOpinions, action.data.filter);
+                    res.opinions.forEach(opinion => {
+                        opinion.createdAt = String(new Date(opinion.createdAt));
+                        opinion.updatedAt = String(new Date(opinion.updatedAt));
+                    });
+                    yield put(setFavoriteOpinions(res.opinions));        
+                    yield put(setFavoriteOpinionsTotalCount(res.opinionsCount));
+                    yield put(setFavoriteOpinionsCurrentCount(favoriteOpinionsCurrentCount + res.opinions.length));
+                    yield put(setFavoriteOpinionsPageCount(favoriteOpinionsPageCount + 1));
+                }
+                break;
+            default:
+                if (allOpinionsCurrentCount !== allOpinionsTotalCount) {                        
+                    const res = yield call(OpinionProvider.getOpinions, action.data.filter);
+                    res.opinions.forEach(opinion => {
+                        opinion.createdAt = String(new Date(opinion.createdAt));
+                        opinion.updatedAt = String(new Date(opinion.updatedAt));
+                    });
+                    yield put(setAllOpinions(res.opinions));        
+                    yield put(setAllOpinionsTotalCount(res.opinionsCount));
+                    yield put(setAllOpinionsCurrentCount(allOpinionsCurrentCount + res.opinions.length));
+                    yield put(setAllOpinionsPageCount(allOpinionsPageCount + 1));
+                }
+                break;
+        }        
         yield put(setLoading(false));        
     } catch (error) {
         console.log('Something\'s gone wrong:', error);
-        yield put(setOpinions(null));
+        switch (action.data.type) {
+            case 'myOpinions':
+                yield put(setMyOpinions(null));
+                break;
+            case 'favorites':
+                yield put(setFavoriteOpinions(null));
+                break;
+            default:
+                yield put(setAllOpinions(null));
+                break;
+        }        
         yield put(setLoading(false));        
     }
 }
