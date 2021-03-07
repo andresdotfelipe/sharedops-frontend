@@ -5,10 +5,15 @@ import { Button, Col, Container, Row, Spinner } from 'react-bootstrap';
 import { updateUserFavoriteOpinions } from '../actions/users';
 import { setOpinion, getOpinions } from '../actions/opinions';
 
-const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, totalCount }) => {
+const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, totalCount, type }) => {
+
+    window.onunload = () => {
+        window.scrollTo(0, 0);
+    };        
 
     const [isFetching, setIsFetching] = useState(false);
     const [isHalfPage, setIsHalfPage] = useState(false);
+    
     const history = useHistory();
 
     const { session, darkTheme, user } = useSelector(state => ({
@@ -31,12 +36,16 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
             );            
             if (isAtEnd) {                
                 if (isFetching) return;                  
-                setIsFetching(true);                
-                dispatch(getOpinions(`page=${pageCount}`));
+                setIsFetching(true);
+                const data = {
+                    filter: `page=${pageCount}&type=${type}`,
+                    type
+                };                                
+                dispatch(getOpinions(data));
                 setIsFetching(false);
             }            
         },
-        [dispatch, totalCount, currentCount, isFetching, pageCount]
+        [dispatch, pageCount, type, totalCount, currentCount, isFetching]
     );
 
     const handleClickOpinion = opinion => {
@@ -53,17 +62,24 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
         window.scrollTo(0, 0);
     };
 
+    useEffect(() => {        
+        window.scrollTo(0, 0);
+    }, []);
+
     useEffect(() => {               
-        if (opinions.length === 0) {            
-            dispatch(getOpinions(`page=${pageCount}`));            
-            //setIsFetching(false);                                  
+        if (opinions.length === 0) {
+            const data = {
+                filter: `page=${pageCount}&type=${type}`,
+                type
+            };            
+            dispatch(getOpinions(data));
         } else {                   
             window.addEventListener('scroll', loadOnScroll);
         }                       
         return () => {            
             window.removeEventListener('scroll', loadOnScroll);            
         };
-    }, [dispatch, opinions, pageCount, loadOnScroll]);
+    }, [dispatch, pageCount, type, opinions, loadOnScroll]);
     
     return (        
         <Container className="opinions-container">
