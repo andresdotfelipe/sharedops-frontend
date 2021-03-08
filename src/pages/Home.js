@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -10,7 +10,7 @@ const Home = () => {
         allOpinions: state.OpinionReducer.allOpinions,
         allOpinionsPageCount: state.OpinionReducer.allOpinionsPageCount,
         allOpinionsCurrentCount: state.OpinionReducer.allOpinionsCurrentCount,
-        allOpinionsTotalCount: state.OpinionReducer.allOpinionsTotalCount,
+        allOpinionsTotalCount: state.OpinionReducer.allOpinionsTotalCount
     }));
     
     const props = {
