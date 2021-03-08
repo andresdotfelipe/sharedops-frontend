@@ -76,7 +76,7 @@ jest.mock('react-router-dom', () => {
     };
 });
 
-describe('Home component (user signed out)', () => {
+describe('OpinionsContainer component (user signed out)', () => {
     const mockStore = configureStore();    
     let store, wrapper;   
 
@@ -126,7 +126,7 @@ describe('Home component (user signed out)', () => {
     });    
 });
 
-describe('Home component (user signed in)', () => {
+describe('OpinionsContainer component (user signed in)', () => {
     const mockStore = configureStore();    
     let store, wrapper;    
 
