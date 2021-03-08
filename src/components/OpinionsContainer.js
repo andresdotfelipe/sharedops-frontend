@@ -38,7 +38,7 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
                 if (isFetching) return;                  
                 setIsFetching(true);
                 const data = {
-                    filter: `page=${pageCount}&type=${type}`,
+                    filter: `page=${pageCount}`,
                     type
                 };                                
                 dispatch(getOpinions(data));
