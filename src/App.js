@@ -5,6 +5,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import MyOpinions from './pages/MyOpinions';
+import Favorites from './pages/Favorites';
 import CreateOpinion from './pages/CreateOpinion';
 import Comments from './pages/Comments';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -33,6 +35,8 @@ const App = () => {
                     <Route exact path={'/'} component={Home} />
                     <Route exact path={'/signin'} component={SignIn} />
                     <Route exact path={'/signup'} component={SignUp} />
+                    <Route exact path={'/my-opinions'} component={MyOpinions} />
+                    <Route exact path={'/favorites'} component={Favorites} />
                     <Route exact path={'/create-opinion'} component={CreateOpinion} />
                     {/* <Route exact path={'/profile'} component={Profile} /> */}
                     {/* <Route exact path={'/user/:userName'} component={User} /> */}
