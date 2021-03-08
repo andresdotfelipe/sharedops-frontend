@@ -21,10 +21,11 @@ function* getOpinionsGenerator(action) {
         const favoriteOpinionsPageCount = yield select(state => state.OpinionReducer.favoriteOpinionsPageCount);               
         const favoriteOpinionsCurrentCount = yield select(state => state.OpinionReducer.favoriteOpinionsCurrentCount);
         const favoriteOpinionsTotalCount = yield select(state => state.OpinionReducer.favoriteOpinionsTotalCount);
+
         switch (action.data.type) {            
             case 'myOpinions':
                 if (myOpinionsCurrentCount !== myOpinionsTotalCount) {                        
-                    const res = yield call(OpinionProvider.getOpinions, action.data.filter);
+                    const res = yield call(OpinionProvider.getMyOpinions, action.data.filter);
                     res.opinions.forEach(opinion => {
                         opinion.createdAt = String(new Date(opinion.createdAt));
                         opinion.updatedAt = String(new Date(opinion.updatedAt));
@@ -37,12 +38,16 @@ function* getOpinionsGenerator(action) {
                 break;
             case 'favorites':
                 if (favoriteOpinionsCurrentCount !== favoriteOpinionsTotalCount) {                        
-                    const res = yield call(OpinionProvider.getOpinions, action.data.filter);
+                    const res = yield call(OpinionProvider.getFavoriteOpinions, action.data.filter);
                     res.opinions.forEach(opinion => {
                         opinion.createdAt = String(new Date(opinion.createdAt));
                         opinion.updatedAt = String(new Date(opinion.updatedAt));
                     });
-                    yield put(setFavoriteOpinions(res.opinions));        
+                    const favoriteOpinions = yield select(state => state.OpinionReducer.favoriteOpinions);
+                    res.opinions.forEach(opinion => {
+                        favoriteOpinions.push(opinion);
+                    });                                        
+                    yield put(setFavoriteOpinions(favoriteOpinions));        
                     yield put(setFavoriteOpinionsTotalCount(res.opinionsCount));
                     yield put(setFavoriteOpinionsCurrentCount(favoriteOpinionsCurrentCount + res.opinions.length));
                     yield put(setFavoriteOpinionsPageCount(favoriteOpinionsPageCount + 1));
@@ -50,7 +55,7 @@ function* getOpinionsGenerator(action) {
                 break;
             default:
                 if (allOpinionsCurrentCount !== allOpinionsTotalCount) {                        
-                    const res = yield call(OpinionProvider.getOpinions, action.data.filter);
+                    const res = yield call(OpinionProvider.getAllOpinions, action.data.filter);
                     res.opinions.forEach(opinion => {
                         opinion.createdAt = String(new Date(opinion.createdAt));
                         opinion.updatedAt = String(new Date(opinion.updatedAt));
