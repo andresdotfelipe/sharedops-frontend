@@ -1,5 +1,6 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { stopSubmit, clearSubmitErrors } from 'redux-form';
+import OpinionProvider from '../providers/OpinionProvider';
 import UserProvider from '../providers/UserProvider';
 import { setFavoriteOpinions, setFavoriteOpinionsPageCount, setFavoriteOpinionsCurrentCount, 
     setFavoriteOpinionsTotalCount, getOpinions } from '../../actions/opinions';
@@ -104,18 +105,21 @@ function* updateUserFavoriteOpinions(action) {
     try {
         const session = yield select(state => state.UserReducer.session);
         if (session) {
+            const favoriteOpinions = yield select(state => state.OpinionReducer.favoriteOpinions);
+            const opinion = yield call(OpinionProvider.getOpinion, action.opinionId);
+            if (favoriteOpinions.some(e => e._id === action.opinionId)) {
+                favoriteOpinions.forEach(favoriteOpinion => {
+                    if (favoriteOpinion._id === action.opinionId) {
+                        favoriteOpinions.splice(favoriteOpinions.indexOf(favoriteOpinion), 1);
+                    }
+                });                              
+            } else {                
+                favoriteOpinions.unshift(opinion);
+            }            
+            yield put(setFavoriteOpinions(favoriteOpinions));
             const data = { opinionId: action.opinionId };
             yield call(UserProvider.updateUserFavoriteOpinions, data);
-            yield put(getUser);
-            const getOpinionsData = {
-                filter: 'page=0',
-                type: 'favorites'
-            };
-            yield put(setFavoriteOpinions([]));                    
-            yield put(setFavoriteOpinionsPageCount(0));
-            yield put(setFavoriteOpinionsCurrentCount(0));
-            yield put(setFavoriteOpinionsTotalCount(null));
-            yield put(getOpinions(getOpinionsData));
+            yield put(getUser);                        
         }
     } catch (error) {        
         yield put(setError(error.response.data.error)); 
