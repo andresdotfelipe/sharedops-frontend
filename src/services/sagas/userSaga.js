@@ -1,6 +1,8 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { stopSubmit, clearSubmitErrors } from 'redux-form';
 import UserProvider from '../providers/UserProvider';
+import { setFavoriteOpinions, setFavoriteOpinionsPageCount, setFavoriteOpinionsCurrentCount, 
+    setFavoriteOpinionsTotalCount, getOpinions } from '../../actions/opinions';
 import { setSession, setUnauthenticated, setUser, getUser, setSubmitting, setError, signOut } from '../../actions/users';
 import { actionTypes } from '../../config/actionTypes';
 
@@ -105,6 +107,15 @@ function* updateUserFavoriteOpinions(action) {
             const data = { opinionId: action.opinionId };
             yield call(UserProvider.updateUserFavoriteOpinions, data);
             yield put(getUser);
+            const getOpinionsData = {
+                filter: 'page=0',
+                type: 'favorites'
+            };
+            yield put(setFavoriteOpinions([]));                    
+            yield put(setFavoriteOpinionsPageCount(0));
+            yield put(setFavoriteOpinionsCurrentCount(0));
+            yield put(setFavoriteOpinionsTotalCount(null));
+            yield put(getOpinions(getOpinionsData));
         }
     } catch (error) {        
         yield put(setError(error.response.data.error)); 
