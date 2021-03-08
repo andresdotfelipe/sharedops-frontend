@@ -15,7 +15,8 @@ HttpProvider.interceptors.request.use(async config => {
         Redirects to homepage when user is signed in and manually removes the session from LocalStorage and
         tries to make a request. Otherwise, just adds Authorization header.
     */
-    if (!session & window.location.pathname === '/create-opinion') {
+    if (!session & (window.location.pathname === '/create-opinion' | window.location.pathname === 'my-opinions' |
+    window.location.pathname === 'favorites')) {
         window.location = '/';
     } else {
         session = session ? JSON.parse(session) : '';
