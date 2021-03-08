@@ -7,8 +7,16 @@ const uploadImagesURL = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP
 
 export default class OpinionProvider {
 
-    static getOpinions(filter) {
-        return HttpProvider.get(`${baseURL}?${filter}`).then(response => response.data);
+    static getAllOpinions(filter) {
+        return HttpProvider.get(`${baseURL}/all?${filter}`).then(response => response.data);
+    }
+
+    static getMyOpinions(filter) {
+        return HttpProvider.get(`${baseURL}/my-opinions?${filter}`).then(response => response.data);
+    }
+
+    static getFavoriteOpinions(filter) {
+        return HttpProvider.get(`${baseURL}/favorites?${filter}`).then(response => response.data);
     }
 
     static getOpinion(id) {
