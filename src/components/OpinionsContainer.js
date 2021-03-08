@@ -4,6 +4,7 @@ import { useHistory, Link } from 'react-router-dom';
 import { Button, Col, Container, Row, Spinner } from 'react-bootstrap';
 import { updateUserFavoriteOpinions } from '../actions/users';
 import { setOpinion, getOpinions } from '../actions/opinions';
+import Confirmation from './Confirmation';
 
 const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, totalCount, type }) => {
 
@@ -13,6 +14,7 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
 
     const [isFetching, setIsFetching] = useState(false);
     const [isHalfPage, setIsHalfPage] = useState(false);
+    const [showConfirmation, setShowConfirmation] = useState(false);
     
     const history = useHistory();
 
@@ -53,9 +55,25 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
         history.push(`/comments/${opinion._id}/${opinion.title}`);
     };
 
-    const handleAddFavorite = (e, opinion) => {
+    const handleShowConfirmation = () => {
+        setShowConfirmation(!showConfirmation);
+    };
+
+    const handleFavorites = (e, opinion, confirmation) => {        
         e.stopPropagation();
-        !session ? window.location = `/signin` : dispatch(updateUserFavoriteOpinions(opinion._id));        
+        if (!session) {
+            window.location = `/signin`
+        } else {
+            // dispatch(setOpinion(opinion));            
+            if (history.location.pathname === '/favorites') {
+                if (confirmation) {
+                    dispatch(updateUserFavoriteOpinions(opinion._id));                                                        
+                }
+                handleShowConfirmation();                    
+            } else {
+                dispatch(updateUserFavoriteOpinions(opinion._id));
+            }            
+        } 
     };
     
     const handleBackToTop = () => {
@@ -91,7 +109,7 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
                     opinions ?
                     <Row className="opinions-grid">
                         {
-                            opinions.map((opinion, index) => {
+                            opinions.map(opinion => {
                                 return (
                                     <Col 
                                         key={opinion._id} 
@@ -141,20 +159,27 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
                                                         className={`${user.favoriteOpinions.some(e => e === opinion._id) ? 
                                                             'favorite-checked' : 'favorite-unchecked'}`
                                                         }
-                                                        onClick={e => handleAddFavorite(e, opinion)}>
+                                                        onClick={e => handleFavorites(e, opinion)}>
                                                         <i className="fas fa-star"></i>
                                                     </Button> :
                                                     <Button 
                                                         className="favorite-unchecked"
-                                                        onClick={handleAddFavorite}>
+                                                        onClick={handleFavorites}>
                                                         <i className="fas fa-star"></i>
                                                     </Button>
                                                 }                                                    
                                                 <Button className="comment">
                                                     <i className="fas fa-comments"></i>
                                                 </Button>
-                                            </Col>                                            
-                                        </Row>
+                                            </Col>                                    
+                                            <Confirmation 
+                                                title={'Remove favorite opinion'} 
+                                                msg={`Remove favorite opinion "${opinion.title}"?`} 
+                                                confirmation={(e, confirmation) => handleFavorites(e, opinion, confirmation)} 
+                                                show={showConfirmation} 
+                                                onHide={handleShowConfirmation} 
+                                            />        
+                                        </Row>                                                                                                                        
                                     </Col>
                                 );
                             })
@@ -181,7 +206,7 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
                     <Col xs={12} className="up-arrow">                        
                         <i className="fas fa-arrow-circle-up" onClick={handleBackToTop}></i>                    
                     </Col>
-                }
+                }                
             </Row>
         </Container>
     );
