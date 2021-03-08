@@ -19,7 +19,7 @@ export const OpinionReducer = (state = initialState, action) => {
         case actionTypes.SET_MY_OPINIONS:
             return { ...state, myOpinions: [...state.myOpinions, ...action.myOpinions] }
         case actionTypes.SET_FAVORITE_OPINIONS:
-            return { ...state, favoriteOpinions: [...state.favoriteOpinions, ...action.favoriteOpinions] }                                                        
+            return { ...state, favoriteOpinions: action.favoriteOpinions }
         case actionTypes.SET_OPINION:
             return { ...state, opinion: action.opinion }        
         case actionTypes.SET_ALL_OPINIONS_PAGE_COUNT:
