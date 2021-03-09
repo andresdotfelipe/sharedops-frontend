@@ -4,7 +4,7 @@ import { useHistory, Link } from 'react-router-dom';
 import { Button, Col, Container, Row, Spinner } from 'react-bootstrap';
 import { updateUserFavoriteOpinions } from '../actions/users';
 import { setOpinion, getOpinions } from '../actions/opinions';
-import Confirmation from './Confirmation';
+import ConfirmationModal from './ConfirmationModal';
 
 const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, totalCount, type }) => {
 
@@ -67,9 +67,7 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
         } else {                        
             if (history.location.pathname === '/favorites') {
                 dispatch(setOpinion(opinion));
-                if (confirmation) {
-                    dispatch(updateUserFavoriteOpinions(opinion._id));                                                        
-                }
+                if (confirmation) dispatch(updateUserFavoriteOpinions(opinion._id));
                 handleShowConfirmation();                    
             } else {
                 dispatch(updateUserFavoriteOpinions(opinion._id));
@@ -203,7 +201,7 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
                 }
                 {
                     opinion &&
-                    <Confirmation 
+                    <ConfirmationModal 
                         title={'Remove favorite opinion'} 
                         msg={`Remove favorite opinion "${opinion.title}"?`} 
                         confirmation={(e, confirmation) => handleFavorites(e, opinion, confirmation)} 
