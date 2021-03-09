@@ -18,10 +18,11 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
     
     const history = useHistory();
 
-    const { session, darkTheme, user } = useSelector(state => ({
+    const { session, darkTheme, user, opinion } = useSelector(state => ({
         session: state.UserReducer.session,
         darkTheme: state.UserReducer.darkTheme,
-        user: state.UserReducer.user        
+        user: state.UserReducer.user, 
+        opinion: state.OpinionReducer.opinion
     }));
 
     const dispatch = useDispatch();    
@@ -59,13 +60,13 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
         setShowConfirmation(!showConfirmation);
     };
 
-    const handleFavorites = (e, opinion, confirmation) => {        
+    const handleFavorites = (e, opinion, confirmation = undefined) => {        
         e.stopPropagation();
         if (!session) {
             window.location = `/signin`
-        } else {
-            // dispatch(setOpinion(opinion));            
+        } else {                        
             if (history.location.pathname === '/favorites') {
+                dispatch(setOpinion(opinion));
                 if (confirmation) {
                     dispatch(updateUserFavoriteOpinions(opinion._id));                                                        
                 }
@@ -171,14 +172,7 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
                                                 <Button className="comment">
                                                     <i className="fas fa-comments"></i>
                                                 </Button>
-                                            </Col>                                    
-                                            <Confirmation 
-                                                title={'Remove favorite opinion'} 
-                                                msg={`Remove favorite opinion "${opinion.title}"?`} 
-                                                confirmation={(e, confirmation) => handleFavorites(e, opinion, confirmation)} 
-                                                show={showConfirmation} 
-                                                onHide={handleShowConfirmation} 
-                                            />        
+                                            </Col>                                                                                       
                                         </Row>                                                                                                                        
                                     </Col>
                                 );
@@ -206,6 +200,16 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
                     <Col xs={12} className="up-arrow">                        
                         <i className="fas fa-arrow-circle-up" onClick={handleBackToTop}></i>                    
                     </Col>
+                }
+                {
+                    opinion &&
+                    <Confirmation 
+                        title={'Remove favorite opinion'} 
+                        msg={`Remove favorite opinion "${opinion.title}"?`} 
+                        confirmation={(e, confirmation) => handleFavorites(e, opinion, confirmation)} 
+                        show={showConfirmation} 
+                        onHide={handleShowConfirmation} 
+                    />                 
                 }                
             </Row>
         </Container>
