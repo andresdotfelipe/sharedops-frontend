@@ -2,8 +2,7 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { stopSubmit, clearSubmitErrors } from 'redux-form';
 import OpinionProvider from '../providers/OpinionProvider';
 import UserProvider from '../providers/UserProvider';
-import { setFavoriteOpinions, setFavoriteOpinionsPageCount, setFavoriteOpinionsCurrentCount, 
-    setFavoriteOpinionsTotalCount, getOpinions } from '../../actions/opinions';
+import { setFavoriteOpinions } from '../../actions/opinions';
 import { setSession, setUnauthenticated, setUser, getUser, setSubmitting, setError, signOut } from '../../actions/users';
 import { actionTypes } from '../../config/actionTypes';
 
@@ -106,17 +105,19 @@ function* updateUserFavoriteOpinions(action) {
         const session = yield select(state => state.UserReducer.session);
         if (session) {
             const favoriteOpinions = yield select(state => state.OpinionReducer.favoriteOpinions);
-            const opinion = yield call(OpinionProvider.getOpinion, action.opinionId);
-            if (favoriteOpinions.some(e => e._id === action.opinionId)) {
-                favoriteOpinions.forEach(favoriteOpinion => {
-                    if (favoriteOpinion._id === action.opinionId) {
-                        favoriteOpinions.splice(favoriteOpinions.indexOf(favoriteOpinion), 1);
-                    }
-                });                              
-            } else {                
-                favoriteOpinions.unshift(opinion);
-            }            
-            yield put(setFavoriteOpinions(favoriteOpinions));
+            if (favoriteOpinions.length > 0) {
+                const opinion = yield call(OpinionProvider.getOpinion, action.opinionId);
+                if (favoriteOpinions.some(e => e._id === action.opinionId)) {
+                    favoriteOpinions.forEach(favoriteOpinion => {
+                        if (favoriteOpinion._id === action.opinionId) {
+                            favoriteOpinions.splice(favoriteOpinions.indexOf(favoriteOpinion), 1);
+                        }
+                    });                              
+                } else {                
+                    favoriteOpinions.unshift(opinion);
+                }            
+                yield put(setFavoriteOpinions(favoriteOpinions));
+            }
             const data = { opinionId: action.opinionId };
             yield call(UserProvider.updateUserFavoriteOpinions, data);
             yield put(getUser);                        
