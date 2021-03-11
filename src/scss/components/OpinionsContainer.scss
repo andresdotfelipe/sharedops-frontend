@@ -6,6 +6,17 @@
         font-size: 20px;               
     }
 
+    .random {
+        background-color: $dark-violet;
+        border-color: $dark-violet;
+        margin-top: 15px;
+
+        &:hover, &:focus, &:active {
+            background-color: $studio !important;
+            border-color: $studio !important;
+        }
+    }
+
     @include opinionsGrid(80px auto 0, pointer, linear-gradient(180deg, $black 60%, transparent), 200px, $electric-purple);
 
     .up-arrow {            
@@ -25,7 +36,7 @@
     
         .initial-message {
             color: $nandor;                           
-        }                          
+        }            
         
         .up-arrow {                    
             color: $dark-violet;
