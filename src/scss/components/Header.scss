@@ -73,7 +73,7 @@
             color: $white;        
             width: 87px;
 
-            &:hover {
+            &:hover, &:focus, &:active {
                 background-color: $white;
                 border-color: $white;
                 color: $dark-violet;
