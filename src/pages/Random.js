@@ -6,11 +6,8 @@ import { updateUserFavoriteOpinions  } from '../actions/users';
 import { setOpinion, getOpinion } from '../actions/opinions';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import ConfirmationModal from '../components/ConfirmationModal';
 
-const Random = () => {
-
-    const [showConfirmation, setShowConfirmation] = useState(false);
+const Random = () => {    
 
     const history = useHistory();
 
@@ -26,21 +23,14 @@ const Random = () => {
     const handleClickOpinion = opinion => {
         dispatch(setOpinion(opinion));
         history.push(`/comments/${opinion._id}/${opinion.title}`);
-    };
+    };    
 
-    const handleShowConfirmation = () => {
-        setShowConfirmation(!showConfirmation);
-    };
-
-    const handleFavorites = (e, opinion, confirmation = undefined) => {        
+    const handleFavorites = (e, opinion) => {        
         e.stopPropagation();
         if (!session) {
             window.location = `/signin`
-        } else {                                    
-            dispatch(setOpinion(opinion));
-            handleShowConfirmation();
-            if (confirmation) dispatch(updateUserFavoriteOpinions(opinion._id));
-            handleShowConfirmation();
+        } else {                                                
+            dispatch(updateUserFavoriteOpinions(opinion._id));            
         } 
     };
 
@@ -131,17 +121,7 @@ const Random = () => {
                         <Col xs={12} className="resource-not-found">
                             <span>No opinion</span>
                         </Col>
-                    }                    
-                    {
-                        showConfirmation &&
-                        <ConfirmationModal 
-                            title={'Remove favorite opinion'} 
-                            msg={`Remove favorite opinion "${opinion.title}"?`} 
-                            confirmation={(e, confirmation) => handleFavorites(e, opinion, confirmation)} 
-                            show={showConfirmation} 
-                            onHide={handleShowConfirmation} 
-                        />                 
-                    }                
+                    }
                 </Row>
             </Container>
             <Footer />
