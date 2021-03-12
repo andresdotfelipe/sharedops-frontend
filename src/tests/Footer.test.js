@@ -7,14 +7,12 @@ import Footer from '../components/Footer';
 describe('Footer component', () => {    
     const mockStore = configureStore();
     let store, wrapper;
-
-    beforeEach(() => {
-        store = mockStore({});
-        jest
-            .spyOn(reactRedux, 'useSelector')
-            .mockImplementation(state => store.getState());       
-        wrapper = shallow(<Footer/>);
-    });
+    
+    store = mockStore({});
+    jest
+        .spyOn(reactRedux, 'useSelector')
+        .mockImplementation(state => store.getState());       
+    wrapper = shallow(<Footer/>);    
 
     it('has a link to portfolio', () => {               
         expect(wrapper.find('a').prop('href')).toEqual('https://andresfelipedev.github.io/resume');            
