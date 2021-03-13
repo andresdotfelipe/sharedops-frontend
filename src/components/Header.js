@@ -1,14 +1,16 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Col, Container, Button, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap';
+import { Col, Container, Button, FormControl, InputGroup, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap';
 import { getSession, getUser, removeSession, signOut, setDarkTheme } from '../actions/users';
 import Toggle from 'react-toggle';
 import 'react-toggle/style.css';
 import SunIcon from '../assets/icons/sun.svg';
 import MoonIcon from '../assets/icons/moon.svg';
 
-const Header = () => {    
+const Header = () => {   
+    
+    const [search, setSearch] = useState(undefined);
 
     const { session, user, darkTheme } = useSelector(
         state => ({
@@ -27,12 +29,16 @@ const Header = () => {
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]); 
 
-    const changeTheme = (e) => {
+    const changeTheme = e => {
         const { checked } = e.target;        
         localStorage.removeItem('darkTheme');
         localStorage.setItem('darkTheme', checked);             
         dispatch(setDarkTheme(checked));        
     }
+
+    const handleSearchOpinion = () => {
+
+    };
 
     const handleSignOut = () => {
         dispatch(removeSession);
@@ -46,9 +52,10 @@ const Header = () => {
                 <Row className={`${darkTheme ? 'dark' : 'light'}`}>
                     <Col xs={12}>
                         <Navbar expand="lg" fixed="top">
-                            <Row>
-                                <Col>
-                                    <Link to="/" className="brand">Sharedops <i className="fas fa-bullhorn"></i></Link>
+                            <Row style={{ width: '92%' }}>
+                                <Col xs="auto" md="auto" lg="auto">
+                                    <Link to="/" className="brand">Sharedops</Link>
+                                    <Link to="/" className="logo"><i className="fas fa-bullhorn"></i></Link>
                                     <Toggle 
                                         checked={darkTheme}
                                         onChange={changeTheme}
@@ -57,12 +64,28 @@ const Header = () => {
                                             unchecked: <img src={SunIcon} alt={'Sun'}/>
                                         }}
                                         aria-label="Dark theme"
-                                    />
+                                    />                                    
+                                </Col>                            
+                                <Col className="search-bar">
+                                    <InputGroup className="mt-1">
+                                        <FormControl 
+                                            onChange={e => setSearch(e.target.value)}
+                                            aria-label="Default" 
+                                            aria-describedby="inputGroup-sizing-default" 
+                                        />
+                                        <InputGroup.Prepend>
+                                            <InputGroup.Text 
+                                                id="inputGroup-sizing-default"
+                                                onClick={handleSearchOpinion}>
+                                                <i className="fas fa-search"></i>
+                                            </InputGroup.Text>
+                                        </InputGroup.Prepend>                                                                        
+                                    </InputGroup>                                    
                                 </Col>
-                            </Row>                            
+                            </Row>                                                       
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
                             <Navbar.Collapse id="basic-navbar-nav">
-                                <Nav className="mr-auto">
+                                <Nav className="ml-auto">
                                     {
                                         session ?
                                         <NavDropdown title="Opinions" id="basic-nav-dropdown">

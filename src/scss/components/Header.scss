@@ -6,17 +6,22 @@
         margin: 0 -15px;
         padding: 18px 35px;
     
-        .brand {         
+        .brand, .logo {         
             color: $white;
             font-size: 32px;
-            font-weight: 600;            
-            margin-right: 16px;
+            font-weight: 600;
+        }
+
+        .brand {            
             padding: 5px 9px 10px 0;
             text-decoration: none;
         }
+
+        .logo {
+            margin-right: 22px;            
+        }
         
-        .react-toggle {
-            margin-right: 16px;
+        .react-toggle {            
             
             .react-toggle-track-check, .react-toggle-track-x {            
                 height: 14px;            
@@ -37,6 +42,11 @@
             &:hover, &:focus, &:active {
                 color: $white;
             }            
+        }
+
+        .search-bar {
+            margin: 0 21px 0 0;
+            padding: 0;                      
         }
 
         .dropdown-item {
@@ -132,7 +142,15 @@
     }
 
     @include phones {
+
+        .brand {
+            display: none;
+        }
         
+        .search-bar {
+            margin: 0;                      
+        }
+
         .react-toggle {
             margin-left: -10px;
             margin-right: 0px;
@@ -157,6 +175,10 @@
 
     @include large-phones {
 
+        .search-bar {
+            margin: 0;                      
+        }
+
         .sign-in-button {
             margin-top: 12px
         }
@@ -175,6 +197,10 @@
     }
 
     @include tablets {
+
+        .search-bar {
+            margin: 0;                      
+        }
 
         .sign-in-button {
             margin-top: 12px
