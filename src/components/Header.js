@@ -51,9 +51,9 @@ const Header = () => {
             <Container className="header">
                 <Row className={`${darkTheme ? 'dark' : 'light'}`}>
                     <Col xs={12}>
-                        <Navbar expand="lg" fixed="top">
-                            <Row style={{ width: '92%' }}>
-                                <Col xs="auto" md="auto" lg="auto">
+                        <Navbar expand="xl" fixed="top">
+                            <Row>
+                                <Col xs="auto" sm="auto" md="auto" lg="auto">
                                     <Link to="/" className="brand">Sharedops</Link>
                                     <Link to="/" className="logo"><i className="fas fa-bullhorn"></i></Link>
                                     <Toggle 
@@ -67,7 +67,7 @@ const Header = () => {
                                     />                                    
                                 </Col>                            
                                 <Col className="search-bar">
-                                    <InputGroup className="mt-1">
+                                    <InputGroup>
                                         <FormControl 
                                             onChange={e => setSearch(e.target.value)}
                                             aria-label="Default" 
@@ -85,7 +85,7 @@ const Header = () => {
                             </Row>                                                       
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
                             <Navbar.Collapse id="basic-navbar-nav">
-                                <Nav className="ml-auto">
+                                <Nav className="ml-auto mb-1">
                                     {
                                         session ?
                                         <NavDropdown title="Opinions" id="basic-nav-dropdown">
