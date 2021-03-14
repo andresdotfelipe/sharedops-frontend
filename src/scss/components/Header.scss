@@ -21,7 +21,9 @@
             margin-right: 22px;            
         }
         
-        .react-toggle {            
+        .react-toggle { 
+            margin-left: -6px;
+            margin-right: 0px;           
             
             .react-toggle-track-check, .react-toggle-track-x {            
                 height: 14px;            
@@ -45,8 +47,9 @@
         }
 
         .search-bar {
-            margin: 0 21px 0 0;
-            padding: 0;                      
+            align-self: center;            
+            padding: 0;
+            width: 274px;            
         }
 
         .dropdown-item {
@@ -145,19 +148,10 @@
 
         .brand {
             display: none;
-        }
-        
-        .search-bar {
-            margin: 0;                      
-        }
-
-        .react-toggle {
-            margin-left: -10px;
-            margin-right: 0px;
-        }
+        }                    
 
         .sign-in-button {
-            margin-top: 12px
+            margin-top: 12px;
         }
 
         .sign-up-button {
@@ -175,12 +169,12 @@
 
     @include large-phones {
 
-        .search-bar {
-            margin: 0;                      
-        }
+        .brand {
+            display: none;
+        }        
 
         .sign-in-button {
-            margin-top: 12px
+            margin-top: 12px;
         }
 
         .sign-up-button {
@@ -196,14 +190,29 @@
         }
     }
 
-    @include tablets {
-
-        .search-bar {
-            margin: 0;                      
-        }
+    @include tablets {        
 
         .sign-in-button {
-            margin-top: 12px
+            margin-top: 12px;
+        }
+
+        .sign-up-button {
+            margin: 20px 0 25px;
+        }
+
+        .sign-out-button {
+            margin: 10px 0 20px;
+        }
+
+        .profile-pic {
+            margin-left: 0 !important;
+        }
+    }
+
+    @include desktops {
+
+        .sign-in-button {
+            margin-top: 12px;
         }
 
         .sign-up-button {
