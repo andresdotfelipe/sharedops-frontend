@@ -11,7 +11,7 @@
         border-color: $dark-violet;
         margin-top: 15px;
 
-        &:hover, &:focus, &:active {
+        &:active {
             background-color: $studio !important;
             border-color: $studio !important;
         }
