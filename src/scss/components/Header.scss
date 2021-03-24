@@ -5,6 +5,10 @@
     .navbar {            
         margin: 0 -15px;
         padding: 18px 35px;
+        
+        .col {
+            padding: 0;
+        }
     
         .brand, .logo {         
             color: $white;
@@ -13,7 +17,7 @@
         }
 
         .brand {            
-            padding: 5px 9px 10px 0;
+            margin: 0 10px 0 15px;
             text-decoration: none;
         }
 
@@ -21,9 +25,8 @@
             margin-right: 22px;            
         }
         
-        .react-toggle { 
-            margin-left: -6px;
-            margin-right: 0px;           
+        .react-toggle {        
+            margin: 6px 12px 0 5px;            
             
             .react-toggle-track-check, .react-toggle-track-x {            
                 height: 14px;            
@@ -32,8 +35,8 @@
             
             .react-toggle-thumb {
                 border: none;
-                background-color: white;            
-            }
+                background-color: white;
+            }           
         }
     
         .dropdown-toggle.nav-link, .nav-link {
@@ -41,15 +44,25 @@
             font-size: 17px;
             margin: 0 15px 0 0;
 
-            &:hover, &:focus, &:active {
+            &:hover, &:active {
                 color: $white;
-            }            
+            }
+            
+            &:focus {
+                color: $whisper;
+            }
         }
 
-        .search-bar {
-            align-self: center;            
-            padding: 0;
-            width: 274px;            
+        .search-button {            
+            
+            &:hover, &:active {
+                @extend .input-group-text;
+                background-color: $link-water;
+            }
+
+            &:focus {
+                @extend .input-group-text;                
+            }
         }
 
         .dropdown-item {
@@ -86,7 +99,7 @@
             color: $white;        
             width: 87px;
 
-            &:hover, &:focus, &:active {
+            &:hover, &:active {
                 background-color: $white;
                 border-color: $white;
                 color: $dark-violet;
@@ -106,10 +119,6 @@
         .navbar-toggler {
             border-color: $white;
             color: $white;
-            
-            &:focus {
-                outline: 0px auto;
-            }
         }
     
         .navbar-toggler-icon {
@@ -148,18 +157,14 @@
 
         .brand {
             display: none;
-        }                    
-
-        .sign-in-button {
-            margin-top: 12px;
+        }
+        
+        .logo {
+            margin-left: 15px;
         }
 
-        .sign-up-button {
-            margin: 20px 0 25px;
-        }
-
-        .sign-out-button {
-            margin: 10px 0 20px;
+        .sign-in-button, .sign-up-button, .sign-out-button {
+            margin: 8px 0;
         }
 
         .profile-pic {
@@ -169,20 +174,8 @@
 
     @include large-phones {
 
-        .brand {
-            display: none;
-        }        
-
-        .sign-in-button {
-            margin-top: 12px;
-        }
-
-        .sign-up-button {
-            margin: 20px 0 25px;
-        }
-
-        .sign-out-button {
-            margin: 10px 0 20px;
+        .sign-in-button, .sign-up-button, .sign-out-button {
+            margin: 8px 0;
         }
 
         .profile-pic {
@@ -192,35 +185,8 @@
 
     @include tablets {        
 
-        .sign-in-button {
-            margin-top: 12px;
-        }
-
-        .sign-up-button {
-            margin: 20px 0 25px;
-        }
-
-        .sign-out-button {
-            margin: 10px 0 20px;
-        }
-
-        .profile-pic {
-            margin-left: 0 !important;
-        }
-    }
-
-    @include desktops {
-
-        .sign-in-button {
-            margin-top: 12px;
-        }
-
-        .sign-up-button {
-            margin: 20px 0 25px;
-        }
-
-        .sign-out-button {
-            margin: 10px 0 20px;
+        .sign-in-button, .sign-up-button, .sign-out-button {
+            margin: 8px 0;
         }
 
         .profile-pic {

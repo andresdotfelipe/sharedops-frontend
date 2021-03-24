@@ -51,11 +51,15 @@ const Header = () => {
             <Container className="header">
                 <Row className={`${darkTheme ? 'dark' : 'light'}`}>
                     <Col xs={12}>
-                        <Navbar expand="xl" fixed="top">
-                            <Row>
-                                <Col xs="auto" sm="auto" md="auto" lg="auto">
+                        <Navbar expand="lg" fixed="top">
+                            <Row className="align-items-center">
+                                <Col>
                                     <Link to="/" className="brand">Sharedops</Link>
+                                </Col>
+                                <Col>
                                     <Link to="/" className="logo"><i className="fas fa-bullhorn"></i></Link>
+                                </Col>
+                                <Col>
                                     <Toggle 
                                         checked={darkTheme}
                                         onChange={changeTheme}
@@ -65,27 +69,18 @@ const Header = () => {
                                         }}
                                         aria-label="Dark theme"
                                     />                                    
-                                </Col>                            
-                                <Col className="search-bar">
-                                    <InputGroup>
-                                        <FormControl 
-                                            onChange={e => setSearch(e.target.value)}
-                                            aria-label="Default" 
-                                            aria-describedby="inputGroup-sizing-default" 
-                                        />
-                                        <InputGroup.Prepend>
-                                            <InputGroup.Text 
-                                                id="inputGroup-sizing-default"
-                                                onClick={handleSearchOpinion}>
-                                                <i className="fas fa-search"></i>
-                                            </InputGroup.Text>
-                                        </InputGroup.Prepend>                                                                        
-                                    </InputGroup>                                    
+                                </Col>                                                                                                                        
+                                <Col>
+                                    <Button 
+                                        className="input-group-text search-button"                                        
+                                        onClick={handleSearchOpinion}>
+                                        <i className="fas fa-search"></i>
+                                    </Button>
                                 </Col>
-                            </Row>                                                       
+                            </Row>                       
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
                             <Navbar.Collapse id="basic-navbar-nav">
-                                <Nav className="ml-auto mb-1">
+                                <Nav className="ml-auto">
                                     {
                                         session ?
                                         <NavDropdown title="Opinions" id="basic-nav-dropdown">
@@ -100,7 +95,7 @@ const Header = () => {
                                 {
                                     session && user ?
                                     <Fragment>
-                                        <Nav>
+                                        <Nav className="align-items-lg-center">
                                             <Link 
                                                 className="nav-link" 
                                                 to="/create-opinion" >
