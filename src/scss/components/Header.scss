@@ -8,22 +8,15 @@
         
         .col {
             padding: 0;
-        }
-    
-        .brand, .logo {         
+        }        
+
+        .brand {            
             color: $white;
             font-size: 32px;
             font-weight: 600;
-        }
-
-        .brand {            
-            margin: 0 10px 0 15px;
+            margin: 0 22px 0 15px;
             text-decoration: none;
-        }
-
-        .logo {
-            margin-right: 22px;            
-        }
+        }        
         
         .react-toggle {        
             margin: 6px 12px 0 5px;            
@@ -153,18 +146,7 @@
         }
     }
 
-    @include media(phones) {
-
-        .brand {
-            display: none;
-        }
-        
-        .logo {
-            margin-left: 15px;
-        }        
-    }
-
-    @include media(large-phones, tablets) {
+    @include media(phones, large-phones, tablets) {
 
         .sign-in-button, .sign-up-button, .sign-out-button {
             margin: 8px 0;
