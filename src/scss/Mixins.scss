@@ -1,6 +1,6 @@
 @mixin media($keys...) {
     @each $key in $keys {
-        @media (max-width: map-get($breakpoints, $key )) {
+        @media (min-width: map-get($breakpoints-min, $key)) and (max-width: map-get($breakpoints-max, $key )) {
             @content;
         };
     };

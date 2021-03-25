@@ -19,9 +19,16 @@ $whisper: #EAE9E9;
 $white: #FFFFFF;
 
 // Breakpoints
-$breakpoints: (
-    phones: 576px,
-    large-phones: 768px,
-    tablets: 992px,
-    desktops: 1200px
+$breakpoints-min: (
+    phones: 305px,
+    large-phones: 576px,
+    tablets: 768px,
+    desktops: 992px
+);
+
+$breakpoints-max: (
+    phones: 575.98px,
+    large-phones: 767.98px,
+    tablets: 991.98px,
+    desktops: 1199.98px
 );
