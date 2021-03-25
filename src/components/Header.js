@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Col, Container, Button, FormControl, InputGroup, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap';
@@ -11,6 +11,7 @@ import MoonIcon from '../assets/icons/moon.svg';
 const Header = () => {   
     
     const [search, setSearch] = useState(undefined);
+    const [isPhoneView, setIsPhoneView] = useState(false);
 
     const { session, user, darkTheme } = useSelector(
         state => ({
@@ -20,14 +21,14 @@ const Header = () => {
         })
     );
 
-    const dispatch = useDispatch();    
-
-    useEffect(() => {
-        dispatch(getSession);
-        dispatch(getUser);
-        if (!user & session) handleSignOut();
-        //eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dispatch]); 
+    const dispatch = useDispatch();
+    
+    const handlePhoneView = useCallback(
+        e => {
+            window.innerWidth <= 575.98 ? setIsPhoneView(true) : setIsPhoneView(false);
+        },
+        []
+    );
 
     const changeTheme = e => {
         const { checked } = e.target;        
@@ -37,7 +38,7 @@ const Header = () => {
     }
 
     const handleSearchOpinion = () => {
-
+        
     };
 
     const handleSignOut = () => {
@@ -46,19 +47,37 @@ const Header = () => {
         window.location = '/';
     };
 
+    useEffect(() => {
+        window.innerWidth <= 575.98 ? setIsPhoneView(true) : setIsPhoneView(false);        
+    }, []);
+
+    useEffect(() => {
+        dispatch(getSession);
+        dispatch(getUser);
+        if (!user & session) handleSignOut();
+        window.addEventListener('resize', handlePhoneView);
+        return () => {
+            window.removeEventListener('resize', handlePhoneView);
+        };
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dispatch]);
+
     return (
         <Fragment>
             <Container className="header">
                 <Row className={`${darkTheme ? 'dark' : 'light'}`}>
                     <Col xs={12}>
                         <Navbar expand="lg" fixed="top">
-                            <Row className="align-items-center">
+                            <Row className="align-items-center">                                
                                 <Col>
-                                    <Link to="/" className="brand">Sharedops</Link>
-                                </Col>
-                                <Col>
-                                    <Link to="/" className="logo"><i className="fas fa-bullhorn"></i></Link>
-                                </Col>
+                                    <Link to="/" className="brand">
+                                        {
+                                            isPhoneView ?
+                                            <i className="fas fa-bullhorn"></i> :
+                                            'Sharedops'
+                                        }                                        
+                                    </Link>
+                                </Col>                                                                                           
                                 <Col>
                                     <Toggle 
                                         checked={darkTheme}
