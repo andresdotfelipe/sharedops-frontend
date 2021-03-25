@@ -17,3 +17,11 @@ $studio: #8443A5;
 $vivid-violet: #7E3F9E;
 $whisper: #EAE9E9;
 $white: #FFFFFF;
+
+// Breakpoints
+$breakpoints: (
+    phones: 576px,
+    large-phones: 768px,
+    tablets: 992px,
+    desktops: 1200px
+);
