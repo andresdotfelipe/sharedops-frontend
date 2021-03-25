@@ -37,13 +37,9 @@
             font-size: 17px;
             margin: 0 15px 0 0;
 
-            &:hover, &:active {
+            &:hover, &:focus, &:active {
                 color: $white;
-            }
-            
-            &:focus {
-                color: $whisper;
-            }
+            }                
         }
 
         .search-button {            
