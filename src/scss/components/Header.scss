@@ -153,7 +153,7 @@
         }
     }
 
-    @include phones {
+    @include media(phones) {
 
         .brand {
             display: none;
@@ -161,7 +161,10 @@
         
         .logo {
             margin-left: 15px;
-        }
+        }        
+    }
+
+    @include media(large-phones, tablets) {
 
         .sign-in-button, .sign-up-button, .sign-out-button {
             margin: 8px 0;
@@ -170,27 +173,5 @@
         .profile-pic {
             margin-left: 0 !important;
         }
-    }
-
-    @include large-phones {
-
-        .sign-in-button, .sign-up-button, .sign-out-button {
-            margin: 8px 0;
-        }
-
-        .profile-pic {
-            margin-left: 0 !important;
-        }
-    }
-
-    @include tablets {        
-
-        .sign-in-button, .sign-up-button, .sign-out-button {
-            margin: 8px 0;
-        }
-
-        .profile-pic {
-            margin-left: 0 !important;
-        }
-    }
+    }    
 }

@@ -22,7 +22,14 @@
         width: 100%;
     }    
 
-    @include phones {
+    @include media(phones) {
+
+        .sign-up-form {
+            max-width: 300px;                
+        } 
+    }
+
+    @include media(phones, large-phones) {
 
         .hero {
             margin-bottom: 30px;
@@ -31,23 +38,6 @@
             img{
                 display: none;
             }
-        }
-
-        .sign-up-form {
-            max-width: 300px;                
-        }           
+        }                  
     }
-
-    @include large-phones {
-
-        .hero {
-            margin-bottom: 30px;
-            text-align: center;
-
-            img {
-                display: none;
-            }
-        }
-    }
-
 }

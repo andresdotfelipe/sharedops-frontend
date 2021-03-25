@@ -23,7 +23,7 @@
         background-color: $honey-flower;
     }
 
-    @include phones {
+    @include media(phones) {
         font-size: 11px;
     }
 }

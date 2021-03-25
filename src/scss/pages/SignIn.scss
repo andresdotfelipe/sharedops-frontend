@@ -6,7 +6,7 @@
         width: 100%;
     }    
 
-    @include phones {
+    @include media(phones) {
 
         .sign-in-form {
             max-width: 300px;                
