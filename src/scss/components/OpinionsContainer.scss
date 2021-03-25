@@ -42,15 +42,4 @@
             color: $dark-violet;
         }
     }
-
-    @include phones {
-
-        .opinions-grid {
-
-            .opinion-box {
-                padding: 20px 18px 40px;            
-            }
-        }
-                
-    }
 }
