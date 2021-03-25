@@ -7,6 +7,8 @@ import Toggle from 'react-toggle';
 import 'react-toggle/style.css';
 import SunIcon from '../assets/icons/sun.svg';
 import MoonIcon from '../assets/icons/moon.svg';
+import Logo from '../assets/images/sharedops-logo.svg';
+import LogoPhones from '../assets/images/sharedops-logo-phones.svg';
 
 const Header = () => {   
     
@@ -73,8 +75,8 @@ const Header = () => {
                                     <Link to="/" className="brand">
                                         {
                                             isPhoneView ?
-                                            <i className="fas fa-bullhorn"></i> :
-                                            'Sharedops'
+                                            <img width="60px" height="43px" src={LogoPhones} alt={'Sharedops'}/> :
+                                            <img width="200px" height="43px" src={Logo} alt={'Sharedops'}/>
                                         }                                        
                                     </Link>
                                 </Col>                                                                                           
