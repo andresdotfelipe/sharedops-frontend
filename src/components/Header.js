@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useCallback } from 'react';
+import React, { Fragment, useState, useEffect, useCallback, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Col, Container, Button, FormControl, InputGroup, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap';
@@ -14,6 +14,9 @@ const Header = () => {
     
     const [search, setSearch] = useState(undefined);
     const [isPhoneView, setIsPhoneView] = useState(false);
+    const [expandedNavbar, setExpandedNavbar] = useState(false); 
+    
+    const navbar = useRef();
 
     const { session, user, darkTheme } = useSelector(
         state => ({
@@ -31,6 +34,10 @@ const Header = () => {
         },
         []
     );
+
+    const handleClickOutsideNavbar = e => {        
+        if (!navbar.current.contains(e.target)) setExpandedNavbar(false);
+    };
 
     const changeTheme = e => {
         const { checked } = e.target;        
@@ -58,8 +65,10 @@ const Header = () => {
         dispatch(getUser);
         if (!user & session) handleSignOut();
         window.addEventListener('resize', handlePhoneView);
+        window.addEventListener('mousedown', handleClickOutsideNavbar);
         return () => {
             window.removeEventListener('resize', handlePhoneView);
+            window.removeEventListener('mousedown', handleClickOutsideNavbar);
         };
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
@@ -69,7 +78,12 @@ const Header = () => {
             <Container className="header">
                 <Row className={`${darkTheme ? 'dark' : 'light'}`}>
                     <Col xs={12}>
-                        <Navbar expand="lg" fixed="top">
+                        <Navbar 
+                            expand="lg" 
+                            fixed="top"
+                            ref={navbar} 
+                            expanded={expandedNavbar}                                
+                            onToggle={() => setExpandedNavbar(!expandedNavbar)}>
                             <Row className="align-items-center">                                
                                 <Col>
                                     <Link to="/" className="brand">
@@ -100,7 +114,7 @@ const Header = () => {
                                 </Col>
                             </Row>                       
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                            <Navbar.Collapse id="basic-navbar-nav">
+                            <Navbar.Collapse id="basic-navbar-nav">                                
                                 <Nav className="ml-auto">
                                     {
                                         session ?
