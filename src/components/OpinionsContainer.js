@@ -62,11 +62,11 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
 
     const handleFavorites = (e, opinion, confirmation = undefined) => {        
         e.stopPropagation();
-        if (!session) {
-            window.location = `/signin`
+        dispatch(setOpinion(opinion));
+        if (!session) {            
+            history.push('/signin');            
         } else {                        
-            if (history.location.pathname === '/favorites') {
-                dispatch(setOpinion(opinion));
+            if (history.location.pathname === '/favorites') {                
                 if (confirmation) dispatch(updateUserFavoriteOpinions(opinion._id));
                 handleShowConfirmation();                    
             } else {
@@ -80,10 +80,10 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
     };
 
     useEffect(() => {        
-        window.scrollTo(0, 0);
+        window.scrollTo(0, 0);        
     }, []);
 
-    useEffect(() => {               
+    useEffect(() => {        
         if (opinions.length === 0) {
             const data = {
                 filter: `page=${pageCount}&type=${type}`,
@@ -93,7 +93,7 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
         } else {                   
             window.addEventListener('scroll', loadOnScroll);
         }                       
-        return () => {            
+        return () => {                        
             window.removeEventListener('scroll', loadOnScroll);            
         };
     }, [dispatch, pageCount, type, opinions, loadOnScroll]);
@@ -163,7 +163,7 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
                                                     </Button> :
                                                     <Button 
                                                         className="favorite-unchecked"
-                                                        onClick={handleFavorites}>
+                                                        onClick={e => handleFavorites(e, opinion)}>
                                                         <i className="fas fa-star"></i>
                                                     </Button>
                                                 }                                                    
