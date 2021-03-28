@@ -35,7 +35,8 @@ const Header = () => {
         []
     );
 
-    const handleClickOutsideNavbar = e => {        
+    const handleClickOutsideNavbar = e => {
+        if ((e.clientX) >= e.target.clientWidth) return;
         if (!navbar.current.contains(e.target)) setExpandedNavbar(false);
     };
 
