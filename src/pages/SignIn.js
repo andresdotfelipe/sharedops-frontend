@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -16,6 +16,10 @@ const SignIn = () => {
     const handleSubmitSignIn = data => {
         dispatch(signIn(data));
     };
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     if (!unauthenticated) return <Redirect to={{ pathname: '/' }} />
 

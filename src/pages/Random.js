@@ -35,6 +35,10 @@ const Random = () => {
     };
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
         dispatch(getOpinion('random'));
     }, [dispatch]);
 
