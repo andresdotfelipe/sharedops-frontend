@@ -23,9 +23,13 @@ const Comments = () => {
 
     const dispatch = useDispatch();
 
-    const handleAddFavorite = (e, opinion) => {
+    const handleFavorites = (e, opinion) => {
         e.stopPropagation();
-        !session ? window.location = `/signin` : dispatch(updateUserFavoriteOpinions(opinion._id));                
+        if (!session) {
+            history.push('/signin');
+        } else {                                                
+            dispatch(updateUserFavoriteOpinions(opinion._id));            
+        }                
     };
 
     useEffect(() => {
@@ -83,21 +87,16 @@ const Comments = () => {
                                     {opinion.body}
                                 </Col>
                                 <Col xs={12} className="options">
-                                    {
-                                        user ?
-                                        <Button 
-                                            className={`${user.favoriteOpinions.some(e => e === opinion._id) ? 
-                                                'favorite-checked' : 'favorite-unchecked'}`
-                                            }
-                                            onClick={e => handleAddFavorite(e, opinion)}>
-                                            <i className="fas fa-star"></i>
-                                        </Button> :
-                                        <Button 
-                                            className="favorite-unchecked"
-                                            onClick={handleAddFavorite}>
-                                            <i className="fas fa-star"></i>
-                                        </Button>
-                                    }
+                                    <Button 
+                                        className={
+                                            user ? 
+                                            `${user.favoriteOpinions.some(e => e === opinion._id) ? 
+                                                'favorite-checked' : 'favorite-unchecked'}` 
+                                            : 'favorite-unchecked'
+                                        }
+                                        onClick={e => handleFavorites(e, opinion)}>
+                                        <i className="fas fa-star"></i>
+                                    </Button>
                                     <Button className="comment">
                                         <i className="fas fa-comments"></i>
                                     </Button>
