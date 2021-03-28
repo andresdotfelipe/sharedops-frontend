@@ -14,9 +14,7 @@ function* signInGenerator(action) {
         yield put(setSession(session));
         yield put(setUnauthenticated(false));
         yield put(getUser);
-        yield put(setSubmitting(false));
-        const opinion = yield select(state =>  state.OpinionReducer.opinion);
-        if (opinion) window.location = `/comments/${opinion._id}/${opinion.title}`;
+        yield put(setSubmitting(false));        
     } catch (error) {        
         yield put(setSubmitting(false));
         yield put(stopSubmit('SignInForm', error.response.data.error));
