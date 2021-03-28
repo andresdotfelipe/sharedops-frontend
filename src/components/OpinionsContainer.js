@@ -61,12 +61,12 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
     };
 
     const handleFavorites = (e, opinion, confirmation = undefined) => {        
-        e.stopPropagation();
-        dispatch(setOpinion(opinion));
+        e.stopPropagation();        
         if (!session) {            
             history.push('/signin');            
         } else {                        
             if (history.location.pathname === '/favorites') {                
+                dispatch(setOpinion(opinion));
                 if (confirmation) dispatch(updateUserFavoriteOpinions(opinion._id));
                 handleShowConfirmation();                    
             } else {
