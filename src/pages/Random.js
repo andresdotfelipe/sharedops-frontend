@@ -28,7 +28,7 @@ const Random = () => {
     const handleFavorites = (e, opinion) => {        
         e.stopPropagation();
         if (!session) {
-            window.location = `/signin`
+            history.push('/signin');
         } else {                                                
             dispatch(updateUserFavoriteOpinions(opinion._id));            
         } 
