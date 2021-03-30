@@ -1,0 +1,84 @@
+.modal {
+
+    .show-grid {
+        font-size: 20px;
+    }
+    
+    .row {
+        justify-content: center;
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    .form-check-input, .form-check-label {
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        margin-right: 8px;
+
+        &:disabled {
+            cursor: not-allowed;
+        }
+    }
+
+    .dark {
+        color: $whisper;
+
+        .modal-header, .modal-body, .modal-footer {
+            background-color: $scarlet-gum;
+        }    
+
+        .form-control {
+            color: $whisper;
+            background-color: $jagger;
+
+            &:focus {
+                border-width: 2px;
+            }
+
+            &::placeholder {
+                color: $pink-swan;
+            }
+        }        
+
+        .btn-primary {
+            background-color: $studio;
+            border: 1px solid $studio;
+
+            &:hover {
+                background-color: $vivid-violet;
+                border: 1px solid $vivid-violet;
+            }
+
+            &:disabled {                
+                background-color: $studio;
+                border: 1px solid $studio;                
+            }
+        }
+
+        .btn-secondary {
+            background-color: $raven;
+            border: 1px solid $raven;
+
+            &:hover {
+                background-color: $shuttle-gray;
+                border: 1px solid $shuttle-gray;
+            }
+        }        
+
+        button.close {
+
+            span {
+                color: $white;
+            }            
+        }
+    }
+
+    @include media(phones) {
+
+        .show-grid {
+            font-size: 16px;
+        }
+    }
+}
