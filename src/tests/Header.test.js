@@ -71,7 +71,11 @@ describe('Header component (user signed in)', () => {
         store.clearActions();
         store.dispatch = jest.fn();
         wrapper = shallow(<Header/>);
-    });    
+    });
+    
+    it('has a search button', () => {
+        expect(wrapper.find('.search-button')).toHaveLength(1);
+    });
     
     it('has Opinions dropdown with links to All (Homepage), My Opinions and Favorites', () => {
         const opinionsDropdown = wrapper.find('#basic-nav-dropdown');
