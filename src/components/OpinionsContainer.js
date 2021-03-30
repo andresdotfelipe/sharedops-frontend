@@ -196,8 +196,9 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
                 }
                 {
                     opinion &&
-                    <ConfirmationModal 
-                        title={'Remove favorite opinion'} 
+                    <ConfirmationModal
+                        darkTheme={darkTheme}
+                        title={'Remove favorite opinion'}                         
                         msg={`Remove favorite opinion "${opinion.title}"?`} 
                         confirmation={(e, confirmation) => handleFavorites(e, opinion, confirmation)} 
                         show={showConfirmation} 

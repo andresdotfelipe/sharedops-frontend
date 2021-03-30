@@ -1,10 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { Button, Container, Modal, Row } from 'react-bootstrap';
+import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
 
-const ConfirmationModal = ({ title, msg, confirmation, show, onHide }) => {
-
-    const darkTheme = useSelector(state => state.UserReducer.darkTheme);
+const ConfirmationModal = ({ darkTheme, title, msg, confirmation, show, onHide }) => {    
 
     const modalProps = {
         show,
@@ -12,7 +9,7 @@ const ConfirmationModal = ({ title, msg, confirmation, show, onHide }) => {
     };
 
     return (
-        <Modal {...modalProps} className="confirmation-modal" size="lg" show={show} aria-labelledby="contained-modal-title-vcenter" centered>            
+        <Modal {...modalProps} className="modal" size="lg" show={show} aria-labelledby="contained-modal-title-vcenter" centered>            
             <div className={`${darkTheme && 'dark'}`}>
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
@@ -21,8 +18,10 @@ const ConfirmationModal = ({ title, msg, confirmation, show, onHide }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <Container>
-                        <Row className="show-grid justify-content-center">                        
-                            <span>{msg}</span>
+                        <Row className="show-grid">
+                            <Col>
+                                <span>{msg}</span>
+                            </Col>                                                    
                         </Row>
                     </Container>
                 </Modal.Body>
