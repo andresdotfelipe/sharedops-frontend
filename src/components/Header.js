@@ -1,9 +1,10 @@
 import React, { Fragment, useState, useEffect, useCallback, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Col, Container, Button, FormControl, InputGroup, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap';
+import { Col, Container, Button, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap';
 import { getSession, getUser, removeSession, signOut, setDarkTheme } from '../actions/users';
 import Toggle from 'react-toggle';
+import SearchModal from './SearchModal';
 import 'react-toggle/style.css';
 import SunIcon from '../assets/icons/sun.svg';
 import MoonIcon from '../assets/icons/moon.svg';
@@ -12,11 +13,13 @@ import LogoPhones from '../assets/images/sharedops-logo-phones.svg';
 
 const Header = () => {   
     
-    const [search, setSearch] = useState(undefined);
+    const [search, setSearch] = useState('');
+    const [checkedSearchOption, setCheckedSearchOption] = useState('All');
+    const [showSearch, setShowSearch] = useState(false);
     const [isPhoneView, setIsPhoneView] = useState(false);
     const [expandedNavbar, setExpandedNavbar] = useState(false); 
     
-    const navbar = useRef();
+    const navbar = useRef();    
 
     const { session, user, darkTheme } = useSelector(
         state => ({
@@ -46,6 +49,15 @@ const Header = () => {
         localStorage.setItem('darkTheme', checked);             
         dispatch(setDarkTheme(checked));        
     }
+
+    const handleShowSearch = () => {
+        setShowSearch(!showSearch);
+    };
+
+    const handleOnChangeSearch = e => {
+        const { id, value } = e.target;
+        id === 'searchInput' ? setSearch(value) : setCheckedSearchOption(id);
+    };
 
     const handleSearchOpinion = () => {
         
@@ -109,9 +121,20 @@ const Header = () => {
                                 <Col>
                                     <Button 
                                         className="input-group-text search-button"                                        
-                                        onClick={handleSearchOpinion}>
+                                        onClick={handleShowSearch}>
                                         <i className="fas fa-search"></i>
                                     </Button>
+                                    <SearchModal
+                                        darkTheme={darkTheme}
+                                        title={'Search opinion'}
+                                        session={session}
+                                        onChangeSearch={handleOnChangeSearch}
+                                        checkedSearchOption={checkedSearchOption}
+                                        search={search}
+                                        searchOpinion={handleSearchOpinion}
+                                        show={showSearch}
+                                        onHide={handleShowSearch}
+                                    />                                    
                                 </Col>
                             </Row>                       
                             <Navbar.Toggle aria-controls="basic-navbar-nav" />
