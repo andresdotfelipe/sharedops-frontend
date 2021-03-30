@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Container } from 'react-bootstrap';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Layer from './components/Layer';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
@@ -30,21 +31,23 @@ const App = () => {
     }, [darkTheme]);    
 
     return (
-        <Container fluid>
+        <Container fluid>            
             <BrowserRouter>
                 <Switch>
-                    <Route exact path={'/'} component={Home} />
-                    <Route exact path={'/signin'} component={SignIn} />
-                    <Route exact path={'/signup'} component={SignUp} />
-                    <Route exact path={'/my-opinions'} component={MyOpinions} />
-                    <Route exact path={'/favorites'} component={Favorites} />
-                    <Route exact path={'/random'} component={Random} />
-                    <Route exact path={'/create-opinion'} component={CreateOpinion} />
-                    {/* <Route exact path={'/profile'} component={Profile} /> */}
-                    {/* <Route exact path={'/user/:userName'} component={User} /> */}
-                    <Route exact path={'/comments/:opinionId/:opinionTitle?'} component={Comments} />
+                    <Layer>
+                        <Route exact path={'/'} component={Home} />
+                        <Route exact path={'/signin'} component={SignIn} />
+                        <Route exact path={'/signup'} component={SignUp} />
+                        <Route exact path={'/my-opinions'} component={MyOpinions} />
+                        <Route exact path={'/favorites'} component={Favorites} />
+                        <Route exact path={'/random'} component={Random} />
+                        <Route exact path={'/create-opinion'} component={CreateOpinion} />
+                        {/* <Route exact path={'/profile'} component={Profile} /> */}
+                        {/* <Route exact path={'/user/:userName'} component={User} /> */}
+                        <Route exact path={'/comments/:opinionId/:opinionTitle?'} component={Comments} />
+                    </Layer>
                 </Switch>
-            </BrowserRouter>
+            </BrowserRouter>            
         </Container>
     );
 };
