@@ -4,8 +4,6 @@ import { useHistory, Link } from 'react-router-dom';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { updateUserFavoriteOpinions  } from '../actions/users';
 import { setOpinion, getOpinion } from '../actions/opinions';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 
 const Random = () => {    
 
@@ -43,8 +41,7 @@ const Random = () => {
     }, [dispatch]);
 
     return (
-        <Fragment>
-            <Header />
+        <Fragment>            
             <Container className="opinions-container">
                 <Row className={`${darkTheme ? 'dark' : 'light'}`}>
                     <Col xs={12} className="initial-message">
@@ -122,8 +119,7 @@ const Random = () => {
                         </Col>
                     }
                 </Row>
-            </Container>
-            <Footer />
+            </Container>            
         </Fragment>
     );
 };

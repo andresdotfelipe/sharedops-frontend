@@ -1,8 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import OpinionsContainer from '../components/OpinionsContainer';
 
 const MyOpinions = () => {    
@@ -27,10 +25,8 @@ const MyOpinions = () => {
     if (!session) return <Redirect to={{ pathname: '/' }} />
 
     return (
-        <Fragment>
-            <Header />
-            <OpinionsContainer {...props} />
-            <Footer />
+        <Fragment>            
+            <OpinionsContainer {...props} />            
         </Fragment>
     );
 };

@@ -3,8 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
 import { signIn } from '../actions/users';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import SignInForm from '../forms/SignInForm';
 
 const SignIn = () => {
@@ -24,16 +22,14 @@ const SignIn = () => {
     if (!unauthenticated) return <Redirect to={{ pathname: '/' }} />
 
     return (
-        <Fragment>
-            <Header />
+        <Fragment>            
             <Container className="sign-in">
                 <Row className="justify-content-center">
                     <Col xs={12} className="sign-in-form">
                         <SignInForm submitSignIn={handleSubmitSignIn} />
                     </Col>
                 </Row>            
-            </Container>
-            <Footer />            
+            </Container>                       
         </Fragment>
     );
 };

@@ -5,8 +5,6 @@ import { Button, Col, Container, Row } from 'react-bootstrap';
 import { updateUserFavoriteOpinions } from '../actions/users';
 import { getOpinion } from '../actions/opinions';
 import { getComments } from '../actions/comments';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 
 const Comments = () => {
 
@@ -45,8 +43,7 @@ const Comments = () => {
     }, [dispatch, opinion, opinionId, history]);
 
     return (
-        <Fragment>
-            <Header />
+        <Fragment>            
             <Container className="comments">                
                 {
                     opinion &&
@@ -105,8 +102,7 @@ const Comments = () => {
                         </Col>                           
                     </Row>
                 }                
-            </Container>
-            <Footer />
+            </Container>            
         </Fragment>
     )
 };

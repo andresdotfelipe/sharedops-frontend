@@ -3,8 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
 import { signUp } from '../actions/users';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import SignUpForm from '../forms/SignUpForm';
 import OpinionsImg from '../assets/images/opinions.jpg';
 
@@ -25,8 +23,7 @@ const SignUp = () => {
     if (!unauthenticated) return <Redirect to={{ pathname: '/' }} />            
 
     return (
-        <Fragment>
-            <Header />
+        <Fragment>            
             <Container className="sign-up">
                 <Row className="justify-content-center">
                     <Col xs={12} md={6} className="hero">
@@ -42,8 +39,7 @@ const SignUp = () => {
                         <SignUpForm submitSignUp={handleSubmitSignUp} />
                     </Col>                    
                 </Row>            
-            </Container>
-            <Footer />            
+            </Container>                     
         </Fragment>
     );
 };
