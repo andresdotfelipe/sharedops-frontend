@@ -1,10 +1,9 @@
 import React from 'react';
-import configureStore from 'redux-mock-store';
-import * as reactRedux from 'react-redux';
 import { shallow } from 'enzyme';
 import ConfirmationModal from '../components/ConfirmationModal';
 
 const props = {
+    darkTheme: true,
     title: 'Modal',
     msg: 'Modal message',
     confirmation: jest.fn(),
@@ -13,14 +12,9 @@ const props = {
 };
 
 describe('ConfirmationModal component', () => {
-    const mockStore = configureStore();    
-    let store, wrapper;   
+    let wrapper;
 
-    beforeEach(() => {
-        store = mockStore({});
-        jest
-            .spyOn(reactRedux, 'useSelector')
-            .mockImplementation(state => store.getState());        
+    beforeEach(() => {             
         wrapper = shallow(<ConfirmationModal {...props} />);
     });
 
