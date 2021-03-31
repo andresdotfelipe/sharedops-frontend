@@ -5,6 +5,20 @@ import { shallow } from 'enzyme';
 import Header from '../components/Header';
 import { signOut, removeSession, setDarkTheme } from '../actions/users';
 
+jest.mock('react-router-dom', () => {    
+    const originalModule = jest.requireActual('react-router-dom');
+  
+    return {
+      ...originalModule,
+      useHistory: jest.fn(() => {        
+        return { push: jest.fn(), location: { pathname: '/pathname' } };
+      }),
+      useRouteMatch: jest.fn(() => {
+        return { url: '/entry' };
+      }),
+    };
+});
+
 describe('Header component (user signed out)', () => {
     const mockStore = configureStore();
     let store, wrapper;    
@@ -77,12 +91,12 @@ describe('Header component (user signed in)', () => {
         wrapper = shallow(<Header/>);
     });        
     
-    it('has Opinions dropdown with links to All (Homepage), My Opinions and Favorites', () => {
-        const opinionsDropdown = wrapper.find('#basic-nav-dropdown');
+    it('has Opinions dropdown with All (Homepage), My Opinions and Favorites options', () => {
+        const opinionsDropdown = wrapper.find('#basic-nav-dropdown');        
         expect(opinionsDropdown).toHaveLength(1);
-        expect(opinionsDropdown.find('Link').at(0).prop('to')).toEqual('/');
-        expect(opinionsDropdown.find('Link').at(1).prop('to')).toEqual('/my-opinions');
-        expect(opinionsDropdown.find('Link').at(2).prop('to')).toEqual('/favorites');        
+        expect(opinionsDropdown.find('DropdownItem').at(0).text()).toEqual('All');
+        expect(opinionsDropdown.find('DropdownItem').at(1).text()).toEqual('My opinions');
+        expect(opinionsDropdown.find('DropdownItem').at(2).text()).toEqual('Favorites');        
     });
 
     it('has a link to Create Opinion page', () => {
