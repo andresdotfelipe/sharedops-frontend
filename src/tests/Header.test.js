@@ -30,6 +30,10 @@ describe('Header component (user signed out)', () => {
         expect(wrapper.find('Toggle')).toHaveLength(1);
     });
 
+    it('has a search button', () => {
+        expect(wrapper.find('.search-button')).toHaveLength(1);
+    });
+
     it('should change web theme on theme toggler click', () => {        
         wrapper.find('Toggle').simulate('change', { target: { checked: true }});
         expect(store.dispatch).toHaveBeenCalledWith(setDarkTheme(true));
@@ -71,11 +75,7 @@ describe('Header component (user signed in)', () => {
         store.clearActions();
         store.dispatch = jest.fn();
         wrapper = shallow(<Header/>);
-    });
-    
-    it('has a search button', () => {
-        expect(wrapper.find('.search-button')).toHaveLength(1);
-    });
+    });        
     
     it('has Opinions dropdown with links to All (Homepage), My Opinions and Favorites', () => {
         const opinionsDropdown = wrapper.find('#basic-nav-dropdown');
