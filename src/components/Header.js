@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect, useCallback, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { Col, Container, Button, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap';
 import { getSession, getUser, removeSession, signOut, setDarkTheme } from '../actions/users';
 import Toggle from 'react-toggle';
@@ -19,7 +19,9 @@ const Header = () => {
     const [isPhoneView, setIsPhoneView] = useState(false);
     const [expandedNavbar, setExpandedNavbar] = useState(false); 
     
-    const navbar = useRef();    
+    const navbar = useRef(); 
+    
+    const history = useHistory();
 
     const { session, user, darkTheme } = useSelector(
         state => ({
@@ -61,6 +63,10 @@ const Header = () => {
 
     const handleSearchOpinion = () => {
         
+    };
+
+    const handleNavDropdownItemClick = to => {
+        history.push(to);
     };
 
     const handleSignOut = () => {
@@ -143,9 +149,15 @@ const Header = () => {
                                     {
                                         session ?
                                         <NavDropdown title="Opinions" id="basic-nav-dropdown">
-                                            <Link className="dropdown-item" to="/">All</Link>
-                                            <Link className="dropdown-item" to="/my-opinions">My opinions</Link>
-                                            <Link className="dropdown-item" to="/favorites">Favorites</Link>                    
+                                            <NavDropdown.Item onClick={() => handleNavDropdownItemClick('/')}>
+                                                All
+                                            </NavDropdown.Item>
+                                            <NavDropdown.Item onClick={() => handleNavDropdownItemClick('/my-opinions')}>
+                                                My opinions
+                                            </NavDropdown.Item>
+                                            <NavDropdown.Item onClick={() => handleNavDropdownItemClick('/favorites')}>
+                                                Favorites
+                                            </NavDropdown.Item>
                                         </NavDropdown> :
                                         <Link className="nav-link" to="/">Opinions</Link>                                
                                     }                            
