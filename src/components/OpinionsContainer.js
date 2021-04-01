@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
 import { Button, Col, Container, Row, Spinner } from 'react-bootstrap';
 import { updateUserFavoriteOpinions } from '../actions/users';
-import { setOpinion, getOpinions } from '../actions/opinions';
+import { setOpinion, getOpinions, getSearchOpinions } from '../actions/opinions';
 import ConfirmationModal from './ConfirmationModal';
 
-const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, totalCount, type }) => {
+const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, totalCount, type, title = '' }) => {
 
     window.onunload = () => {
         window.scrollTo(0, 0);
@@ -43,12 +43,17 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
                 const data = {
                     filter: `page=${pageCount}`,
                     type
-                };                                
-                dispatch(getOpinions(data));
+                };
+                if (title !== '') {
+                    data.filter = `page=${pageCount}&title=${title}`;
+                    dispatch(getSearchOpinions(data));
+                } else {
+                    dispatch(getOpinions(data));
+                }                
                 setIsFetching(false);
             }            
         },
-        [dispatch, pageCount, type, totalCount, currentCount, isFetching]
+        [dispatch, pageCount, type, title, totalCount, currentCount, isFetching]
     );
 
     const handleClickOpinion = opinion => {
@@ -86,10 +91,15 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
     useEffect(() => {        
         if (opinions.length === 0) {
             const data = {
-                filter: `page=${pageCount}&type=${type}`,
+                filter: `page=${pageCount}`,
                 type
             };            
-            dispatch(getOpinions(data));
+            if (title !== '') {
+                data.filter = `page=${pageCount}&title=${title}`;
+                dispatch(getSearchOpinions(data));
+            } else {
+                dispatch(getOpinions(data));
+            }                
         } else {                   
             window.addEventListener('scroll', loadOnScroll);
         }                       

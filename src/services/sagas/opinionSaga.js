@@ -1,10 +1,13 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { stopSubmit } from 'redux-form';
 import OpinionProvider from '../providers/OpinionProvider';
-import { setAllOpinions, setMyOpinions, setFavoriteOpinions, setOpinion, 
+import { 
+    setAllOpinions, setMyOpinions, setFavoriteOpinions, setSearchOpinions, setOpinion,
     setAllOpinionsPageCount, setAllOpinionsCurrentCount, setAllOpinionsTotalCount,
     setMyOpinionsPageCount, setMyOpinionsCurrentCount, setMyOpinionsTotalCount,
-    setFavoriteOpinionsPageCount, setFavoriteOpinionsCurrentCount, setFavoriteOpinionsTotalCount } from '../../actions/opinions';
+    setFavoriteOpinionsPageCount, setFavoriteOpinionsCurrentCount, setFavoriteOpinionsTotalCount,
+    setSearchOpinionsPageCount, setSearchOpinionsCurrentCount, setSearchOpinionsTotalCount 
+    } from '../../actions/opinions';
 import { setLoading, setSubmitting, setError } from '../../actions/users';
 import { actionTypes } from '../../config/actionTypes';
 
@@ -85,6 +88,50 @@ function* getOpinionsGenerator(action) {
     }
 }
 
+function* getSearchOpinionsGenerator(action) {
+    try {
+        let res = { opinions: [], opinionsCount: 0 };
+        const session = yield select(state => state.UserReducer.session);
+        const searchOpinionsPageCount = yield select(state => state.OpinionReducer.searchOpinionsPageCount);               
+        const searchOpinionsCurrentCount = yield select(state => state.OpinionReducer.searchOpinionsCurrentCount);
+        const searchOpinionsTotalCount = yield select(state => state.OpinionReducer.searchOpinionsTotalCount);
+
+        if (searchOpinionsCurrentCount !== searchOpinionsTotalCount) {
+            switch (action.data.type) {
+                case 'all':
+                    res = yield call(OpinionProvider.getAllOpinions, action.data.filter);                                                
+                    break;
+                case 'my-opinions':
+                    if (session) res = yield call(OpinionProvider.getMyOpinions, action.data.filter);                    
+                    break;
+                case 'favorites':
+                    if (session) res = yield call(OpinionProvider.getFavoriteOpinions, action.data.filter);                    
+                    break;
+                default:                    
+                    break;
+            }
+            if (res.opinions.length > 0) {
+                res.opinions.forEach(opinion => {
+                    opinion.createdAt = String(new Date(opinion.createdAt));
+                    opinion.updatedAt = String(new Date(opinion.updatedAt));
+                });                             
+            }      
+            const searchOpinions = yield select(state => state.OpinionReducer.searchOpinions);
+            res.opinions.forEach(opinion => {
+                searchOpinions.push(opinion);
+            });          
+            yield put(setSearchOpinions(searchOpinions));        
+            yield put(setSearchOpinionsTotalCount(res.opinionsCount));
+            yield put(setSearchOpinionsCurrentCount(searchOpinionsCurrentCount + res.opinions.length));
+            yield put(setSearchOpinionsPageCount(searchOpinionsPageCount + 1));
+        }
+        yield put(setLoading(false));
+    } catch (error) {
+        yield put(setSearchOpinions(null));
+        yield put(setLoading(false));
+    }
+}
+
 function* getOpinionGenerator(action) {
     try {                    
         const opinion = yield call(OpinionProvider.getOpinion, action.id);
@@ -127,8 +174,9 @@ function* createOpinionGenerator(action) {
     }
 }
 
-export function* opinionSaga() {
+export function* opinionSaga() {    
     yield takeLatest(actionTypes.GET_OPINIONS, getOpinionsGenerator);
+    yield takeLatest(actionTypes.GET_SEARCH_OPINIONS, getSearchOpinionsGenerator);
     yield takeLatest(actionTypes.GET_OPINION, getOpinionGenerator);
     yield takeLatest(actionTypes.CREATE_OPINION, createOpinionGenerator);
 }

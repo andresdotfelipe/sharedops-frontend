@@ -1,8 +1,9 @@
 import React, { Fragment, useState, useEffect, useCallback, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
 import { Col, Container, Button, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap';
 import { getSession, getUser, removeSession, signOut, setDarkTheme } from '../actions/users';
+import { setSearchOpinions, setSearchOpinionsPageCount, setSearchOpinionsCurrentCount, setSearchOpinionsTotalCount } from '../actions/opinions';
 import Toggle from 'react-toggle';
 import SearchModal from './SearchModal';
 import 'react-toggle/style.css';
@@ -22,6 +23,8 @@ const Header = () => {
     const navbar = useRef(); 
     
     const history = useHistory();
+
+    const params = useParams();
 
     const { session, user, darkTheme } = useSelector(
         state => ({
@@ -53,7 +56,7 @@ const Header = () => {
     }
 
     const handleShowSearch = () => {
-        setShowSearch(!showSearch);
+        setShowSearch(!showSearch);        
     };
 
     const handleOnChangeSearch = e => {
@@ -61,8 +64,27 @@ const Header = () => {
         id === 'searchInput' ? setSearch(value) : setCheckedSearchOption(id);
     };
 
+    const resetSearchOpinions = () => {
+        dispatch(setSearchOpinions([]));   
+        dispatch(setSearchOpinionsPageCount(0));     
+        dispatch(setSearchOpinionsCurrentCount(0));        
+        dispatch(setSearchOpinionsTotalCount(null));
+    };
+
     const handleSearchOpinion = () => {
-        
+        resetSearchOpinions();
+        switch (checkedSearchOption) {            
+            case 'My opinions':
+                history.push(`/search/my-opinions/${search}`);
+                break;
+            case 'Favorites':
+                history.push(`/search/favorites/${search}`);
+                break;
+            default:
+                history.push(`/search/all/${search}`);
+                break;
+        }        
+        handleShowSearch();
     };
 
     const handleNavDropdownItemClick = to => {
@@ -83,6 +105,23 @@ const Header = () => {
         dispatch(getSession);
         dispatch(getUser);
         if (!user & session) handleSignOut();
+        const { pathname } = history.location;
+        if (pathname.startsWith('/search/all/')) {
+            resetSearchOpinions();
+            setCheckedSearchOption('All');
+            setSearch(pathname.slice(12));
+        }
+        if (session) {
+            if (pathname.startsWith('/search/my-opinions/')) {
+                resetSearchOpinions();
+                setCheckedSearchOption('My opinions');
+                setSearch(pathname.slice(20));
+            } else if (pathname.startsWith('/search/favorites/')) {
+                resetSearchOpinions();
+                setCheckedSearchOption('Favorites');
+                setSearch(pathname.slice(18));
+            }
+        }
         window.addEventListener('resize', handlePhoneView);
         window.addEventListener('mousedown', handleClickOutsideNavbar);
         return () => {
@@ -90,7 +129,7 @@ const Header = () => {
             window.removeEventListener('mousedown', handleClickOutsideNavbar);
         };
         //eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dispatch]);
+    }, [dispatch, history.location.pathname]);
 
     return (
         <Fragment>

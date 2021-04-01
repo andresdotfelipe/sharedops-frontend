@@ -9,7 +9,10 @@ const initialState = {
     myOpinionsCurrentCount: 0,
     favoriteOpinions: [],
     favoriteOpinionsPageCount: 0,
-    favoriteOpinionsCurrentCount: 0    
+    favoriteOpinionsCurrentCount: 0,
+    searchOpinions: [],
+    searchOpinionsPageCount: 0,
+    searchOpinionsCurrentCount: 0
 };
 
 export const OpinionReducer = (state = initialState, action) => {
@@ -20,6 +23,8 @@ export const OpinionReducer = (state = initialState, action) => {
             return { ...state, myOpinions: [...state.myOpinions, ...action.myOpinions] }
         case actionTypes.SET_FAVORITE_OPINIONS:
             return { ...state, favoriteOpinions: action.favoriteOpinions }
+        case actionTypes.SET_SEARCH_OPINIONS:
+            return { ...state, searchOpinions: action.searchOpinions }
         case actionTypes.SET_OPINION:
             return { ...state, opinion: action.opinion }        
         case actionTypes.SET_ALL_OPINIONS_PAGE_COUNT:
@@ -40,6 +45,12 @@ export const OpinionReducer = (state = initialState, action) => {
             return { ...state, favoriteOpinionsCurrentCount: action.favoriteOpinionsCurrentCount }
         case actionTypes.SET_FAVORITE_OPINIONS_TOTAL_COUNT:
             return { ...state, favoriteOpinionsTotalCount: action.favoriteOpinionsTotalCount }
+        case actionTypes.SET_SEARCH_OPINIONS_PAGE_COUNT:
+            return { ...state, searchOpinionsPageCount: action.searchOpinionsPageCount }
+        case actionTypes.SET_SEARCH_OPINIONS_CURRENT_COUNT:
+            return { ...state, searchOpinionsCurrentCount: action.searchOpinionsCurrentCount }
+        case actionTypes.SET_SEARCH_OPINIONS_TOTAL_COUNT:
+            return { ...state, searchOpinionsTotalCount: action.searchOpinionsTotalCount }
         default:
             return state;
     }

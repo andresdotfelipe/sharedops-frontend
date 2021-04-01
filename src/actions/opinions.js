@@ -15,6 +15,11 @@ export const setFavoriteOpinions = favoriteOpinions => ({
     favoriteOpinions
 });
 
+export const setSearchOpinions = searchOpinions => ({
+    type: actionTypes.SET_SEARCH_OPINIONS,
+    searchOpinions
+});
+
 export const setOpinion = opinion => ({
     type: actionTypes.SET_OPINION,
     opinion
@@ -65,8 +70,28 @@ export const setFavoriteOpinionsTotalCount = favoriteOpinionsTotalCount => ({
     favoriteOpinionsTotalCount
 });
 
+export const setSearchOpinionsPageCount = searchOpinionsPageCount => ({
+    type: actionTypes.SET_SEARCH_OPINIONS_PAGE_COUNT,
+    searchOpinionsPageCount
+});
+
+export const setSearchOpinionsCurrentCount = searchOpinionsCurrentCount => ({
+    type: actionTypes.SET_SEARCH_OPINIONS_CURRENT_COUNT,
+    searchOpinionsCurrentCount
+});
+
+export const setSearchOpinionsTotalCount = searchOpinionsTotalCount => ({
+    type: actionTypes.SET_SEARCH_OPINIONS_TOTAL_COUNT,
+    searchOpinionsTotalCount
+});
+
 export const getOpinions = data => ({
     type: actionTypes.GET_OPINIONS,
+    data
+});
+
+export const getSearchOpinions = data => ({
+    type: actionTypes.GET_SEARCH_OPINIONS,
     data
 });
 
