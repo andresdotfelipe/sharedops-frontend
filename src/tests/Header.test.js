@@ -13,6 +13,7 @@ jest.mock('react-router-dom', () => {
       useHistory: jest.fn(() => {        
         return { push: jest.fn(), location: { pathname: '/pathname' } };
       }),
+      useParams: jest.fn(),
       useRouteMatch: jest.fn(() => {
         return { url: '/entry' };
       }),
