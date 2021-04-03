@@ -188,7 +188,7 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
 
                 }
                 {
-                    (currentCount !== totalCount) ?
+                    currentCount !== totalCount &&
                     <Col xs={12} id="opinions-end">
                         <Spinner
                             as="span"
@@ -196,7 +196,7 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
                             role="status"
                             aria-hidden="true"
                         />
-                    </Col> : null
+                    </Col>
                 }
                 {
                     isHalfPage &&
