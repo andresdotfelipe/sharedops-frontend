@@ -158,7 +158,20 @@ describe('Comments component (user signed in)', () => {
         expect(store.dispatch).toHaveBeenCalledWith(updateUserFavoriteOpinions(opinion._id));
     });
 
-    it('post a new comment on "Comment" button click', () => {
+    it('has a message that notifies the user is commenting', () => {
+        wrapper.find('.warn-message').toHaveLength(1);
+    });
+
+    it('has a post comment form showing author, profile picture, textarea and submit button', () => {
+        const commentForm = wrapper.find('.comment-form');
+        wrapper.find('.comment-form').toHaveLength(1);
+        commentForm.find('.author').toHaveLength(1);
+        commentForm.find('.profile-picture').toHaveLength(1);
+        commentForm.find('.comment-area').toHaveLength(1);
+        commentForm.find('Button.post-comment').toHaveLength(1);
+    });
+
+    it('posts a new comment on "Comment" button click', () => {
         const data = {
             body: 'User 1\'s second comment',
             opinionId: opinion._id,            
