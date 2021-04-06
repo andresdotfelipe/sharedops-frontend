@@ -90,8 +90,7 @@ const Header = () => {
     };
 
     const handleSignOut = () => {
-        dispatch(removeSession);
-        dispatch(signOut);
+        window.localStorage.removeItem('session');
         window.location = '/';
     };
 
@@ -214,7 +213,7 @@ const Header = () => {
                                             </Link>          
                                             <Button 
                                                 className="sign-out-button"
-                                                onClick={handleSignOut}>                                        
+                                                onClick={handleSignOut}>
                                                 Sign out
                                             </Button>                                                       
                                         </Nav>                                

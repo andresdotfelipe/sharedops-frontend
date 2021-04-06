@@ -42,22 +42,11 @@ function* getSessionGenerator() {
         const stateSession = yield select(state => state.UserReducer.session);
         const user = yield select(state => state.UserReducer.user);        
         if ((!storageSession | (storageSession !== stateSession)) & !!user) {            
-            yield put(signOut);
-            yield put(removeSession);
+            window.localStorage.removeItem('session');
             window.location = '/';
         } else {
             yield put(setSession(storageSession));            
         } 
-    } catch (error) {
-        console.log('Something\'s gone wrong:', error);
-    }
-}
-
-
-function* removeSessionGenerator() {
-    try {
-        window.localStorage.removeItem('session');
-        yield put(setSession(null));        
     } catch (error) {
         console.log('Something\'s gone wrong:', error);
     }
@@ -129,7 +118,6 @@ export function* userSaga() {
     yield takeLatest(actionTypes.SIGN_IN, signInGenerator);
     yield takeLatest(actionTypes.SIGN_UP, signUpGenerator);
     yield takeLatest(actionTypes.GET_SESSION, getSessionGenerator);
-    yield takeLatest(actionTypes.REMOVE_SESSION, removeSessionGenerator);
     yield takeLatest(actionTypes.GET_USER, getUserGenerator);
     yield takeLatest(actionTypes.UPDATE_USER, updateUserGenerator);
     yield takeLatest(actionTypes.UPDATE_USER_FAVORITE_OPINIONS, updateUserFavoriteOpinions);

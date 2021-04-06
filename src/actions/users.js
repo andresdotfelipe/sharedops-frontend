@@ -10,10 +10,6 @@ export const signIn = data => ({
     data
 });
 
-export const signOut = {
-    type: actionTypes.SIGN_OUT
-};
-
 export const setSession = session => ({
     type: actionTypes.SET_SESSION,
     session
@@ -21,10 +17,6 @@ export const setSession = session => ({
 
 export const getSession = {
     type: actionTypes.GET_SESSION
-};
-
-export const removeSession = {
-    type: actionTypes.REMOVE_SESSION
 };
 
 export const setUnauthenticated = unauthenticated => ({
