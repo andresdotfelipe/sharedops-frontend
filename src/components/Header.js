@@ -22,9 +22,7 @@ const Header = () => {
     
     const navbar = useRef(); 
     
-    const history = useHistory();
-
-    const params = useParams();
+    const history = useHistory();    
 
     const { session, user, darkTheme } = useSelector(
         state => ({
@@ -103,8 +101,7 @@ const Header = () => {
 
     useEffect(() => {
         dispatch(getSession);
-        dispatch(getUser);
-        if (!user & session) handleSignOut();
+        dispatch(getUser);        
         const { pathname } = history.location;
         if (pathname.startsWith('/search/all/')) {
             resetSearchOpinions();
