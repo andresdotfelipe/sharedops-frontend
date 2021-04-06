@@ -13,10 +13,7 @@ jest.mock('react-router-dom', () => {
       useHistory: jest.fn(() => {        
         return { push: jest.fn(), location: { pathname: '/pathname' } };
       }),
-      useParams: jest.fn(),
-      useRouteMatch: jest.fn(() => {
-        return { url: '/entry' };
-      }),
+      useParams: jest.fn()      
     };
 });
 
@@ -113,10 +110,13 @@ describe('Header component (user signed in)', () => {
     });
 
     it('has a Sign Out button that works correctly', () => {
+        jest.spyOn(Object.getPrototypeOf(window.localStorage), 'removeItem')
+        window = Object.create(window);
+        Object.defineProperty(window, 'location', { writable: true });
         const signOutButton = wrapper.find('Button.sign-out-button');
         expect(signOutButton).toHaveLength(1);
-        signOutButton.simulate('click');
-        expect(store.dispatch).toHaveBeenCalledWith(removeSession);
-        expect(store.dispatch).toHaveBeenCalledWith(signOut);
+        signOutButton.simulate('click');        
+        expect(Storage.prototype.removeItem).toHaveBeenCalledWith('session');              
+        expect(window.location).toEqual('/');
     });
 });
