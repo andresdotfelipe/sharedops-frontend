@@ -106,7 +106,7 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
         return () => {                        
             window.removeEventListener('scroll', loadOnScroll);            
         };
-    }, [dispatch, pageCount, type, opinions, loadOnScroll]);
+    }, [dispatch, pageCount, type, title, opinions, loadOnScroll]);
     
     return (        
         <Container className="opinions-container">
