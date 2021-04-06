@@ -8,11 +8,12 @@ import {
     setFavoriteOpinionsPageCount, setFavoriteOpinionsCurrentCount, setFavoriteOpinionsTotalCount,
     setSearchOpinionsPageCount, setSearchOpinionsCurrentCount, setSearchOpinionsTotalCount 
     } from '../../actions/opinions';
-import { setLoading, setSubmitting, setError } from '../../actions/users';
+import { getSession, setLoading, setSubmitting, setError } from '../../actions/users';
 import { actionTypes } from '../../config/actionTypes';
 
 function* getOpinionsGenerator(action) {
-    try {                                                   
+    try {
+        yield put(getSession);
         const allOpinionsPageCount = yield select(state => state.OpinionReducer.allOpinionsPageCount);               
         const allOpinionsCurrentCount = yield select(state => state.OpinionReducer.allOpinionsCurrentCount);
         const allOpinionsTotalCount = yield select(state => state.OpinionReducer.allOpinionsTotalCount);
@@ -90,6 +91,7 @@ function* getOpinionsGenerator(action) {
 
 function* getSearchOpinionsGenerator(action) {
     try {
+        yield put(getSession);
         let res = { opinions: [], opinionsCount: 0 };
         const session = yield select(state => state.UserReducer.session);
         const searchOpinionsPageCount = yield select(state => state.OpinionReducer.searchOpinionsPageCount);               
@@ -133,7 +135,8 @@ function* getSearchOpinionsGenerator(action) {
 }
 
 function* getOpinionGenerator(action) {
-    try {                    
+    try {
+        yield put(getSession);                    
         const opinion = yield call(OpinionProvider.getOpinion, action.id);
         opinion.createdAt = String(new Date(opinion.createdAt));
         opinion.updatedAt = String(new Date(opinion.updatedAt));
@@ -148,24 +151,22 @@ function* getOpinionGenerator(action) {
 
 function* createOpinionGenerator(action) {
     try {
-        const session = yield select(state => state.UserReducer.session);
-        if (session) {
-            yield put(setSubmitting(true));            
-            const data = {
-                title: action.data.title,
-                body: action.data.body,
-            };
-            if (action.data.file) {
-                let formData = new FormData();
-                formData.append('file', action.data.file.file, action.data.file.name);
-                formData.append('folder', 'sharedops/opinions-images');
-                formData.append('upload_preset', process.env.REACT_APP_OPINIONS_IMAGES_UPLOAD_PRESET);
-                const image = yield call(OpinionProvider.uploadOpinionImage, formData);
-                data.opinionImageUrl = image.secure_url;                
-            }
-            const res = yield call(OpinionProvider.createOpinion, data);            
-            window.location = `/comments/${res.opinion._id}/${res.opinion.title}`;            
+        yield put(getSession);
+        yield put(setSubmitting(true));            
+        const data = {
+            title: action.data.title,
+            body: action.data.body,
+        };
+        if (action.data.file) {
+            let formData = new FormData();
+            formData.append('file', action.data.file.file, action.data.file.name);
+            formData.append('folder', 'sharedops/opinions-images');
+            formData.append('upload_preset', process.env.REACT_APP_OPINIONS_IMAGES_UPLOAD_PRESET);
+            const image = yield call(OpinionProvider.uploadOpinionImage, formData);
+            data.opinionImageUrl = image.secure_url;                
         }
+        const res = yield call(OpinionProvider.createOpinion, data);            
+        window.location = `/comments/${res.opinion._id}/${res.opinion.title}`;
     } catch (error) {
         console.log(error);
         yield put(setSubmitting(false));

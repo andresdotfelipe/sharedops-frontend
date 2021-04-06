@@ -3,7 +3,7 @@ import { stopSubmit, clearSubmitErrors } from 'redux-form';
 import OpinionProvider from '../providers/OpinionProvider';
 import UserProvider from '../providers/UserProvider';
 import { setFavoriteOpinions } from '../../actions/opinions';
-import { setSession, setUnauthenticated, setUser, getUser, setSubmitting, setError, signOut } from '../../actions/users';
+import { setSession, setUnauthenticated, setUser, getSession, removeSession, getUser, setSubmitting, setError, signOut } from '../../actions/users';
 import { actionTypes } from '../../config/actionTypes';
 
 function* signInGenerator(action) {
@@ -36,15 +36,17 @@ function* signUpGenerator(action) {
     }
 }
 
-function* getSessionGenerator(action) {
+function* getSessionGenerator() {
     try {        
-        let session = window.localStorage.getItem('session');        
-        session = session ? JSON.parse(session) : null;
-        const user = yield select(state => state.UserReducer.user);    
-        if (!session & !!user) {            
+        let storageSession = window.localStorage.getItem('session');        
+        const stateSession = yield select(state => state.UserReducer.session);
+        const user = yield select(state => state.UserReducer.user);        
+        if ((!storageSession | (storageSession !== stateSession)) & !!user) {            
             yield put(signOut);
+            yield put(removeSession);
+            window.location = '/';
         } else {
-            yield put(setSession(session));
+            yield put(setSession(storageSession));            
         } 
     } catch (error) {
         console.log('Something\'s gone wrong:', error);
@@ -52,7 +54,7 @@ function* getSessionGenerator(action) {
 }
 
 
-function* removeSessionGenerator(action) {
+function* removeSessionGenerator() {
     try {
         window.localStorage.removeItem('session');
         yield put(setSession(null));        
@@ -61,13 +63,13 @@ function* removeSessionGenerator(action) {
     }
 }
 
-function* getUserGenerator(action) {
+function* getUserGenerator() {
     try {
         const session = yield select(state => state.UserReducer.session);
         if (session) {
             const user = yield call(UserProvider.getUser);
-            yield put(setUser(user));
-        }
+            yield put(setUser(user));        
+        }     
     } catch (error) {
         console.log('Something\'s gone wrong:', error); 
         yield put(setUser(null));
@@ -75,24 +77,22 @@ function* getUserGenerator(action) {
 }
 
 function* updateUserGenerator(action) {
-    try {
-        const session = yield select(state => state.UserReducer.session);
-        if (session) {
-            yield put(clearSubmitErrors('UpdateUserForm'));
-            yield put(setSubmitting(true));
-            const data = {};
-            if (action.name) data.name = action.name;
-            if (action.data.file) {
-                let formData = new FormData();
-                formData.append('image', action.data.file, action.data.name);
-                formData.append('folder', 'sharedops/profile-pics');
-                formData.append('upload_preset', process.env.REACT_APP_IMAGES_UPLOAD_PRESET);
-                const image = yield call(UserProvider.uploadUserProfilePic, formData);
-                data.imageURL = image.secure_url;
-            }
-            yield call(UserProvider.updateUser, data);
-            yield put(setSubmitting(false));                        
+    try {        
+        yield put(getSession);
+        yield put(clearSubmitErrors('UpdateUserForm'));
+        yield put(setSubmitting(true));
+        const data = {};
+        if (action.name) data.name = action.name;
+        if (action.data.file) {
+            let formData = new FormData();
+            formData.append('image', action.data.file, action.data.name);
+            formData.append('folder', 'sharedops/profile-pics');
+            formData.append('upload_preset', process.env.REACT_APP_IMAGES_UPLOAD_PRESET);
+            const image = yield call(UserProvider.uploadUserProfilePic, formData);
+            data.imageURL = image.secure_url;
         }
+        yield call(UserProvider.updateUser, data);
+        yield put(setSubmitting(false));
     } catch (error) {
         yield put(setSubmitting(false));
         yield put(stopSubmit('UpdateUserForm', error.response.data.error));
@@ -102,26 +102,24 @@ function* updateUserGenerator(action) {
 
 function* updateUserFavoriteOpinions(action) {
     try {
-        const session = yield select(state => state.UserReducer.session);
-        if (session) {
-            const favoriteOpinions = yield select(state => state.OpinionReducer.favoriteOpinions);
-            if (favoriteOpinions.length > 0) {
-                const opinion = yield call(OpinionProvider.getOpinion, action.opinionId);
-                if (favoriteOpinions.some(e => e._id === action.opinionId)) {
-                    favoriteOpinions.forEach(favoriteOpinion => {
-                        if (favoriteOpinion._id === action.opinionId) {
-                            favoriteOpinions.splice(favoriteOpinions.indexOf(favoriteOpinion), 1);
-                        }
-                    });                              
-                } else {                
-                    favoriteOpinions.unshift(opinion);
-                }            
-                yield put(setFavoriteOpinions(favoriteOpinions));
-            }
-            const data = { opinionId: action.opinionId };
-            yield call(UserProvider.updateUserFavoriteOpinions, data);
-            yield put(getUser);                        
+        yield put(getSession);
+        const favoriteOpinions = yield select(state => state.OpinionReducer.favoriteOpinions);
+        if (favoriteOpinions.length > 0) {
+            const opinion = yield call(OpinionProvider.getOpinion, action.opinionId);
+            if (favoriteOpinions.some(e => e._id === action.opinionId)) {
+                favoriteOpinions.forEach(favoriteOpinion => {
+                    if (favoriteOpinion._id === action.opinionId) {
+                        favoriteOpinions.splice(favoriteOpinions.indexOf(favoriteOpinion), 1);
+                    }
+                });                              
+            } else {                
+                favoriteOpinions.unshift(opinion);
+            }            
+            yield put(setFavoriteOpinions(favoriteOpinions));
         }
+        const data = { opinionId: action.opinionId };
+        yield call(UserProvider.updateUserFavoriteOpinions, data);
+        yield put(getUser);                                
     } catch (error) {        
         yield put(setError(error.response.data.error)); 
     }
