@@ -6,7 +6,7 @@ export const setComments = comments => ({
 });
 
 export const getComments = opinionId => ({
-    type: actionTypes.GET_OPINIONS,
+    type: actionTypes.GET_COMMENTS,
     opinionId
 });
 
