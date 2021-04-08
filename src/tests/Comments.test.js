@@ -117,6 +117,10 @@ describe('Comments component (user signed out)', () => {
         expect(wrapper.find('Button.comment')).toHaveLength(1);
     });
 
+    it('has a comments divider', () => {
+        expect(wrapper.find('.divider')).toHaveLength(1);    
+    });
+
     it('has a banner asking for sign in/up to post comment', () => {
         expect(wrapper.find('.authenticate-to-comment')).toHaveLength(1);
     });
