@@ -1,6 +1,6 @@
 import HttpProvider from './HttpProvider';
 
-const baseURL = 'commments';
+const baseURL = 'comments';
 
 export default class CommentProvider {
 
