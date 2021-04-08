@@ -2,4 +2,31 @@
     @include containerPadding;
     @include opinionsGrid(10px auto 0, auto, none, auto, $studio);
     text-align: center;
+
+    .divider {
+        max-width: 800px;
+        padding: 11px;
+        width: 100%;
+    }
+
+    .light {
+
+        .divider {
+
+            hr {
+                background-color: $dark-violet;
+            }
+        }
+    }    
+
+    .dark {
+
+        .divider {
+
+            hr {
+                background-color: $studio;
+            }
+            
+        }
+    }
 }
