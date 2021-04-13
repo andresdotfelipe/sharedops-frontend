@@ -7,7 +7,7 @@
 };
 
 @mixin containerPadding {
-    padding: 160px 0 100px;
+    padding: 160px 11px 100px;
 }
 
 @mixin opinionsGrid($opinions-grid-margin, $cursor, $mask-image, $max-height, $border-on-dark-theme) {
@@ -15,7 +15,7 @@
     .opinions-grid {
         margin: $opinions-grid-margin;
         max-width: 800px;
-        padding: 11px;
+        text-align: center;        
         width: 100%;
         
         .opinion-box {
