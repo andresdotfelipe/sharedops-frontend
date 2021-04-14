@@ -1,13 +1,13 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { stopSubmit } from 'redux-form';
 import CommentProvider from '../providers/CommentProvider';
-import  { setComments } from '../../actions/comments';
+import  { getComments, setComments } from '../../actions/comments';
 import { getSession, setLoading, setSubmitting, setError } from '../../actions/users';
 import { actionTypes } from '../../config/actionTypes';
 
 function* getCommentsGenerator(action) {
     try {
-        yield put(getSession);
+        yield put(getSession);        
         const comments = yield call(CommentProvider.getComments, action.opinionId);
         yield put(setComments(comments));
         yield put(setLoading(false));    
@@ -20,10 +20,9 @@ function* getCommentsGenerator(action) {
 
 function* createCommentGenerator(action) {
     try {
-        yield put(getSession);
-        const comments = yield call(CommentProvider.getComments, action.opinionId);
-        yield call(CommentProvider.createComment, action.data);
-        yield put(setComments(comments));
+        yield put(getSession);        
+        yield call(CommentProvider.createComment, action.data);        
+        yield put(getComments(action.data.opinionId));
         yield put(setSubmitting(false));        
     } catch (error) {
         yield put(setSubmitting(false));
