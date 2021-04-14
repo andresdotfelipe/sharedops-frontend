@@ -1,12 +1,15 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams, Link } from 'react-router-dom';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { updateUserFavoriteOpinions } from '../actions/users';
 import { getOpinion } from '../actions/opinions';
-import { getComments } from '../actions/comments';
+import { getComments, createComment } from '../actions/comments';
+import { Form } from 'react-bootstrap';
 
 const Comments = () => {
+    
+    const [commentBody, setCommentBody] = useState('');
 
     const { session, darkTheme, user, opinion, comments } = useSelector(state => ({
         session: state.UserReducer.session,
@@ -31,6 +34,17 @@ const Comments = () => {
         }                
     };
 
+    const onChangeCommentBody = e => {
+        setCommentBody(e.target.value);
+    };
+
+    const postComment = e => {
+        e.preventDefault();
+        const data = { body: commentBody, opinionId: opinion._id };
+        dispatch(createComment(data));
+        setCommentBody('');
+    };
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -45,9 +59,9 @@ const Comments = () => {
     }, [dispatch, opinion, opinionId, history]);
 
     return (
-        <Fragment>            
+        <>            
             <Container className="comments">      
-                <Row className={`${darkTheme ? 'dark' : 'light'}`}>             
+                <Row className={`${darkTheme ? 'dark' : 'light'} justify-content-center`}>             
                     {
                         opinion &&
                         <Col>
@@ -105,16 +119,68 @@ const Comments = () => {
                                     </Row>
                                 </Col>                            
                             </Row>
-                            <Row className="divider d-flex mx-auto">                                
+                            {
+                                session ?
+                                <Row className="comment-form mx-auto">
+                                    <Col xs={12}>
+                                        <span className="warning-message">
+                                            {`Warning! You are commenting as "${user.name}"`}
+                                        </span>                                        
+                                    </Col>                                    
+                                    <Col xs={12}>
+                                        <Form>
+                                            <Form.Row>
+                                                <Form.Control
+                                                    as={'textarea'}
+                                                    placeholder={'Write your comment here...'}
+                                                    value={commentBody}
+                                                    id={'comment-textarea'}
+                                                    onChange={onChangeCommentBody}>
+                                                </Form.Control>
+                                            </Form.Row>
+                                            <Form.Row className="justify-content-center">
+                                                <Button 
+                                                    type="submit"                                                    
+                                                    className="post-comment-button"
+                                                    disabled={commentBody === ''}
+                                                    onClick={postComment}>
+                                                    Post comment
+                                                </Button>
+                                            </Form.Row>
+                                        </Form>
+                                    </Col>
+                                </Row> :
+                                <Row className="authenticate-banner justify-content-center mx-auto">
+                                    <span>
+                                        If you want to post comments, please <Link to="/signin">sign in</Link> or <Link to="/signup">sign up</Link>.
+                                    </span>
+                                </Row> 
+                            }                            
+                            <Row className="divider mx-auto">                                
                                 <hr className="my-auto flex-grow-1" />
                                 <div className="px-4">{`Comments (${comments.length})`}</div>
                                 <hr className="my-auto flex-grow-1" />
-                            </Row> 
+                            </Row>
+                            {
+                                comments.length > 0 ?
+                                <Row className="comments-list mx-auto">
+                                    {
+                                        comments.map(comment => {
+                                            return (
+                                                <span>{comment.body}</span>
+                                            )
+                                        })
+                                    }
+                                </Row> : 
+                                <Row className="mx-auto mt-3">
+                                    No comments
+                                </Row>
+                            }
                         </Col>
                     }
                 </Row>                               
             </Container>            
-        </Fragment>
+        </>
     )
 };
 
