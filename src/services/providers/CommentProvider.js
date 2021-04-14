@@ -4,8 +4,8 @@ const baseURL = 'comments';
 
 export default class CommentProvider {
 
-    static getComments(filter) {
-        return HttpProvider.get(`${baseURL}?${filter}`).then(response => response.data);
+    static getComments(opinionId) {
+        return HttpProvider.get(`${baseURL}?opinionId=${opinionId}`).then(response => response.data);
     }
 
     static createComment(data) {
