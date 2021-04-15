@@ -9,6 +9,10 @@ function* getCommentsGenerator(action) {
     try {
         yield put(getSession);        
         const comments = yield call(CommentProvider.getComments, action.opinionId);
+        comments.forEach(comment => {
+            comment.createdAt = String(new Date(comment.createdAt));
+            comment.updatedAt = String(new Date(comment.updatedAt));
+        });
         yield put(setComments(comments));
         yield put(setLoading(false));    
     } catch (error) {
