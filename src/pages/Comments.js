@@ -119,19 +119,25 @@ const Comments = () => {
                                     </Row>
                                 </Col>                            
                             </Row>
+                            <Row className="divider mx-auto">                                
+                                <hr className="my-auto flex-grow-1" />
+                                <div className="px-4">{`Comments (${comments.length})`}</div>
+                                <hr className="my-auto flex-grow-1" />
+                            </Row>
                             {
                                 session ?
-                                <Row className="comment-form mx-auto">
+                                <Row className="comment-form-box mx-auto">
                                     <Col xs={12}>
                                         <span className="warning-message">
                                             {`Warning! You are commenting as "${user.name}"`}
                                         </span>                                        
                                     </Col>                                    
                                     <Col xs={12}>
-                                        <Form>
+                                        <Form className="comment-form">
                                             <Form.Row>
                                                 <Form.Control
                                                     as={'textarea'}
+                                                    rows={3}                                                    
                                                     placeholder={'Write your comment here...'}
                                                     value={commentBody}
                                                     id={'comment-textarea'}
@@ -155,26 +161,54 @@ const Comments = () => {
                                         If you want to post comments, please <Link to="/signin">sign in</Link> or <Link to="/signup">sign up</Link>.
                                     </span>
                                 </Row> 
-                            }                            
-                            <Row className="divider mx-auto">                                
-                                <hr className="my-auto flex-grow-1" />
-                                <div className="px-4">{`Comments (${comments.length})`}</div>
-                                <hr className="my-auto flex-grow-1" />
-                            </Row>
+                            }
                             {
-                                comments.length > 0 ?
-                                <Row className="comments-list mx-auto">
+                                comments.length > 0 &&
+                                <Row className="mx-auto">
                                     {
                                         comments.map(comment => {
                                             return (
-                                                <span>{comment.body}</span>
+                                                <Col key={comment._id} xs={12} tabIndex={'0'} className="comment-box">
+                                                    <Row>
+                                                        <Col xs="auto" className="profile-picture">
+                                                            <Link to="/profile">
+                                                                <img 
+                                                                    src={comment.author.profilePicUrl} 
+                                                                    alt={comment.author.name} 
+                                                                />                                                                
+                                                            </Link> 
+                                                        </Col>                                                        
+                                                        <Col>
+                                                            <Row className="mx-auto">
+                                                                <Col xs={12} className="details">                                                                    
+                                                                    <Link 
+                                                                        to="/profile"
+                                                                        className="author">
+                                                                        {comment.author.name}                                                                        
+                                                                    </Link>
+                                                                    {
+                                                                        comment.author.name === opinion.author.name &&
+                                                                        <span className="original-poster">
+                                                                            [Original poster]
+                                                                        </span>
+                                                                    }                                                                    
+                                                                    <span className="date">
+                                                                        on {comment.createdAt}
+                                                                    </span>
+                                                                </Col>
+                                                                <Col xs={12} className="body">
+                                                                    <span>
+                                                                        {comment.body}
+                                                                    </span>
+                                                                </Col>
+                                                            </Row>
+                                                        </Col>
+                                                    </Row>
+                                                </Col>
                                             )
                                         })
                                     }
-                                </Row> : 
-                                <Row className="mx-auto mt-3">
-                                    No comments
-                                </Row>
+                                </Row>                                
                             }
                         </Col>
                     }
