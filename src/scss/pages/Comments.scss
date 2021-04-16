@@ -1,7 +1,9 @@
 .comments {
     @include containerPadding;
     @include opinionsGrid(10px auto 0, auto, none, auto, $studio);        
-    max-width: 800px;            
+    max-width: 800px;
+    padding-left: 0;
+    padding-right: 0;    
     width: 100%;
     
     .divider {
