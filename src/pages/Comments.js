@@ -4,19 +4,18 @@ import { useHistory, useParams, Link } from 'react-router-dom';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { updateUserFavoriteOpinions } from '../actions/users';
 import { getOpinion } from '../actions/opinions';
-import { getComments, createComment } from '../actions/comments';
+import { createComment } from '../actions/comments';
 import { Form } from 'react-bootstrap';
 
 const Comments = () => {
     
     const [commentBody, setCommentBody] = useState('');
 
-    const { session, darkTheme, user, opinion, comments } = useSelector(state => ({
+    const { session, darkTheme, user, opinion } = useSelector(state => ({
         session: state.UserReducer.session,
         darkTheme: state.UserReducer.darkTheme,
         user: state.UserReducer.user,
-        opinion: state.OpinionReducer.opinion,
-        comments: state.CommentReducer.comments       
+        opinion: state.OpinionReducer.opinion              
     }));
     
     const history = useHistory();    
@@ -42,7 +41,7 @@ const Comments = () => {
         e.preventDefault();
         const data = { body: commentBody, opinionId: opinion._id };
         dispatch(createComment(data));
-        setCommentBody('');
+        setCommentBody('');        
     };
 
     useEffect(() => {
@@ -53,8 +52,7 @@ const Comments = () => {
         if (!opinion) {
             dispatch(getOpinion(opinionId));            
         } else {
-            history.replace(`/comments/${opinion._id}/${opinion.title}`, undefined);
-            dispatch(getComments(opinion._id));
+            history.replace(`/comments/${opinion._id}/${opinion.title}`, undefined);            
         }        
     }, [dispatch, opinion, opinionId, history]);
 
@@ -111,17 +109,14 @@ const Comments = () => {
                                                 }
                                                 onClick={e => handleFavorites(e, opinion)}>
                                                 <i className="fas fa-star"></i>
-                                            </Button>
-                                            <Button className="comment">
-                                                <i className="fas fa-comments"></i>
-                                            </Button>
+                                            </Button>                                            
                                         </Col>                                            
                                     </Row>
                                 </Col>                            
                             </Row>
                             <Row className="divider mx-auto">                                
                                 <hr className="my-auto flex-grow-1" />
-                                <div className="px-4">{`Comments (${comments.length})`}</div>
+                                <div className="px-4">{`Comments (${opinion.comments.length})`}</div>
                                 <hr className="my-auto flex-grow-1" />
                             </Row>
                             {
@@ -163,10 +158,10 @@ const Comments = () => {
                                 </Row> 
                             }
                             {
-                                comments.length > 0 &&
+                                opinion.comments.length > 0 &&
                                 <Row className="mx-auto">
                                     {
-                                        comments.map(comment => {
+                                        opinion.comments.map(comment => {
                                             return (
                                                 <Col key={comment._id} xs={12} tabIndex={'0'} className="comment-box">
                                                     <Row>
