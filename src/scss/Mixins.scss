@@ -86,16 +86,20 @@
                     &:hover {
                         color: $electric-purple;
                     }
-                }                
-    
-                .favorite-unchecked, .favorite-checked {
-                    margin-right: 15px;                    
-                }
+                }                                
 
-                .favorite-checked {
+                .favorite-checked, .comment-checked {
                     color: $electric-purple;
                 }
-    
+
+                .comment, .comment-checked {
+                    font-weight: bold;
+                    margin-left: 15px;
+                }
+
+                .fa-comments {
+                    margin-left: 7px;
+                }                  
             }
         }
     }
