@@ -33,6 +33,10 @@ function* getOpinionsGenerator(action) {
                     res.opinions.forEach(opinion => {
                         opinion.createdAt = String(new Date(opinion.createdAt));
                         opinion.updatedAt = String(new Date(opinion.updatedAt));
+                        opinion.comments.forEach(comment => {
+                            comment.createdAt = String(new Date(comment.createdAt));
+                            comment.updatedAt = String(new Date(comment.updatedAt));
+                        });
                     });
                     yield put(setMyOpinions(res.opinions));        
                     yield put(setMyOpinionsTotalCount(res.opinionsCount));
@@ -46,6 +50,10 @@ function* getOpinionsGenerator(action) {
                     res.opinions.forEach(opinion => {
                         opinion.createdAt = String(new Date(opinion.createdAt));
                         opinion.updatedAt = String(new Date(opinion.updatedAt));
+                        opinion.comments.forEach(comment => {
+                            comment.createdAt = String(new Date(comment.createdAt));
+                            comment.updatedAt = String(new Date(comment.updatedAt));
+                        });
                     });
                     const favoriteOpinions = yield select(state => state.OpinionReducer.favoriteOpinions);
                     res.opinions.forEach(opinion => {
@@ -63,6 +71,10 @@ function* getOpinionsGenerator(action) {
                     res.opinions.forEach(opinion => {
                         opinion.createdAt = String(new Date(opinion.createdAt));
                         opinion.updatedAt = String(new Date(opinion.updatedAt));
+                        opinion.comments.forEach(comment => {
+                            comment.createdAt = String(new Date(comment.createdAt));
+                            comment.updatedAt = String(new Date(comment.updatedAt));
+                        });
                     });
                     yield put(setAllOpinions(res.opinions));        
                     yield put(setAllOpinionsTotalCount(res.opinionsCount));
@@ -116,6 +128,10 @@ function* getSearchOpinionsGenerator(action) {
                 res.opinions.forEach(opinion => {
                     opinion.createdAt = String(new Date(opinion.createdAt));
                     opinion.updatedAt = String(new Date(opinion.updatedAt));
+                    opinion.comments.forEach(comment => {
+                        comment.createdAt = String(new Date(comment.createdAt));
+                        comment.updatedAt = String(new Date(comment.updatedAt));
+                    });
                 });                             
             }      
             const searchOpinions = yield select(state => state.OpinionReducer.searchOpinions);
@@ -140,6 +156,10 @@ function* getOpinionGenerator(action) {
         const opinion = yield call(OpinionProvider.getOpinion, action.id);
         opinion.createdAt = String(new Date(opinion.createdAt));
         opinion.updatedAt = String(new Date(opinion.updatedAt));
+        opinion.comments.forEach(comment => {
+            comment.createdAt = String(new Date(comment.createdAt));
+            comment.updatedAt = String(new Date(comment.updatedAt));
+        });
         yield put(setOpinion(opinion));
         yield put(setLoading(false));        
     } catch (error) {
