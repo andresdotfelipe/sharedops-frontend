@@ -107,7 +107,8 @@ const Random = () => {
                                             onClick={e => handleFavorites(e, opinion)}>
                                             <i className="fas fa-star"></i>
                                         </Button>                                                   
-                                        <Button className="comment">
+                                        <Button className={`${opinion.comments.length > 0 ? 'comment-checked' : 'comment'}`}>
+                                            {opinion.comments.length} 
                                             <i className="fas fa-comments"></i>
                                         </Button>
                                     </Col>                                                                                       
