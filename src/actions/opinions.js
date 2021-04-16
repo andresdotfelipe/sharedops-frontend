@@ -104,3 +104,7 @@ export const createOpinion = data => ({
     type: actionTypes.CREATE_OPINION,
     data
 });
+
+export const resetOpinionReducer = {
+    type: actionTypes.RESET_OPINION_REDUCER
+};

@@ -51,6 +51,8 @@ export const OpinionReducer = (state = initialState, action) => {
             return { ...state, searchOpinionsCurrentCount: action.searchOpinionsCurrentCount }
         case actionTypes.SET_SEARCH_OPINIONS_TOTAL_COUNT:
             return { ...state, searchOpinionsTotalCount: action.searchOpinionsTotalCount }
+        case actionTypes.RESET_OPINION_REDUCER:
+            return state = initialState;
         default:
             return state;
     }

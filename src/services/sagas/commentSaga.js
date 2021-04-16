@@ -1,32 +1,20 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { stopSubmit } from 'redux-form';
 import CommentProvider from '../providers/CommentProvider';
-import  { getComments, setComments } from '../../actions/comments';
-import { getSession, setLoading, setSubmitting, setError } from '../../actions/users';
+import  { setOpinion, resetOpinionReducer } from '../../actions/opinions';
+import { getSession, setSubmitting, setError } from '../../actions/users';
 import { actionTypes } from '../../config/actionTypes';
-
-function* getCommentsGenerator(action) {
-    try {
-        yield put(getSession);        
-        const comments = yield call(CommentProvider.getComments, action.opinionId);
-        comments.forEach(comment => {
-            comment.createdAt = String(new Date(comment.createdAt));
-            comment.updatedAt = String(new Date(comment.updatedAt));
-        });
-        yield put(setComments(comments));
-        yield put(setLoading(false));    
-    } catch (error) {
-        console.log('Something\'s gone wrong:', error);        
-        yield put(setComments(null));
-        yield put(setLoading(false));
-    }
-}
 
 function* createCommentGenerator(action) {
     try {
         yield put(getSession);        
-        yield call(CommentProvider.createComment, action.data);        
-        yield put(getComments(action.data.opinionId));
+        const res = yield call(CommentProvider.createComment, action.data);        
+        res.updatedOpinion.comments.forEach(comment => {
+            comment.createdAt = String(new Date(comment.createdAt));
+            comment.updatedAt = String(new Date(comment.updatedAt));
+        });
+        yield put(resetOpinionReducer);
+        yield put(setOpinion(res.updatedOpinion));        
         yield put(setSubmitting(false));        
     } catch (error) {
         yield put(setSubmitting(false));
@@ -35,7 +23,6 @@ function* createCommentGenerator(action) {
     }    
 }
 
-export function* commentSaga() {
-    yield takeLatest(actionTypes.GET_COMMENTS, getCommentsGenerator);
+export function* commentSaga() {    
     yield takeLatest(actionTypes.CREATE_COMMENT, createCommentGenerator);
 }
