@@ -2,8 +2,9 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import * as redux from 'react-redux';
 import { shallow } from 'enzyme';
+import { setDarkTheme } from '../actions/users';
+import { users } from './utils/constants';
 import Header from '../components/Header';
-import { signOut, removeSession, setDarkTheme } from '../actions/users';
 
 jest.mock('react-router-dom', () => {    
     const originalModule = jest.requireActual('react-router-dom');
@@ -77,7 +78,7 @@ describe('Header component (user signed in)', () => {
     let store, wrapper;    
     
     beforeEach(() => {
-        store = mockStore({ session: true, user: { name: 'user' } });
+        store = mockStore({ session: true, user: users[0] });
         jest
             .spyOn(redux, 'useSelector')
             .mockImplementation(state => store.getState());
