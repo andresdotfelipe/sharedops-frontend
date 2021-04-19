@@ -161,9 +161,9 @@ const Comments = () => {
                                 opinion.comments.length > 0 &&
                                 <Row className="mx-auto">
                                     {
-                                        opinion.comments.map(comment => {
+                                        opinion.comments.map((comment, index) => {
                                             return (
-                                                <Col key={comment._id} xs={12} tabIndex={'0'} className="comment-box">
+                                                <Col key={index} xs={12} tabIndex={'0'} className="comment-box">
                                                     <Row>
                                                         <Col xs="auto" className="profile-picture">
                                                             <Link to="/profile">
