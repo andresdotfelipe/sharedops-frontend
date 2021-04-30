@@ -61,7 +61,35 @@ const commentsOpinionOne = [
     }
 ];
 
-export const opinions = [    
+const commentsOpinionThree = [
+    {
+        author: users[0],        
+        body: 'User 0\'s comment in Opinion 3',
+        createdAt: 'Wed Mar 31 2021 17:45:32 GMT-0500 (hora estándar de Colombia)'
+    },
+    {
+        author: users[0],        
+        body: 'User 0\'s comment in Opinion 3',
+        createdAt: 'Wed Mar 31 2021 16:33:18 GMT-0500 (hora estándar de Colombia)'
+    },
+    {
+        author: users[2],        
+        body: 'User 2\'s comment in Opinion 3',
+        createdAt: 'Wed Mar 31 2021 16:03:52 GMT-0500 (hora estándar de Colombia)'
+    }
+];
+
+export const opinions = [
+    {
+        _id: '3',
+        title: 'Opinion 3',
+        body: 'Body 3',
+        opinionImageUrl: 'https://images.com/3',
+        author: users[0],
+        comments: commentsOpinionThree,
+        createdAt: 'Mon Mar 29 2021 18:31:17 GMT-0500 (hora estándar de Colombia)',
+        modifiedAt: 'Wed Mar 31 2021 17:45:32 GMT-0500 (hora estándar de Colombia)'
+    },    
     {
         _id: '2',
         title: 'Opinion 2',
