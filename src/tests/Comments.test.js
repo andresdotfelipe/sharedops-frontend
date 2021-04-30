@@ -111,12 +111,12 @@ describe('Comments component (user signed in)', () => {
         expect(store.dispatch).toHaveBeenCalledWith(updateUserFavoriteOpinions(opinions[1]._id));
     });
 
-    it('has a message that notifies the user is commenting', () => {
+    it('has a message that notifies the user that he is commenting', () => {
         expect(wrapper.find('.warning-message')).toHaveLength(1);
         expect(wrapper.find('.warning-message').text()).toEqual(`Warning! You are commenting as "${users[1].name}"`)
     });
 
-    it('has a post comment form showing textarea and submit button', () => {
+    it('has a post comment form with textarea and submit button', () => {
         const commentForm = wrapper.find('.comment-form');
         expect(wrapper.find('.comment-form')).toHaveLength(1);        
         expect(commentForm.find('#comment-textarea')).toHaveLength(1);
