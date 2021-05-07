@@ -3,7 +3,7 @@ import { stopSubmit, clearSubmitErrors } from 'redux-form';
 import OpinionProvider from '../providers/OpinionProvider';
 import UserProvider from '../providers/UserProvider';
 import { setFavoriteOpinions } from '../../actions/opinions';
-import { setSession, setUnauthenticated, setUser, getSession, removeSession, getUser, setSubmitting, setError, signOut } from '../../actions/users';
+import { setSession, setUnauthenticated, setUser, setUserProfile, getSession, getUser, setSubmitting, setError, signOut } from '../../actions/users';
 import { actionTypes } from '../../config/actionTypes';
 
 function* signInGenerator(action) {
@@ -65,6 +65,19 @@ function* getUserGenerator() {
     }
 }
 
+function* getUserProfileGenerator(action) {
+    try {
+        const session = yield select(state => state.UserReducer.session);
+        if (session) {
+            const userProfile = yield call(UserProvider.getUserProfile, action.id);
+            yield put(setUserProfile(userProfile));
+        }
+    } catch (error) {
+        console.log('Something\'s gone wrong:', error); 
+        yield put(setUserProfile(null));
+    }
+}
+
 function* updateUserGenerator(action) {
     try {        
         yield put(getSession);
@@ -119,6 +132,7 @@ export function* userSaga() {
     yield takeLatest(actionTypes.SIGN_UP, signUpGenerator);
     yield takeLatest(actionTypes.GET_SESSION, getSessionGenerator);
     yield takeLatest(actionTypes.GET_USER, getUserGenerator);
+    yield takeLatest(actionTypes.GET_USER_PROFILE, getUserProfileGenerator);
     yield takeLatest(actionTypes.UPDATE_USER, updateUserGenerator);
     yield takeLatest(actionTypes.UPDATE_USER_FAVORITE_OPINIONS, updateUserFavoriteOpinions);
 }

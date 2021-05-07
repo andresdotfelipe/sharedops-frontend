@@ -29,9 +29,19 @@ export const setUser = user => ({
     user
 });
 
+export const setUserProfile = userProfile => ({
+    type: actionTypes.SET_USER_PROFILE,
+    userProfile
+});
+
 export const getUser = {
     type: actionTypes.GET_USER
 };
+
+export const getUserProfile = id => ({
+    type: actionTypes.GET_USER_PROFILE,
+    id
+});
 
 export const updateUser = data => ({
     type: actionTypes.UPDATE_USER,

@@ -15,7 +15,9 @@ export const UserReducer = (state = initialState, action) => {
         case actionTypes.SET_UNAUTHENTICATED:
             return { ...state, unauthenticated: action.unauthenticated }
         case actionTypes.SET_USER:
-            return { ...state, user: action.user }        
+            return { ...state, user: action.user }
+        case actionTypes.SET_USER_PROFILE:
+            return { ...state, userProfile: action.userProfile }
         case actionTypes.SET_LOADING:
             return { ...state, loading: action.loading }
         case actionTypes.SET_SUBMITTING:
