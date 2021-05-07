@@ -25,6 +25,11 @@ export const users = [
     }
 ];
 
+const userProfile = {
+    user: users[0],
+    opinions: [opinions[3], opinions[0]]
+};
+
 const commentsOpinionZero = [
     {
         author: users[0],        
