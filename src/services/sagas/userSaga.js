@@ -68,6 +68,7 @@ function* getUserGenerator() {
 function* getUserProfileGenerator(action) {
     try {        
         const userProfile = yield call(UserProvider.getUserProfile, action.id);
+        userProfile.createdAt = String(new Date(userProfile.createdAt));
         yield put(setUserProfile(userProfile));        
     } catch (error) {
         console.log('Something\'s gone wrong:', error); 

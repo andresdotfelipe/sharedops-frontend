@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getUserProfile } from '../actions/users';
 import { setUserOpinions, setUserOpinionsPageCount, setUserOpinionsCurrentCount, setUserOpinionsTotalCount } from '../actions/opinions';
-import { Container, Row } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import OpinionsContainer from '../components/OpinionsContainer';
 
 const User = () => {   
@@ -12,7 +12,8 @@ const User = () => {
 
     const { userId } = useParams();
 
-    const { userProfile, userOpinions, userOpinionsPageCount, userOpinionsCurrentCount, userOpinionsTotalCount } = useSelector(state => ({                        
+    const { darkTheme, userProfile, userOpinions, userOpinionsPageCount, userOpinionsCurrentCount, userOpinionsTotalCount } = useSelector(state => ({
+        darkTheme: state.UserReducer.darkTheme,        
         userProfile: state.UserReducer.userProfile,
         userOpinions: state.OpinionReducer.userOpinions,
         userOpinionsPageCount: state.OpinionReducer.userOpinionsPageCount,
@@ -41,14 +42,30 @@ const User = () => {
     return (
         <>  
             <Container className="user">
-                {
-                    userProfile &&
-                    <Row>
-                        <span>{userProfile._id}</span>
-                        <span>{userProfile.name}</span>
-                    </Row>
-                }                       
-                <OpinionsContainer {...props} />                 
+                <Row className={`${darkTheme ? 'dark' : 'light'}`}>                                    
+                    {
+                        userProfile &&
+                        <Row className="profile mx-auto">
+                            <Col xs="12" sm="auto" className="profile-picture">
+                                <img src={userProfile.profilePicUrl} alt={userProfile.name} />
+                            </Col>
+                            <Col>
+                                <Row>
+                                    <Col xs={12} className="name">
+                                        <span>{userProfile.name}</span>
+                                    </Col>
+                                    <Col xs={12} className="description">
+                                        <span>{userProfile.description}</span>
+                                    </Col>
+                                    <Col xs={12} className="registration-date">
+                                        <span>Joined on {userProfile.createdAt}</span>
+                                    </Col>
+                                </Row>                                                                                
+                            </Col>                        
+                        </Row>
+                    }                       
+                    <OpinionsContainer {...props} />                 
+                </Row>
             </Container>                      
         </>
     );

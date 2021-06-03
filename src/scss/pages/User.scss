@@ -1,3 +1,44 @@
 .user {
     @include containerPadding;
+    max-width: 800px;
+    width: 100%;    
+
+    .profile {
+        margin-bottom: -70px;
+
+        .profile-picture {
+
+            img {
+                border-radius: 50%;
+                width: 160px;
+            }            
+        }        
+        
+        .name {
+            font-size: 25px;
+            font-weight: bold;            
+            margin-bottom: 10px;
+        }
+
+        .registration-date {
+            color: $nandor;
+        }
+    }
+    
+    .dark {
+
+        .registration-date {
+            color: $link-water;
+            
+        }
+    }
+
+    @include media(phones) {
+
+        text-align: center;
+
+        .profile-picture {            
+            margin-bottom: 30px;            
+        }
+    }
 }
