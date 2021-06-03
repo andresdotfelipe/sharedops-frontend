@@ -2,10 +2,11 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { stopSubmit } from 'redux-form';
 import OpinionProvider from '../providers/OpinionProvider';
 import { 
-    setAllOpinions, setMyOpinions, setFavoriteOpinions, setSearchOpinions, setOpinion,
+    setAllOpinions, setMyOpinions, setFavoriteOpinions, setSearchOpinions, setUserOpinions, setOpinion,
     setAllOpinionsPageCount, setAllOpinionsCurrentCount, setAllOpinionsTotalCount,
     setMyOpinionsPageCount, setMyOpinionsCurrentCount, setMyOpinionsTotalCount,
     setFavoriteOpinionsPageCount, setFavoriteOpinionsCurrentCount, setFavoriteOpinionsTotalCount,
+    setUserOpinionsPageCount, setUserOpinionsCurrentCount, setUserOpinionsTotalCount,
     setSearchOpinionsPageCount, setSearchOpinionsCurrentCount, setSearchOpinionsTotalCount 
     } from '../../actions/opinions';
 import { getSession, setLoading, setSubmitting, setError } from '../../actions/users';
@@ -25,6 +26,10 @@ function* getOpinionsGenerator(action) {
         const favoriteOpinionsPageCount = yield select(state => state.OpinionReducer.favoriteOpinionsPageCount);               
         const favoriteOpinionsCurrentCount = yield select(state => state.OpinionReducer.favoriteOpinionsCurrentCount);
         const favoriteOpinionsTotalCount = yield select(state => state.OpinionReducer.favoriteOpinionsTotalCount);
+
+        const userOpinionsPageCount = yield select(state => state.OpinionReducer.userOpinionsPageCount);               
+        const userOpinionsCurrentCount = yield select(state => state.OpinionReducer.userOpinionsCurrentCount);
+        const userOpinionsTotalCount = yield select(state => state.OpinionReducer.userOpinionsTotalCount);
 
         switch (action.data.type) {            
             case 'myOpinions':
@@ -65,6 +70,27 @@ function* getOpinionsGenerator(action) {
                     yield put(setFavoriteOpinionsPageCount(favoriteOpinionsPageCount + 1));
                 }
                 break;
+            case 'userOpinions':
+                if (userOpinionsCurrentCount !== userOpinionsTotalCount) {                        
+                    const res = yield call(OpinionProvider.getUserOpinions, action.data.filter);
+                    res.opinions.forEach(opinion => {
+                        opinion.createdAt = String(new Date(opinion.createdAt));
+                        opinion.updatedAt = String(new Date(opinion.updatedAt));
+                        opinion.comments.forEach(comment => {
+                            comment.createdAt = String(new Date(comment.createdAt));
+                            comment.updatedAt = String(new Date(comment.updatedAt));
+                        });
+                    });
+                    const userOpinions = yield select(state => state.OpinionReducer.userOpinions);
+                    res.opinions.forEach(opinion => {
+                        userOpinions.push(opinion);
+                    }); 
+                    yield put(setUserOpinions(userOpinions));        
+                    yield put(setUserOpinionsTotalCount(res.opinionsCount));
+                    yield put(setUserOpinionsCurrentCount(userOpinionsCurrentCount + res.opinions.length));
+                    yield put(setUserOpinionsPageCount(userOpinionsPageCount + 1));
+                }
+                break;
             default:
                 if (allOpinionsCurrentCount !== allOpinionsTotalCount) {                        
                     const res = yield call(OpinionProvider.getAllOpinions, action.data.filter);
@@ -92,6 +118,9 @@ function* getOpinionsGenerator(action) {
                 break;
             case 'favorites':
                 yield put(setFavoriteOpinions(null));
+                break;
+            case 'userOpinions':
+                yield put(setUserOpinions(null));
                 break;
             default:
                 yield put(setAllOpinions(null));

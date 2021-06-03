@@ -66,12 +66,9 @@ function* getUserGenerator() {
 }
 
 function* getUserProfileGenerator(action) {
-    try {
-        const session = yield select(state => state.UserReducer.session);
-        if (session) {
-            const userProfile = yield call(UserProvider.getUserProfile, action.id);
-            yield put(setUserProfile(userProfile));
-        }
+    try {        
+        const userProfile = yield call(UserProvider.getUserProfile, action.id);
+        yield put(setUserProfile(userProfile));        
     } catch (error) {
         console.log('Something\'s gone wrong:', error); 
         yield put(setUserProfile(null));

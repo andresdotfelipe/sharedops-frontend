@@ -19,6 +19,10 @@ export default class OpinionProvider {
         return HttpProvider.get(`${baseURL}/favorites?${filter}`).then(response => response.data);
     }
 
+    static getUserOpinions(filter) {
+        return HttpProvider.get(`${baseURL}/user-opinions?${filter}`).then(response => response.data);
+    }
+
     static getOpinion(id) {
         return HttpProvider.get(`${baseURL}/${id}`).then(response => response.data);
     }

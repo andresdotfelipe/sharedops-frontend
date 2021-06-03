@@ -10,6 +10,9 @@ const initialState = {
     favoriteOpinions: [],
     favoriteOpinionsPageCount: 0,
     favoriteOpinionsCurrentCount: 0,
+    userOpinions: [],
+    userOpinionsPageCount: 0,
+    userOpinionsCurrentCount: 0,
     searchOpinions: [],
     searchOpinionsPageCount: 0,
     searchOpinionsCurrentCount: 0
@@ -23,6 +26,8 @@ export const OpinionReducer = (state = initialState, action) => {
             return { ...state, myOpinions: [...state.myOpinions, ...action.myOpinions] }
         case actionTypes.SET_FAVORITE_OPINIONS:
             return { ...state, favoriteOpinions: action.favoriteOpinions }
+        case actionTypes.SET_USER_OPINIONS:
+            return { ...state, userOpinions: action.userOpinions }
         case actionTypes.SET_SEARCH_OPINIONS:
             return { ...state, searchOpinions: action.searchOpinions }
         case actionTypes.SET_OPINION:
@@ -45,6 +50,12 @@ export const OpinionReducer = (state = initialState, action) => {
             return { ...state, favoriteOpinionsCurrentCount: action.favoriteOpinionsCurrentCount }
         case actionTypes.SET_FAVORITE_OPINIONS_TOTAL_COUNT:
             return { ...state, favoriteOpinionsTotalCount: action.favoriteOpinionsTotalCount }
+        case actionTypes.SET_USER_OPINIONS_PAGE_COUNT:
+            return { ...state, userOpinionsPageCount: action.userOpinionsPageCount }
+        case actionTypes.SET_USER_OPINIONS_CURRENT_COUNT:
+            return { ...state, userOpinionsCurrentCount: action.userOpinionsCurrentCount }
+        case actionTypes.SET_USER_OPINIONS_TOTAL_COUNT:
+            return { ...state, userOpinionsTotalCount: action.userOpinionsTotalCount }
         case actionTypes.SET_SEARCH_OPINIONS_PAGE_COUNT:
             return { ...state, searchOpinionsPageCount: action.searchOpinionsPageCount }
         case actionTypes.SET_SEARCH_OPINIONS_CURRENT_COUNT:

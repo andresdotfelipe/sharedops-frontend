@@ -69,7 +69,7 @@ const Comments = () => {
                                         <Col xs={12} className="details">
                                             <span className="name">
                                                 Opinion by <Link 
-                                                    to="/signup" 
+                                                    to={`/user/${opinion.author._id}`} 
                                                     onClick={e => e.stopPropagation()}>
                                                         {opinion.author.name}
                                                         <img 
@@ -166,7 +166,7 @@ const Comments = () => {
                                                 <Col key={index} xs={12} tabIndex={'0'} className="comment-box">
                                                     <Row>
                                                         <Col xs="auto" className="profile-picture">
-                                                            <Link to="/profile">
+                                                            <Link to={`/user/${comment.author._id}`}>
                                                                 <img 
                                                                     src={comment.author.profilePicUrl} 
                                                                     alt={comment.author.name} 
@@ -177,7 +177,7 @@ const Comments = () => {
                                                             <Row className="mx-auto">
                                                                 <Col xs={12} className="details">                                                                    
                                                                     <Link 
-                                                                        to="/profile"
+                                                                        to={`/user/${comment.author._id}`}
                                                                         className="author">
                                                                         {comment.author.name}                                                                        
                                                                     </Link>

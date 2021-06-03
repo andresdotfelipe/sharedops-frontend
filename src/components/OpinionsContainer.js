@@ -6,7 +6,7 @@ import { updateUserFavoriteOpinions } from '../actions/users';
 import { setOpinion, getOpinions, getSearchOpinions } from '../actions/opinions';
 import ConfirmationModal from './ConfirmationModal';
 
-const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, totalCount, type, title = '' }) => {
+const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, totalCount, type, title = '', userId = undefined }) => {
 
     window.onunload = () => {
         window.scrollTo(0, 0);
@@ -48,6 +48,7 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
                     data.filter = `page=${pageCount}&title=${title}`;
                     dispatch(getSearchOpinions(data));
                 } else {
+                    if (userId) data.filter = `userId=${userId}&page=${pageCount}`;
                     dispatch(getOpinions(data));
                 }                
                 setIsFetching(false);
@@ -98,6 +99,7 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
                 data.filter = `page=${pageCount}&title=${title}`;
                 dispatch(getSearchOpinions(data));
             } else {
+                if (userId) data.filter = `userId=${userId}&page=${pageCount}`;
                 dispatch(getOpinions(data));
             }                
         } else {                   
@@ -129,7 +131,7 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
                                             <Col xs={12} className="details">
                                                 <span className="name">
                                                     Opinion by <Link 
-                                                        to="/signup" 
+                                                        to={`/user/${opinion.author._id}`}
                                                         onClick={e => e.stopPropagation()}>
                                                             {opinion.author.name}
                                                             <img 

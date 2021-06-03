@@ -10,6 +10,7 @@ import MyOpinions from './pages/MyOpinions';
 import Favorites from './pages/Favorites';
 import Random from './pages/Random';
 import Search from './pages/Search';
+import User from './pages/User';
 import CreateOpinion from './pages/CreateOpinion';
 import Comments from './pages/Comments';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -45,7 +46,7 @@ const App = () => {
                         <Route exact path={'/search/:type/:title'} component={Search} />
                         <Route exact path={'/create-opinion'} component={CreateOpinion} />
                         {/* <Route exact path={'/profile'} component={Profile} /> */}
-                        {/* <Route exact path={'/user/:userName'} component={User} /> */}
+                        <Route exact path={'/user/:userId'} component={User} />
                         <Route exact path={'/comments/:opinionId/:opinionTitle?'} component={Comments} />
                     </Layer>
                 </Switch>

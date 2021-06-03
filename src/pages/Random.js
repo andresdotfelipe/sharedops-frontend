@@ -64,7 +64,7 @@ const Random = () => {
                                     <Col xs={12} className="details">
                                         <span className="name">
                                             Opinion by <Link 
-                                                to="/signup" 
+                                                to={`/user/${opinion.author._id}`} 
                                                 onClick={e => e.stopPropagation()}>
                                                     {opinion.author.name}
                                                     <img 
