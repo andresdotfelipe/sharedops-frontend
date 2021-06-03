@@ -2,6 +2,7 @@ export const users = [
     {
         _id: '0',
         name: 'User 0',
+        description: 'User 0\'s description',
         profilePicUrl: 'https://profilepictures.com/user0',
         favoriteOpinions: ['0', '1'],
         createdAt: 'Fri Mar 26 2021 15:09:45 GMT-0500 (hora estándar de Colombia)',
@@ -10,6 +11,7 @@ export const users = [
     {
         _id: '1',
         name: 'User 1',
+        description: 'User 1\'s description',
         profilePicUrl: 'https://profilepictures.com/user1',
         favoriteOpinions: ['2', '1', '0'],
         createdAt: 'Sat Mar 27 2021 13:12:10 GMT-0500 (hora estándar de Colombia)',
@@ -18,17 +20,13 @@ export const users = [
     {
         _id: '2',
         name: 'User 2',
+        description: 'User 2\'s description',
         profilePicUrl: 'https://profilepictures.com/user2',
         favoriteOpinions: ['2'],
         createdAt: 'Sun Mar 28 2021 18:40:09 GMT-0500 (hora estándar de Colombia)',
         modifiedAt: 'Tue Mar 30 2021 17:39:23 GMT-0500 (hora estándar de Colombia)'
     }
 ];
-
-const userProfile = {
-    user: users[0],
-    opinions: [opinions[3], opinions[0]]
-};
 
 const commentsOpinionZero = [
     {
@@ -66,35 +64,7 @@ const commentsOpinionOne = [
     }
 ];
 
-const commentsOpinionThree = [
-    {
-        author: users[0],        
-        body: 'User 0\'s comment in Opinion 3',
-        createdAt: 'Wed Mar 31 2021 17:45:32 GMT-0500 (hora estándar de Colombia)'
-    },
-    {
-        author: users[0],        
-        body: 'User 0\'s comment in Opinion 3',
-        createdAt: 'Wed Mar 31 2021 16:33:18 GMT-0500 (hora estándar de Colombia)'
-    },
-    {
-        author: users[2],        
-        body: 'User 2\'s comment in Opinion 3',
-        createdAt: 'Wed Mar 31 2021 16:03:52 GMT-0500 (hora estándar de Colombia)'
-    }
-];
-
-export const opinions = [
-    {
-        _id: '3',
-        title: 'Opinion 3',
-        body: 'Body 3',
-        opinionImageUrl: 'https://images.com/3',
-        author: users[0],
-        comments: commentsOpinionThree,
-        createdAt: 'Mon Mar 29 2021 18:31:17 GMT-0500 (hora estándar de Colombia)',
-        modifiedAt: 'Wed Mar 31 2021 17:45:32 GMT-0500 (hora estándar de Colombia)'
-    },    
+export const opinions = [    
     {
         _id: '2',
         title: 'Opinion 2',
