@@ -53,7 +53,7 @@ const OpinionForm = ({ submitOpinion, handleSubmit }) => {
 
 };
 
-const validate = (values) => {
+const validate = values => {
 
     const errors = {};
 

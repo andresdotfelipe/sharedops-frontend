@@ -45,12 +45,14 @@ const SignInForm = ({ submitSignIn, handleSubmit }) => {
     );
 };
 
-const validate = (values) => {
+const validate = values => {
     
     const errors = {};    
     
     if (!values.name || values.name.trim().length === 0) {
         errors.name = 'Username is required';
+    } else if (values.name.length > 50) {
+        errors.name = 'Username must not be longer than 50 characters';
     }
 
     if (!values.password || values.password.trim().length === 0) {

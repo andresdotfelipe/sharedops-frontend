@@ -207,7 +207,7 @@ const Header = () => {
                                                 to="/create-opinion" >
                                                 <i className="fas fa-plus-square"></i> New opinion
                                             </Link>
-                                            <Link className="nav-link profile-pic" to="/profile">
+                                            <Link className="nav-link profile-pic" to="/settings">
                                                 <img src={user.profilePicUrl}  alt={user.name} />
                                                 { user.name }                                        
                                             </Link>          

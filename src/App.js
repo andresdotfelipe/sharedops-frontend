@@ -10,9 +10,10 @@ import MyOpinions from './pages/MyOpinions';
 import Favorites from './pages/Favorites';
 import Random from './pages/Random';
 import Search from './pages/Search';
-import User from './pages/User';
 import CreateOpinion from './pages/CreateOpinion';
 import Comments from './pages/Comments';
+import User from './pages/User';
+import Settings from './pages/Settings';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import './scss/Styles.scss';
@@ -45,9 +46,9 @@ const App = () => {
                         <Route exact path={'/random'} component={Random} />
                         <Route exact path={'/search/:type/:title'} component={Search} />
                         <Route exact path={'/create-opinion'} component={CreateOpinion} />
-                        {/* <Route exact path={'/profile'} component={Profile} /> */}
-                        <Route exact path={'/user/:userId'} component={User} />
                         <Route exact path={'/comments/:opinionId/:opinionTitle?'} component={Comments} />
+                        <Route exact path={'/user/:userId'} component={User} />
+                        <Route exact path={'/settings'} component={Settings} />                        
                     </Layer>
                 </Switch>
             </BrowserRouter>            

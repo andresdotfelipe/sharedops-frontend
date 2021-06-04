@@ -37,7 +37,7 @@ const User = () => {
         dispatch(setUserOpinionsPageCount(0));
         dispatch(setUserOpinionsCurrentCount(0));
         dispatch(setUserOpinionsTotalCount(null));
-    }, [userId]);
+    }, [dispatch, userId]);
 
     return (
         <>  

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { reset } from 'redux-form';
@@ -24,7 +24,7 @@ const CreateOpinion = () => {
     if (!session) return <Redirect to={{ pathname: '/' }} />
 
     return (
-        <Fragment>            
+        <>            
             <Container className="create-opinion">
                 <Row className="justify-content-center">
                     <Col xs={12} className="create-opinion-form">
@@ -32,7 +32,7 @@ const CreateOpinion = () => {
                     </Col>
                 </Row>
             </Container>                        
-        </Fragment>
+        </>
     );
 };
 

@@ -79,23 +79,24 @@ function* getUserProfileGenerator(action) {
 function* updateUserGenerator(action) {
     try {        
         yield put(getSession);
-        yield put(clearSubmitErrors('UpdateUserForm'));
-        yield put(setSubmitting(true));
-        const data = {};
-        if (action.name) data.name = action.name;
+        yield put(clearSubmitErrors('SettingsForm'));
+        yield put(setSubmitting(true));    
+        console.log(action);                    
         if (action.data.file) {
             let formData = new FormData();
-            formData.append('image', action.data.file, action.data.name);
+            formData.append('file', action.data.file.file, action.data.file.name);
             formData.append('folder', 'sharedops/profile-pics');
-            formData.append('upload_preset', process.env.REACT_APP_IMAGES_UPLOAD_PRESET);
+            formData.append('upload_preset', process.env.REACT_APP_PROFILE_PICS_UPLOAD_PRESET);
             const image = yield call(UserProvider.uploadUserProfilePic, formData);
-            data.imageURL = image.secure_url;
+            action.data.profilePicUrl = image.secure_url;
+            delete action.data.file;
         }
-        yield call(UserProvider.updateUser, data);
+        yield call(UserProvider.updateUser, action.data);
         yield put(setSubmitting(false));
     } catch (error) {
+        console.log(error);
         yield put(setSubmitting(false));
-        yield put(stopSubmit('UpdateUserForm', error.response.data.error));
+        yield put(stopSubmit('SettingsForm', error.response.data.error));
         yield put(setError(error.response.data.error)); 
     }
 }
