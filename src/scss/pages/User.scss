@@ -28,6 +28,13 @@
     
     .dark {
 
+        .profile-picture {
+
+            img {
+                border: 2px solid $white;
+            }
+        }
+
         .registration-date {
             color: $link-water;
             

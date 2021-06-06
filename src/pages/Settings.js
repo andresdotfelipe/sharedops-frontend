@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import { updateUser } from '../actions/users';
 import SettingsForm from '../forms/SettingsForm';
 
@@ -12,17 +12,22 @@ const Settings = () => {
         user: state.UserReducer.user     
     }));
     
+    const history = useHistory();
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch();    
+
+    const handleCheckProfileClick = () => {
+        history.push(`/user/${user._id}`);
+    };
+    
+    const handleSubmitSettings = data => {        
+        dispatch(updateUser(data));
+        window.location = '/settings';
+    };
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
-    
-    const handleSubmitSettings = data => {        
-        dispatch(updateUser(data));
-        // window.location = '/settings';
-    };
 
     if (!session) return <Redirect to={{ pathname: '/' }} />
 
@@ -32,6 +37,11 @@ const Settings = () => {
                 {
                     user &&
                     <Row className="justify-content-center">
+                        <Col xs={12}>
+                            <Button className="check-profile" onClick={handleCheckProfileClick}>
+                                Check profile
+                            </Button>
+                        </Col>                        
                         <Col xs={12} className="settings-form">
                           <SettingsForm
                                 initialValues={{ name: user.name, description: user.description }}

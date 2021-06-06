@@ -1,9 +1,23 @@
 .settings {
-    @include containerPadding;    
+    @include containerPadding; 
+    max-width: 500px;   
+    text-align: center;
+    width: 100%;
+
+    .check-profile {
+        background-color: $dark-violet;
+        border-color: $dark-violet;
+        font-size: 18px;
+        height: 50px;                
+        width: 100%;
+
+        &:active {
+            background-color: $studio !important;
+            border-color: $studio !important;
+        }        
+    }
 
     .settings-form {          
-        margin: 10px;              
-        max-width: 500px;
-        width: 100%;
+        margin-top: 30px;
     }
 }
