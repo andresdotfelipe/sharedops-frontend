@@ -20,4 +20,11 @@
     .settings-form {          
         margin-top: 30px;
     }
+
+    .alert-success {
+        bottom: 0;    
+        left: 50%;        
+        position: fixed;        
+        transform: translate(-50%, -50%); 
+    }
 }

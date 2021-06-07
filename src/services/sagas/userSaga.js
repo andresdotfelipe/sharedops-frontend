@@ -1,9 +1,9 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { stopSubmit, clearSubmitErrors } from 'redux-form';
+import { reset, stopSubmit, clearSubmitErrors } from 'redux-form';
 import OpinionProvider from '../providers/OpinionProvider';
 import UserProvider from '../providers/UserProvider';
 import { setFavoriteOpinions } from '../../actions/opinions';
-import { setSession, setUnauthenticated, setUser, setUserProfile, getSession, getUser, setSubmitting, setError, signOut } from '../../actions/users';
+import { setSession, setUnauthenticated, setUser, setUserProfile, getSession, getUser, setSubmitting, setSuccess, setError, signOut } from '../../actions/users';
 import { actionTypes } from '../../config/actionTypes';
 
 function* signInGenerator(action) {
@@ -91,11 +91,15 @@ function* updateUserGenerator(action) {
             action.data.profilePicUrl = image.secure_url;
             delete action.data.file;
         }
-        yield call(UserProvider.updateUser, action.data);
-        yield put(setSubmitting(false));
+        yield call(UserProvider.updateUser, action.data);            
+        yield put(getUser);        
+        yield put(setSubmitting(false));        
+        yield put(setError(false));
+        yield put(setSuccess('Settings successfully updated'));                           
     } catch (error) {
         console.log(error);
         yield put(setSubmitting(false));
+        yield put(setSuccess(false));
         yield put(stopSubmit('SettingsForm', error.response.data.error));
         yield put(setError(error.response.data.error)); 
     }

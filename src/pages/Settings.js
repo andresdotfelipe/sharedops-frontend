@@ -1,15 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Col, Container, Row } from 'react-bootstrap';
-import { updateUser } from '../actions/users';
+import { reset } from 'redux-form';
+import { Alert, Button, Col, Container, Row } from 'react-bootstrap';
+import { getUser, updateUser, setSuccess } from '../actions/users';
 import SettingsForm from '../forms/SettingsForm';
 
 const Settings = () => {
 
-    const { session, user } = useSelector(state => ({
+    const [showAlert, setShowAlert] = useState(false);
+
+    const { session, user, success, error } = useSelector(state => ({
         session: state.UserReducer.session,
-        user: state.UserReducer.user     
+        user: state.UserReducer.user,
+        success: state.UserReducer.success,
+        error: state.UserReducer.error
     }));
     
     const history = useHistory();
@@ -21,13 +26,20 @@ const Settings = () => {
     };
     
     const handleSubmitSettings = data => {        
-        dispatch(updateUser(data));
-        window.location = '/settings';
+        dispatch(updateUser(data));                
     };
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    useEffect(() => {
+        if (success) {
+            setShowAlert(true);
+            const hideAlert = () => { setShowAlert(false); dispatch(setSuccess(false)); };
+            setTimeout(function(){ hideAlert() }, 2700);            
+        }
+    }, [success, dispatch]);
 
     if (!session) return <Redirect to={{ pathname: '/' }} />
 
@@ -43,12 +55,20 @@ const Settings = () => {
                             </Button>
                         </Col>                        
                         <Col xs={12} className="settings-form">
-                          <SettingsForm
+                            <SettingsForm
                                 initialValues={{ name: user.name, description: user.description }}
                                 user={user}
                                 submitSettings={handleSubmitSettings}
                             />
                         </Col>
+                        {
+                            (success && !error && showAlert) &&
+                            <Col xs={12} className="mt-5">
+                                <Alert variant="success">
+                                    {success}                                        
+                                </Alert>
+                            </Col>
+                        }
                     </Row>                    
                 }                
             </Container>
