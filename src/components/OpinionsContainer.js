@@ -112,83 +112,86 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
     
     return (        
         <Container className="opinions-container">
-            <Row className={`${darkTheme ? 'dark' : 'light'}`}>
-                <Col xs={12} className="initial-message">
-                    <span>{initialMessage}</span>
-                </Col>
+            <Row className={`${darkTheme ? 'dark' : 'light'}`}>                
                 {
-                    opinions ?
-                    <Row className="opinions-grid">
-                        {
-                            opinions.map(opinion => {
-                                return (
-                                    <Col 
-                                        key={opinion._id} 
-                                        xs={12} tabIndex={'0'} 
-                                        className="opinion-box"
-                                        onClick={() => handleClickOpinion(opinion)}>
-                                        <Row>
-                                            <Col xs={12} className="details">
-                                                <span className="name">
-                                                    Opinion by <Link 
-                                                        to={`/user/${opinion.author._id}`}
-                                                        onClick={e => e.stopPropagation()}>
-                                                            {opinion.author.name}
-                                                            <img 
-                                                                src={opinion.author.profilePicUrl}                                                    
-                                                                alt={opinion.author.name}
-                                                                className="profile-pic"
-                                                            /> 
-                                                    </Link>
-                                                </span>                                                                                                       
-                                                <span className="date">
-                                                    on {opinion.createdAt}
-                                                </span>
-                                            </Col>
-                                            <Col xs={12} className="title">
-                                                <Link to={`/comments/${opinion._id}/${opinion.title}`}>
-                                                    {opinion.title}
-                                                </Link>
-                                            </Col>
-                                            {
-                                                opinion.opinionImageUrl &&
-                                                <Col xs={12}>
-                                                    <img 
-                                                        src={opinion.opinionImageUrl}
-                                                        alt={opinion.title}
-                                                        className="opinion-img"
-                                                    />
+                    opinions.length > 0 ?
+                    <>
+                        <Col xs={12} className="initial-message">
+                            <span>{initialMessage}</span>
+                        </Col>
+                        <Row className="opinions-grid">
+                            {
+                                opinions.map(opinion => {
+                                    return (
+                                        <Col 
+                                            key={opinion._id} 
+                                            xs={12} tabIndex={'0'} 
+                                            className="opinion-box"
+                                            onClick={() => handleClickOpinion(opinion)}>
+                                            <Row>
+                                                <Col xs={12} className="details">
+                                                    <span className="name">
+                                                        Opinion by <Link 
+                                                            to={`/user/${opinion.author._id}`}
+                                                            onClick={e => e.stopPropagation()}>
+                                                                {opinion.author.name}
+                                                                <img 
+                                                                    src={opinion.author.profilePicUrl}                                                    
+                                                                    alt={opinion.author.name}
+                                                                    className="profile-pic"
+                                                                /> 
+                                                        </Link>
+                                                    </span>                                                                                                       
+                                                    <span className="date">
+                                                        on {opinion.createdAt}
+                                                    </span>
                                                 </Col>
-                                            }                                                
-                                            <Col xs={12} className="body">
-                                                {opinion.body}
-                                            </Col>
-                                            <Col xs={12} className="options">
-                                                <Button 
-                                                    className={
-                                                        user ? 
-                                                        `${user.favoriteOpinions.some(e => e === opinion._id) ? 
-                                                            'favorite-checked' : 'favorite-unchecked'}` 
-                                                        : 'favorite-unchecked'
-                                                    }
-                                                    onClick={e => handleFavorites(e, opinion)}>
-                                                    <i className="fas fa-star"></i>
-                                                </Button>                                                    
-                                                <Button className={`${opinion.comments.length > 0 ? 'comment-checked' : 'comment'}`}>
-                                                    {opinion.comments.length} 
-                                                    <i className="fas fa-comments"></i>
-                                                </Button>
-                                            </Col>                                                                                       
-                                        </Row>                                                                                                                        
-                                    </Col>
-                                );
-                            })
-                        }
-                    </Row> :
-                    <Col xs={12} className="resource-not-found">
-                        <span>No opinions</span>
-                    </Col>
-
+                                                <Col xs={12} className="title">
+                                                    <Link to={`/comments/${opinion._id}/${opinion.title}`}>
+                                                        {opinion.title}
+                                                    </Link>
+                                                </Col>
+                                                {
+                                                    opinion.opinionImageUrl &&
+                                                    <Col xs={12}>
+                                                        <img 
+                                                            src={opinion.opinionImageUrl}
+                                                            alt={opinion.title}
+                                                            className="opinion-img"
+                                                        />
+                                                    </Col>
+                                                }                                                
+                                                <Col xs={12} className="body">
+                                                    {opinion.body}
+                                                </Col>
+                                                <Col xs={12} className="options">
+                                                    <Button 
+                                                        className={
+                                                            user ? 
+                                                            `${user.favoriteOpinions.some(e => e === opinion._id) ? 
+                                                                'favorite-checked' : 'favorite-unchecked'}` 
+                                                            : 'favorite-unchecked'
+                                                        }
+                                                        onClick={e => handleFavorites(e, opinion)}>
+                                                        <i className="fas fa-star"></i>
+                                                    </Button>                                                    
+                                                    <Button className={`${opinion.comments.length > 0 ? 'comment-checked' : 'comment'}`}>
+                                                        {opinion.comments.length} 
+                                                        <i className="fas fa-comments"></i>
+                                                    </Button>
+                                                </Col>                                                                                       
+                                            </Row>                                                                                                                        
+                                        </Col>
+                                    );
+                                })
+                            }
+                        </Row> 
+                    </> :
+                    <Row className="resource-not-found">
+                        <Col xs={12}>
+                            <span>No opinions</span>
+                        </Col>
+                    </Row> 
                 }
                 {
                     currentCount !== totalCount &&

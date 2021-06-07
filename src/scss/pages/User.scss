@@ -7,7 +7,6 @@
         margin-bottom: -70px;
 
         .profile-picture {
-            margin-right: 10px;
 
             img {
                 border-radius: 50%;
@@ -22,14 +21,8 @@
             margin-bottom: 10px;
         }
 
-        .description {                        
-            text-align: left;                                     
-            word-break: break-all;            
-        }
-
-        .registration-date {            
+        .registration-date {
             color: $nandor;
-            margin-top: 5px;
         }
     }
     
@@ -38,7 +31,7 @@
         .profile-picture {
 
             img {
-                border: 5px solid $white;
+                border: 2px solid $white;
             }
         }
 
@@ -52,9 +45,8 @@
 
         text-align: center;
 
-        .profile-picture {
-            margin-right: 0;            
+        .profile-picture {            
             margin-bottom: 30px;            
-        }        
+        }
     }
 }

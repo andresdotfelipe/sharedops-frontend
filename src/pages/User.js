@@ -44,27 +44,34 @@ const User = () => {
             <Container className="user">
                 <Row className={`${darkTheme ? 'dark' : 'light'}`}>                                    
                     {
-                        userProfile &&
-                        <Row className="profile mx-auto">
-                            <Col xs="12" sm="auto" className="profile-picture">
-                                <img src={userProfile.profilePicUrl} alt={userProfile.name} />
+                        userProfile ?
+                        <>
+                            <Row className="profile mx-auto">
+                                <Col xs="12" sm="auto" className="profile-picture">
+                                    <img src={userProfile.profilePicUrl} alt={userProfile.name} />
+                                </Col>
+                                <Col>
+                                    <Row>
+                                        <Col xs={12} className="name">
+                                            <span>{userProfile.name}</span>
+                                        </Col>
+                                        <Col xs={12} className="description">
+                                            <span>{userProfile.description}</span>
+                                        </Col>
+                                        <Col xs={12} className="registration-date">
+                                            <span>Joined on {userProfile.createdAt}</span>
+                                        </Col>
+                                    </Row>                                                                                
+                                </Col>                        
+                            </Row>
+                            <OpinionsContainer {...props} />        
+                        </> : 
+                        <Row className="resource-not-found">
+                            <Col xs={12}>
+                                <span>User not found</span>
                             </Col>
-                            <Col>
-                                <Row>
-                                    <Col xs={12} className="name">
-                                        <span>{userProfile.name}</span>
-                                    </Col>
-                                    <Col xs={12} className="description">
-                                        <span>{userProfile.description}</span>
-                                    </Col>
-                                    <Col xs={12} className="registration-date">
-                                        <span>Joined on {userProfile.createdAt}</span>
-                                    </Col>
-                                </Row>                                                                                
-                            </Col>                        
-                        </Row>
-                    }                       
-                    <OpinionsContainer {...props} />                 
+                        </Row>                        
+                    }                                                    
                 </Row>
             </Container>                      
         </>
