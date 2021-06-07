@@ -14,6 +14,7 @@ import CreateOpinion from './pages/CreateOpinion';
 import Comments from './pages/Comments';
 import User from './pages/User';
 import Settings from './pages/Settings';
+import NotFound from './pages/NotFound';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import './scss/Styles.scss';
@@ -48,7 +49,8 @@ const App = () => {
                         <Route exact path={'/create-opinion'} component={CreateOpinion} />
                         <Route exact path={'/comments/:opinionId/:opinionTitle?'} component={Comments} />
                         <Route exact path={'/user/:userId'} component={User} />
-                        <Route exact path={'/settings'} component={Settings} />                        
+                        <Route exact path={'/settings'} component={Settings} />
+                        <Route component={NotFound} />                        
                     </Layer>
                 </Switch>
             </BrowserRouter>            

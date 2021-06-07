@@ -1,0 +1,27 @@
+.not-found {
+    @include containerPadding;      
+    text-align: center;
+    
+    span {
+        font-size: 50px;        
+    }
+
+    img {
+        color: $white;
+    }
+
+    p {
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+
+    .btn {
+        background-color: $dark-violet;
+        border-color: $dark-violet;                                       
+
+        &:active {
+            background-color: $studio !important;
+            border-color: $studio !important;
+        }  
+    }
+}
