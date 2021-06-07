@@ -1,7 +1,5 @@
 .user {
-    @include containerPadding;
-    max-width: 800px;
-    width: 100%;    
+    @include containerPadding;    
 
     .profile {
         margin-bottom: -70px;

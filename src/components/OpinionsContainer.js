@@ -186,12 +186,10 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
                                 })
                             }
                         </Row> 
-                    </> :
-                    <Row className="resource-not-found">
-                        <Col xs={12}>
-                            <span>No opinions</span>
-                        </Col>
-                    </Row> 
+                    </> :                    
+                    <Col xs={12} className="resource-not-found">
+                        <span>No opinions</span>
+                    </Col>                    
                 }
                 {
                     currentCount !== totalCount &&

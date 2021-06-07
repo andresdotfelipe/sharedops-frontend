@@ -66,11 +66,9 @@ const User = () => {
                             </Row>
                             <OpinionsContainer {...props} />        
                         </> : 
-                        <Row className="resource-not-found">
-                            <Col xs={12}>
-                                <span>User not found</span>
-                            </Col>
-                        </Row>                        
+                        <Col xs={12} className="resource-not-found">
+                            <span>User not found</span>
+                        </Col>                        
                     }                                                    
                 </Row>
             </Container>                      
