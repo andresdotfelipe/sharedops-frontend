@@ -37,22 +37,22 @@ const App = () => {
     return (
         <Container fluid>            
             <BrowserRouter>
-                <Switch>
-                    <Layer>
-                        <Route exact path={'/'} component={Home} />
-                        <Route exact path={'/signin'} component={SignIn} />
-                        <Route exact path={'/signup'} component={SignUp} />
-                        <Route exact path={'/my-opinions'} component={MyOpinions} />
-                        <Route exact path={'/favorites'} component={Favorites} />
-                        <Route exact path={'/random'} component={Random} />
-                        <Route exact path={'/search/:type/:title'} component={Search} />
-                        <Route exact path={'/create-opinion'} component={CreateOpinion} />
-                        <Route exact path={'/comments/:opinionId/:opinionTitle?'} component={Comments} />
-                        <Route exact path={'/user/:userId'} component={User} />
-                        <Route exact path={'/settings'} component={Settings} />
-                        <Route component={NotFound} />                        
-                    </Layer>
-                </Switch>
+                <Layer>
+                    <Switch>                    
+                            <Route exact path={'/'} component={Home} />
+                            <Route exact path={'/signin'} component={SignIn} />
+                            <Route exact path={'/signup'} component={SignUp} />
+                            <Route exact path={'/my-opinions'} component={MyOpinions} />
+                            <Route exact path={'/favorites'} component={Favorites} />
+                            <Route exact path={'/random'} component={Random} />
+                            <Route exact path={'/search/:type/:title'} component={Search} />
+                            <Route exact path={'/create-opinion'} component={CreateOpinion} />
+                            <Route exact path={'/comments/:opinionId/:opinionTitle?'} component={Comments} />
+                            <Route exact path={'/user/:userId'} component={User} />
+                            <Route exact path={'/settings'} component={Settings} />
+                            <Route component={NotFound} />                                        
+                    </Switch>
+                </Layer>
             </BrowserRouter>            
         </Container>
     );
