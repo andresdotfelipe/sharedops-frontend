@@ -114,7 +114,7 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
         <Container className="opinions-container">
             <Row className={`${darkTheme ? 'dark' : 'light'}`}>                
                 {
-                    opinions.length > 0 ?
+                    opinions.length > 0 &&
                     <>
                         <Col xs={12} className="initial-message">
                             <span>{initialMessage}</span>
@@ -186,11 +186,14 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
                                 })
                             }
                         </Row> 
-                    </> :                    
+                    </>    
+                }                    
+                {
+                    (currentCount === totalCount && opinions.length < 1) &&
                     <Col xs={12} className="resource-not-found">
                         <span>No opinions</span>
-                    </Col>                    
-                }
+                    </Col> 
+                }                                    
                 {
                     currentCount !== totalCount &&
                     <Col xs={12} id="opinions-end">
