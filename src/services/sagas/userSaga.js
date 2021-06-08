@@ -108,20 +108,18 @@ function* updateUserGenerator(action) {
 function* updateUserFavoriteOpinions(action) {
     try {
         yield put(getSession);
-        const favoriteOpinions = yield select(state => state.OpinionReducer.favoriteOpinions);
-        if (favoriteOpinions.length > 0) {
-            const opinion = yield call(OpinionProvider.getOpinion, action.opinionId);
-            if (favoriteOpinions.some(e => e._id === action.opinionId)) {
-                favoriteOpinions.forEach(favoriteOpinion => {
-                    if (favoriteOpinion._id === action.opinionId) {
-                        favoriteOpinions.splice(favoriteOpinions.indexOf(favoriteOpinion), 1);
-                    }
-                });                              
-            } else {                
-                favoriteOpinions.unshift(opinion);
-            }            
-            yield put(setFavoriteOpinions(favoriteOpinions));
-        }
+        const favoriteOpinions = yield select(state => state.OpinionReducer.favoriteOpinions);        
+        const opinion = yield call(OpinionProvider.getOpinion, action.opinionId);
+        if (favoriteOpinions.some(e => e._id === action.opinionId)) {
+            favoriteOpinions.forEach(favoriteOpinion => {
+                if (favoriteOpinion._id === action.opinionId) {
+                    favoriteOpinions.splice(favoriteOpinions.indexOf(favoriteOpinion), 1);
+                }
+            });                              
+        } else {                
+            favoriteOpinions.unshift(opinion);
+        }            
+        yield put(setFavoriteOpinions(favoriteOpinions));        
         const data = { opinionId: action.opinionId };
         yield call(UserProvider.updateUserFavoriteOpinions, data);
         yield put(getUser);                                
