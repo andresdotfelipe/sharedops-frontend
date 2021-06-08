@@ -1,10 +1,13 @@
 .user {
-    @include containerPadding;    
+    @include containerPadding;
+    max-width: 800px;
+    width: 100%;    
 
     .profile {
         margin-bottom: -70px;
 
         .profile-picture {
+            margin-right: 15px;
 
             img {
                 border-radius: 50%;
@@ -19,8 +22,14 @@
             margin-bottom: 10px;
         }
 
-        .registration-date {
+        .description {                        
+            text-align: left;                                     
+            word-break: break-all;            
+        }
+
+        .registration-date {            
             color: $nandor;
+            margin-top: 5px;
         }
     }
     
@@ -29,7 +38,7 @@
         .profile-picture {
 
             img {
-                border: 2px solid $white;
+                border: 5px solid $white;
             }
         }
 
@@ -43,8 +52,9 @@
 
         text-align: center;
 
-        .profile-picture {            
+        .profile-picture {
+            margin-right: 0;            
             margin-bottom: 30px;            
-        }
+        }        
     }
 }
