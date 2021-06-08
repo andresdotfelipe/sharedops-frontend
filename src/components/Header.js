@@ -1,8 +1,8 @@
 import React, { Fragment, useState, useEffect, useCallback, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useParams, Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { Col, Container, Button, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap';
-import { getSession, getUser, removeSession, signOut, setDarkTheme } from '../actions/users';
+import { getSession, getUser, setDarkTheme } from '../actions/users';
 import { setSearchOpinions, setSearchOpinionsPageCount, setSearchOpinionsCurrentCount, setSearchOpinionsTotalCount } from '../actions/opinions';
 import Toggle from 'react-toggle';
 import SearchModal from './SearchModal';

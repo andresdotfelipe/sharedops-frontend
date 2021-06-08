@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { reset } from 'redux-form';
 import { Alert, Button, Col, Container, Row } from 'react-bootstrap';
-import { getUser, updateUser, setSuccess } from '../actions/users';
+import { updateUser, setSuccess } from '../actions/users';
 import SettingsForm from '../forms/SettingsForm';
 
 const Settings = () => {

@@ -4,11 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import { Button, Col, Form, Image, Row, Spinner } from 'react-bootstrap';
 import InputForm from '../components/InputForm';
 
-let userProp;
-
-const SettingsForm = ({ user, submitSettings, handleSubmit }) => {
-
-    userProp = user;
+const SettingsForm = ({ user, submitSettings, handleSubmit }) => {    
 
     const { submitting, darkTheme } = useSelector(state => ({
         submitting: state.UserReducer.submitting,

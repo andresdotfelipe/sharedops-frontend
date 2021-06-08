@@ -1,9 +1,9 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { reset, stopSubmit, clearSubmitErrors } from 'redux-form';
+import { stopSubmit, clearSubmitErrors } from 'redux-form';
 import OpinionProvider from '../providers/OpinionProvider';
 import UserProvider from '../providers/UserProvider';
 import { setFavoriteOpinions } from '../../actions/opinions';
-import { setSession, setUnauthenticated, setUser, setUserProfile, getSession, getUser, setSubmitting, setSuccess, setError, signOut } from '../../actions/users';
+import { setSession, setUnauthenticated, setUser, setUserProfile, getSession, getUser, setSubmitting, setSuccess, setError } from '../../actions/users';
 import { actionTypes } from '../../config/actionTypes';
 
 function* signInGenerator(action) {

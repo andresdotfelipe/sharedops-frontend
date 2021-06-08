@@ -54,7 +54,7 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
                 setIsFetching(false);
             }            
         },
-        [dispatch, pageCount, type, title, totalCount, currentCount, isFetching]
+        [dispatch, pageCount, type, title, userId, totalCount, currentCount, isFetching]
     );
 
     const handleClickOpinion = opinion => {
@@ -108,7 +108,7 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
         return () => {                        
             window.removeEventListener('scroll', loadOnScroll);            
         };
-    }, [dispatch, pageCount, type, title, opinions, loadOnScroll]);
+    }, [dispatch, pageCount, type, title, userId, opinions, loadOnScroll]);
     
     return (        
         <Container className="opinions-container">

@@ -1,4 +1,4 @@
-import React, { useState }  from 'react';
+import React  from 'react';
 import { Button, Col, Container, Form, Modal, Row } from 'react-bootstrap';
 
 const SearchModal = ({ darkTheme, title, session, onChangeSearch, checkedSearchOption, search, searchOpinion, show, onHide }) => {            
