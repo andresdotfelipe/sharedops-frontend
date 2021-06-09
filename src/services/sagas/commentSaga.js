@@ -4,15 +4,13 @@ import CommentProvider from '../providers/CommentProvider';
 import  { setOpinion, resetOpinionReducer } from '../../actions/opinions';
 import { getSession, setSubmitting, setError } from '../../actions/users';
 import { actionTypes } from '../../config/actionTypes';
+import { parseCommentsDate } from '../../utils';
 
 function* createCommentGenerator(action) {
     try {
         yield put(getSession);        
         const res = yield call(CommentProvider.createComment, action.data);        
-        res.updatedOpinion.comments.forEach(comment => {
-            comment.createdAt = String(new Date(comment.createdAt));
-            comment.updatedAt = String(new Date(comment.updatedAt));
-        });
+        res.updatedOpinion.comments = parseCommentsDate(res.updatedOpinion.comments);
         yield put(resetOpinionReducer);
         yield put(setOpinion(res.updatedOpinion));        
         yield put(setSubmitting(false));        
