@@ -11,6 +11,8 @@ import {
     } from '../../actions/opinions';
 import { getSession, setLoading, setSubmitting, setError } from '../../actions/users';
 import { actionTypes } from '../../config/actionTypes';
+import { parseOpinionsAndCommentsDate } from '../../utils';
+import { parseCommentsDate } from '../../utils';
 
 function* getOpinionsGenerator(action) {
     try {
@@ -35,14 +37,7 @@ function* getOpinionsGenerator(action) {
             case 'myOpinions':
                 if (myOpinionsCurrentCount !== myOpinionsTotalCount) {                        
                     const res = yield call(OpinionProvider.getMyOpinions, action.data.filter);
-                    res.opinions.forEach(opinion => {
-                        opinion.createdAt = String(new Date(opinion.createdAt));
-                        opinion.updatedAt = String(new Date(opinion.updatedAt));
-                        opinion.comments.forEach(comment => {
-                            comment.createdAt = String(new Date(comment.createdAt));
-                            comment.updatedAt = String(new Date(comment.updatedAt));
-                        });
-                    });
+                    res.opinions = parseOpinionsAndCommentsDate(res.opinions);
                     yield put(setMyOpinions(res.opinions));        
                     yield put(setMyOpinionsTotalCount(res.opinionsCount));
                     yield put(setMyOpinionsCurrentCount(myOpinionsCurrentCount + res.opinions.length));
@@ -52,14 +47,7 @@ function* getOpinionsGenerator(action) {
             case 'favorites':
                 if (favoriteOpinionsCurrentCount !== favoriteOpinionsTotalCount) {                        
                     const res = yield call(OpinionProvider.getFavoriteOpinions, action.data.filter);
-                    res.opinions.forEach(opinion => {
-                        opinion.createdAt = String(new Date(opinion.createdAt));
-                        opinion.updatedAt = String(new Date(opinion.updatedAt));
-                        opinion.comments.forEach(comment => {
-                            comment.createdAt = String(new Date(comment.createdAt));
-                            comment.updatedAt = String(new Date(comment.updatedAt));
-                        });
-                    });
+                    res.opinions = parseOpinionsAndCommentsDate(res.opinions);
                     const favoriteOpinions = yield select(state => state.OpinionReducer.favoriteOpinions);
                     res.opinions.forEach(opinion => {
                         favoriteOpinions.push(opinion);
@@ -73,14 +61,7 @@ function* getOpinionsGenerator(action) {
             case 'userOpinions':
                 if (userOpinionsCurrentCount !== userOpinionsTotalCount) {                        
                     const res = yield call(OpinionProvider.getUserOpinions, action.data.filter);
-                    res.opinions.forEach(opinion => {
-                        opinion.createdAt = String(new Date(opinion.createdAt));
-                        opinion.updatedAt = String(new Date(opinion.updatedAt));
-                        opinion.comments.forEach(comment => {
-                            comment.createdAt = String(new Date(comment.createdAt));
-                            comment.updatedAt = String(new Date(comment.updatedAt));
-                        });
-                    });
+                    res.opinions = parseOpinionsAndCommentsDate(res.opinions);
                     const userOpinions = yield select(state => state.OpinionReducer.userOpinions);
                     res.opinions.forEach(opinion => {
                         userOpinions.push(opinion);
@@ -94,14 +75,7 @@ function* getOpinionsGenerator(action) {
             default:
                 if (allOpinionsCurrentCount !== allOpinionsTotalCount) {                        
                     const res = yield call(OpinionProvider.getAllOpinions, action.data.filter);
-                    res.opinions.forEach(opinion => {
-                        opinion.createdAt = String(new Date(opinion.createdAt));
-                        opinion.updatedAt = String(new Date(opinion.updatedAt));
-                        opinion.comments.forEach(comment => {
-                            comment.createdAt = String(new Date(comment.createdAt));
-                            comment.updatedAt = String(new Date(comment.updatedAt));
-                        });
-                    });
+                    res.opinions = parseOpinionsAndCommentsDate(res.opinions);
                     yield put(setAllOpinions(res.opinions));        
                     yield put(setAllOpinionsTotalCount(res.opinionsCount));
                     yield put(setAllOpinionsCurrentCount(allOpinionsCurrentCount + res.opinions.length));
@@ -154,14 +128,7 @@ function* getSearchOpinionsGenerator(action) {
                     break;
             }
             if (res.opinions.length > 0) {
-                res.opinions.forEach(opinion => {
-                    opinion.createdAt = String(new Date(opinion.createdAt));
-                    opinion.updatedAt = String(new Date(opinion.updatedAt));
-                    opinion.comments.forEach(comment => {
-                        comment.createdAt = String(new Date(comment.createdAt));
-                        comment.updatedAt = String(new Date(comment.updatedAt));
-                    });
-                });                             
+                res.opinions = parseOpinionsAndCommentsDate(res.opinions);                             
             }      
             const searchOpinions = yield select(state => state.OpinionReducer.searchOpinions);
             res.opinions.forEach(opinion => {
@@ -185,10 +152,7 @@ function* getOpinionGenerator(action) {
         const opinion = yield call(OpinionProvider.getOpinion, action.id);
         opinion.createdAt = String(new Date(opinion.createdAt));
         opinion.updatedAt = String(new Date(opinion.updatedAt));
-        opinion.comments.forEach(comment => {
-            comment.createdAt = String(new Date(comment.createdAt));
-            comment.updatedAt = String(new Date(comment.updatedAt));
-        });
+        opinion.comments = parseCommentsDate(opinion.comments);
         yield put(setOpinion(opinion));
         yield put(setLoading(false));        
     } catch (error) {
