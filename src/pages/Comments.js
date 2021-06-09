@@ -23,7 +23,8 @@ const Comments = () => {
     const { opinionId } = useParams();
 
     const dispatch = useDispatch();
-
+    
+    // If there's no session, redirect to sign in page. Otherwise, update user's favorite opinions.
     const handleFavorites = (e, opinion) => {
         e.stopPropagation();
         if (!session) {
@@ -49,6 +50,10 @@ const Comments = () => {
     }, []);
 
     useEffect(() => {
+        /*
+            If there's no opinion set, fetch it with opinionId in params. Otherwise, rewrite URL
+            with opinion's id and title params.
+        */
         if (!opinion) {
             dispatch(getOpinion(opinionId));            
         } else {
@@ -100,6 +105,14 @@ const Comments = () => {
                                             {opinion.body}
                                         </Col>
                                         <Col xs={12} className="options">
+                                            {
+                                                /*
+                                                    If opinion's id is in user's favorite opinions,
+                                                    check the favorite button. Otherwise, uncheck it.
+                                                    If there's no user signed in, uncheck the
+                                                    favorite button.
+                                                */
+                                            }
                                             <Button 
                                                 className={
                                                     user ? 

@@ -33,6 +33,7 @@ const Settings = () => {
     }, []);
 
     useEffect(() => {
+        // If settings update is successful, show success alert and hide it after 2.7 seconds
         if (success) {
             setShowAlert(true);
             const hideAlert = () => { setShowAlert(false); dispatch(setSuccess(false)); };

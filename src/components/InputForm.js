@@ -42,7 +42,7 @@ const InputForm = ({
 }) => {                
     
     return (
-        <React.Fragment>  
+        <>  
             <Form.Group as={Col} md="12">
                 {
                     label &&
@@ -78,7 +78,7 @@ const InputForm = ({
                     {error}
                 </Form.Control.Feedback>  
             </Form.Group>
-        </React.Fragment>
+        </>
     );
 };
 

@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
 import { Col, Container, Button, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap';
@@ -34,6 +34,7 @@ const Header = () => {
 
     const dispatch = useDispatch();
     
+    // Checks if screen is in phone view.
     const handlePhoneView = useCallback(
         e => {
             window.innerWidth <= 575.98 ? setIsPhoneView(true) : setIsPhoneView(false);
@@ -41,11 +42,13 @@ const Header = () => {
         []
     );
 
+    // Closes Navbar if user clicks outside it.
     const handleClickOutsideNavbar = e => {
         if ((e.clientX) >= e.target.clientWidth) return;
         if (!navbar.current.contains(e.target)) setExpandedNavbar(false);
     };
 
+    // Changes web theme.
     const changeTheme = e => {
         const { checked } = e.target;        
         localStorage.removeItem('darkTheme');
@@ -53,10 +56,15 @@ const Header = () => {
         dispatch(setDarkTheme(checked));        
     }
 
+    // Shows or closes the search modal.
     const handleShowSearch = () => {
         setShowSearch(!showSearch);        
     };
 
+    /* 
+        If id is 'searchInput' then sets search field text in searchModal. Otherwise it checks the search
+        option by the id value.
+    */
     const handleOnChangeSearch = e => {
         const { id, value } = e.target;
         id === 'searchInput' ? setSearch(value) : setCheckedSearchOption(id);
@@ -85,6 +93,7 @@ const Header = () => {
         handleShowSearch();
     };
 
+    // Handles navigation
     const handleNavDropdownItemClick = to => {
         history.push(to);
     };
@@ -102,12 +111,21 @@ const Header = () => {
         dispatch(getSession);
         dispatch(getUser);        
         const { pathname } = history.location;
+        /*
+            Sets 'All' as checked search option and sets search if user accesses to the page through 
+            '/search/all/ pathname.
+        */
         if (pathname.startsWith('/search/all/')) {
             resetSearchOpinions();
             setCheckedSearchOption('All');
             setSearch(pathname.slice(12));
         }
         if (session) {
+            /* 
+                Sets 'My opinions' as checked search option and sets search if signed in user accesses
+                to the page through '/search/my-opinions/ pathname. Otherwise, it does the same but for 
+                'Favorites' option through '/search/favorites/'.
+            */
             if (pathname.startsWith('/search/my-opinions/')) {
                 resetSearchOpinions();
                 setCheckedSearchOption('My opinions');
@@ -128,7 +146,7 @@ const Header = () => {
     }, [dispatch, history.location.pathname]);
 
     return (
-        <Fragment>
+        <>
             <Container className="header">
                 <Row className={`${darkTheme ? 'dark' : 'light'}`}>
                     <Col xs={12}>
@@ -200,7 +218,7 @@ const Header = () => {
                                 </Nav>                            
                                 {
                                     session && user ?
-                                    <Fragment>
+                                    <>
                                         <Nav className="align-items-lg-center">
                                             <Link 
                                                 className="nav-link" 
@@ -217,18 +235,18 @@ const Header = () => {
                                                 Sign out
                                             </Button>                                                       
                                         </Nav>                                
-                                    </Fragment> :
-                                    <Fragment>
+                                    </> :
+                                    <>
                                         <Link className="btn sign-in-button" to="/signin">Sign in</Link><br />
                                         <Link className="btn sign-up-button" to="/signup">Sign up</Link>                        
-                                    </Fragment>
+                                    </>
                                 }                                                
                             </Navbar.Collapse>
                         </Navbar>
                     </Col>                    
                 </Row>
             </Container>
-        </Fragment>
+        </>
     );
 };
 

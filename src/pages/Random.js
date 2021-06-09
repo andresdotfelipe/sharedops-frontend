@@ -18,11 +18,13 @@ const Random = () => {
 
     const dispatch = useDispatch();
 
+    // Redirects to clicked opinion.
     const handleClickOpinion = opinion => {
         dispatch(setOpinion(opinion));
         history.push(`/comments/${opinion._id}/${opinion.title}`);
     };    
 
+    // If there's no session, redirect to sign in page. Otherwise, update user's favorite opinions.
     const handleFavorites = (e, opinion) => {        
         e.stopPropagation();
         if (!session) {
@@ -98,6 +100,14 @@ const Random = () => {
                                             {opinion.body}
                                         </Col>
                                         <Col xs={12} className="options">
+                                            {
+                                                /*
+                                                    If opinion's id is in user's favorite opinions,
+                                                    check the favorite button. Otherwise, uncheck it.
+                                                    If there's no user signed in, uncheck the
+                                                    favorite button.
+                                                */
+                                            }
                                             <Button 
                                                 className={
                                                     user ? 
