@@ -35,7 +35,8 @@ REACT_APP_PROFILE_PICS_UPLOAD_PRESET=an7klitt
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Create a pull request to contribute this project. Open an issue to discuss major changes.
 
 ## License
+
 [MIT](https://choosealicense.com/licenses/mit/)
