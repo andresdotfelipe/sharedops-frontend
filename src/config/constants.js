@@ -3,5 +3,5 @@
     Development: http://localhost:4000/api
 */
 export const config = {
-    api: 'http://localhost:4000/api'
+    api: 'https://sharedopsapi.herokuapp.com/api'
 };
