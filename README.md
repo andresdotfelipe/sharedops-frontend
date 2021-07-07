@@ -31,7 +31,7 @@ REACT_APP_OPINIONS_IMAGES_UPLOAD_PRESET=boiktt1w
 REACT_APP_PROFILE_PICS_UPLOAD_PRESET=an7klitt
 ```
 
-4. Execute `npm start` or `yarn start`.
+4. Execute `npm start`.
 
 ## Contributing
 
