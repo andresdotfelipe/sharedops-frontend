@@ -22,7 +22,7 @@ cd sharedops-frontend
 git clone https://github.com/andresfelipedev/sharedops-frontend.git
 ```
 
-2. Run `npm install` if your using [**npm**](https://www.npmjs.com/) or `yarn install` if your using [**yarn**](https://yarnpkg.com/) instead.
+2. Run `npm install`.
 
 3. Create a `.env` file in the root directory with the next variables:
 ```
@@ -35,7 +35,7 @@ REACT_APP_PROFILE_PICS_UPLOAD_PRESET=an7klitt
 
 ## Contributing
 
-Create a pull request to contribute this project. Open an issue to discuss major changes.
+Create a pull request to contribute to this project. Open an issue to discuss major changes.
 
 ## License
 
