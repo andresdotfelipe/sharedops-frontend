@@ -1,13 +1,21 @@
 # Sharedops (front-end)
 
+<br>
+<br>
+<p align="center">
+    <img src="https://raw.githubusercontent.com/andresfelipedev/sharedops-frontend/aebdc31abe86a6237a3226c5a4e4a468b9fc4c13/src/assets/images/sharedops-logo-background.svg" alt="Sharedops" width="400">   
+</div>
+<br>
+<br>
+
 Sharedops is a web application where people can share their opinions. This is the front-end for Sharedops, built with:
 
-* [React](https://reactjs.org/) - To make the web appplication an SPA.
-* [Redux](https://redux.js.org/) - To manage the state.
-* [React Redux](https://react-redux.js.org/) - To bind React with Redux.
-* [React Bootstrap](https://react-bootstrap.github.io/) - To design the web application.
-* [Sass](https://sass-lang.com/) - To create style sheets faster.
-* [Jest](https://jestjs.io/) - To test the web application.
+* [React](https://reactjs.org) - To make the web appplication an SPA.
+* [Redux](https://redux.js.org) - To manage the state.
+* [React Redux](https://react-redux.js.org) - To bind React with Redux.
+* [React Bootstrap](https://react-bootstrap.github.io) - To design the web application.
+* [Sass](https://sass-lang.com) - To create style sheets faster.
+* [Jest](https://jestjs.io) - To test the web application.
 * [Enzyme](https://enzymejs.github.io/enzyme/) - To make it easier to test the web application.
 
 
