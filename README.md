@@ -32,7 +32,7 @@ git clone https://github.com/andresfelipedev/sharedops-frontend.git
 
 2. Run `npm install`.
 
-3. Create a `.env` file in the root directory with the next variables:
+3. Create a `.env` file in the root directory with the next environment variables:
 ```
 REACT_APP_IMAGES_CLOUD_NAME=dxjc7e5te
 REACT_APP_OPINIONS_IMAGES_UPLOAD_PRESET=boiktt1w
