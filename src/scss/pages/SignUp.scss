@@ -22,6 +22,16 @@
         width: 100%;
     }    
 
+    .dark {
+        
+        .hero {
+
+            p {
+                color: $whisper;
+            }
+        }
+    }
+
     @include media(phones) {
 
         .sign-up-form {
