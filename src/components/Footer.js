@@ -11,7 +11,7 @@ const Footer = () => {
             <Row className={`${darkTheme ? 'dark' : 'light'}`}>
                 <Col>
                     <a href={'https://andresfelipedev.github.io/portfolio'} target={'_blank'} rel={'noopener noreferrer'}>
-                        Web site created by Andrés Felipe Pérez Rodríguez
+                        Web application created by Andrés Felipe Pérez Rodríguez
                     </a>
                 </Col>            
             </Row>   
