@@ -10,8 +10,9 @@ const Footer = () => {
         <Container className="footer">
             <Row className={`${darkTheme ? 'dark' : 'light'}`}>
                 <Col>
-                    <a href={'https://andresfelipedev.github.io/portfolio'} target={'_blank'} rel={'noopener noreferrer'}>
-                        Web application created by Andrés Felipe Pérez Rodríguez
+                    <a href={'https://andresfelipedev.github.io/resume/'} target={'_blank'} rel={'noopener noreferrer'}>
+                        <span>Created by Andrés Felipe Pérez Rodríguez</span>
+                        <i className="fas fa-external-link-alt"></i>
                     </a>
                 </Col>            
             </Row>   

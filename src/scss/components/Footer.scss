@@ -4,7 +4,7 @@
 
     .row {            
         bottom: 0;
-        padding: 2px 0;
+        padding: 5px 0;
         position: fixed;
         text-align: center;
         width: 100%;
@@ -12,7 +12,18 @@
         a {
             color: $white;
             text-decoration: underline;
-        }    
+
+            &:hover {
+                text-decoration: none;
+            }
+        }  
+        
+        i {
+            bottom: 5px;
+            font-size: 14px;        
+            margin-left: 4px;
+            position: relative;
+        }
     }
 
     .light {
@@ -24,6 +35,13 @@
     }
 
     @include media(phones) {
-        font-size: 11px;
+        
+        span {
+            font-size: 14px;
+        }        
+
+        i {
+            font-size: 11px;
+        }
     }
 }
