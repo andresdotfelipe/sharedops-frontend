@@ -15,7 +15,7 @@
         }        
         
         .react-toggle {        
-            margin: 6px 12px 0 5px;            
+            margin: 6px 12px 0 0px;            
             
             .react-toggle-track-check, .react-toggle-track-x {            
                 height: 14px;            
@@ -106,6 +106,17 @@
             border-color: $white;
             color: $white;
         }
+
+        .navbar-toggler-signed-in {  
+            border: none;      
+            padding: 0;    
+            
+            img {
+                border-radius: 50%;
+                height: 40px;                
+                width: 40px;                
+            }
+        }
     
         .navbar-toggler-icon {
             background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");        
@@ -140,6 +151,10 @@
     }
 
     @include media(phones, large-phones, tablets) {
+
+        .navbar-collapse {
+            margin-top: 8px;
+        }
 
         .sign-in-button, .sign-up-button, .sign-out-button {
             margin: 8px 0;

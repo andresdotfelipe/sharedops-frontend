@@ -196,7 +196,12 @@ const Header = () => {
                                     />                                    
                                 </Col>
                             </Row>                       
-                            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                            <Navbar.Toggle aria-controls="basic-navbar-nav" className={`${!session ? 'navbar-toggler' : 'navbar-toggler-signed-in'}`}>
+                                { session && user ? 
+                                    <img src={user.profilePicUrl}  alt={user.name} /> 
+                                    : null 
+                                }
+                            </Navbar.Toggle>
                             <Navbar.Collapse id="basic-navbar-nav">                                
                                 <Nav className="ml-auto">
                                     {
@@ -226,8 +231,13 @@ const Header = () => {
                                                 <i className="fas fa-plus-square"></i> New opinion
                                             </Link>
                                             <Link className="nav-link profile-pic" to="/settings">
-                                                <img src={user.profilePicUrl}  alt={user.name} />
-                                                { user.name }                                        
+                                                { expandedNavbar ? 
+                                                    'Settings' :
+                                                    <>
+                                                        <img src={user.profilePicUrl}  alt={user.name} />
+                                                        { user.name }
+                                                    </>
+                                                }                                                                                                
                                             </Link>          
                                             <Button 
                                                 className="sign-out-button"
