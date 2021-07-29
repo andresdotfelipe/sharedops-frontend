@@ -250,8 +250,8 @@ const Header = () => {
                                         </Nav>                                
                                     </> :
                                     <>
-                                        <Link className="btn sign-in-button" to="/signin">Sign in</Link><br />
-                                        <Link className="btn sign-up-button" to="/signup">Sign up</Link>                        
+                                        <Link className="btn sign-in-button" to="/signin" onClick={() => handleNavLinkClick()}>Sign in</Link><br />
+                                        <Link className="btn sign-up-button" to="/signup" onClick={() => handleNavLinkClick()}>Sign up</Link>                        
                                     </>
                                 }                                                
                             </Navbar.Collapse>
