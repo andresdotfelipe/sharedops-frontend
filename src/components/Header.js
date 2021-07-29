@@ -94,8 +94,9 @@ const Header = () => {
     };
 
     // Handles navigation
-    const handleNavDropdownItemClick = to => {
-        history.push(to);
+    const handleNavLinkClick = (to = null) => {
+        if (expandedNavbar) setExpandedNavbar(!expandedNavbar); 
+        if (to) history.push(to);        
     };
 
     const handleSignOut = () => {
@@ -207,19 +208,19 @@ const Header = () => {
                                     {
                                         session ?
                                         <NavDropdown title="Opinions" id="basic-nav-dropdown">
-                                            <NavDropdown.Item onClick={() => handleNavDropdownItemClick('/')}>
+                                            <NavDropdown.Item onClick={() => handleNavLinkClick('/')}>
                                                 All
                                             </NavDropdown.Item>
-                                            <NavDropdown.Item onClick={() => handleNavDropdownItemClick('/my-opinions')}>
+                                            <NavDropdown.Item onClick={() => handleNavLinkClick('/my-opinions')}>
                                                 My opinions
                                             </NavDropdown.Item>
-                                            <NavDropdown.Item onClick={() => handleNavDropdownItemClick('/favorites')}>
+                                            <NavDropdown.Item onClick={() => handleNavLinkClick('/favorites')}>
                                                 Favorites
                                             </NavDropdown.Item>
                                         </NavDropdown> :
-                                        <Link className="nav-link" to="/">Opinions</Link>                                
+                                        <Link className="nav-link" to="/" onClick={() => handleNavLinkClick()}>Opinions</Link>
                                     }                            
-                                    <Link className="nav-link" to="/random">Random</Link>                                                        
+                                    <Link className="nav-link" to="/random" onClick={() => handleNavLinkClick()}>Random</Link>                                                        
                                 </Nav>                            
                                 {
                                     session && user ?
@@ -227,18 +228,20 @@ const Header = () => {
                                         <Nav className="align-items-lg-center">
                                             <Link 
                                                 className="nav-link" 
-                                                to="/create-opinion" >
+                                                to="/create-opinion"
+                                                onClick={() => handleNavLinkClick()}>
                                                 <i className="fas fa-plus-square"></i> New opinion
                                             </Link>
-                                            <Link className="nav-link profile-pic" to="/settings">
-                                                { expandedNavbar ? 
-                                                    'Settings' :
-                                                    <>
+                                            <Link 
+                                                className="nav-link" 
+                                                to="/settings"
+                                                onClick={() => handleNavLinkClick()}>
+                                                    <span className="settings-link">Settings</span>
+                                                    <div className="profile-pic">
                                                         <img src={user.profilePicUrl}  alt={user.name} />
                                                         { user.name }
-                                                    </>
-                                                }                                                                                                
-                                            </Link>          
+                                                    </div>                                                    
+                                            </Link>                                                     
                                             <Button 
                                                 className="sign-out-button"
                                                 onClick={handleSignOut}>

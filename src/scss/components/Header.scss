@@ -36,7 +36,7 @@
             &:hover, &:focus, &:active {
                 color: $white;
             }                
-        }
+        }                         
 
         .search-button {            
             
@@ -123,7 +123,7 @@
         }
     
         #basic-navbar-nav {
-            transition: 0.5s all;
+            transition: 0.5s height;
         }
         
     }                                   
@@ -150,10 +150,10 @@
         }
     }
 
-    @include media(phones, large-phones, tablets) {
+    @include media(phones, large-phones, tablets) {        
 
         .navbar-collapse {
-            margin-top: 8px;
+            margin-top: 10px;
         }
 
         .sign-in-button, .sign-up-button, .sign-out-button {
@@ -161,7 +161,14 @@
         }
 
         .profile-pic {
-            margin-left: 0 !important;
+            display: none;
+        }        
+    }            
+
+    @include media(desktops) {
+
+        .settings-link {
+            display: none;
         }
-    }    
+    }
 }
