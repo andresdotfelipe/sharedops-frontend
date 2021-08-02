@@ -3,6 +3,7 @@ import configureStore from 'redux-mock-store';
 import * as reactRedux from 'react-redux';
 import { shallow } from 'enzyme';
 import { getOpinion } from '../actions/opinions';
+import { users, opinions } from './utils/constants';
 import Random from '../pages/Random';
 
 jest.mock('react-router-dom', () => {
@@ -23,7 +24,7 @@ describe('Random component', () => {
     const mockStore = configureStore();    
     let store, wrapper;
 
-    store = mockStore({});
+    store = mockStore({ session: true, opinion: opinions[0] });
     jest
         .spyOn(reactRedux, 'useSelector')
         .mockImplementation(state => store.getState());
@@ -34,9 +35,8 @@ describe('Random component', () => {
     store.dispatch = jest.fn();
     wrapper = shallow(<Random />);    
 
-    it('has a button that dispatches a new random opinion on click', () => {                       
+    it('has a button that dispatches a new random opinion on click', () => {                 
         wrapper.find('Button.random').simulate('click');
         expect(store.dispatch).toHaveBeenCalledWith(getOpinion('random'));
     });
-
 });
