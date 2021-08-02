@@ -64,7 +64,7 @@ describe('SignIn component', () => {
     });
 
     it('disables SignInForm Submit button while submitting', () => {
-        store = mockStore({ submitting: true });    
+        store = mockStore({ unauthenticated: true, submitting: true });    
         wrapper = mount(
             <Provider store={store}> 
                 <BrowserRouter> 
