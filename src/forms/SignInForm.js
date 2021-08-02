@@ -17,7 +17,7 @@ const SignInForm = ({ submitSignIn, handleSubmit }) => {
             <Row className="justify-content-center justify-content-lg-start">                                
                 <Col className="form">
                     <Form className={`${darkTheme ? 'dark' : 'light'}`}>
-                        <Form.Text className="form-title">Sign In</Form.Text>
+                        <Form.Text className="form-title">Sign in</Form.Text>
                         <Form.Row>                                                                                                                       
                             <Field name={'name'} component={InputForm} ph={'Username'} type={'text'} />                                                                                                                      
                         </Form.Row>          
@@ -37,7 +37,7 @@ const SignInForm = ({ submitSignIn, handleSubmit }) => {
                             </Button> :
                             <Button type="submit" onClick={handleSubmit(submitSignIn)}>Next</Button>                
                         }                                              
-                        <Form.Text className="text-link">Don't have an account? <Link to="/signup">Sign Up</Link> </Form.Text>
+                        <Form.Text className="text-link">Don't have an account? <Link to="/signup">Sign up</Link> </Form.Text>
                     </Form>                                                        
                 </Col>                
             </Row>            

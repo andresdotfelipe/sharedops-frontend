@@ -20,7 +20,7 @@ describe('SignIn component', () => {
     let store, wrapper;
 
     beforeEach(() => {
-        store = mockStore({ submitting: false });
+        store = mockStore({ unauthenticated: true, submitting: false });
         jest
             .spyOn(reactRedux, 'useSelector')
             .mockImplementation(state => store.getState());
@@ -39,8 +39,8 @@ describe('SignIn component', () => {
         wrapper.setProps({ children: <BrowserRouter> <SignIn {...defaultProps} /> </BrowserRouter> });
     });
 
-    it('has Sign In as title for SignInForm', () => {        
-        expect(wrapper.find('FormText').at(0).text()).toEqual('Sign In');
+    it('has Sign in as title for SignInForm', () => {        
+        expect(wrapper.find('FormText').at(0).text()).toEqual('Sign in');
     });
 
     it('has a name field for SignInForm', () => {        
