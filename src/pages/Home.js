@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import OpinionsContainer from '../components/OpinionsContainer';
 
@@ -21,9 +21,9 @@ const Home = () => {
     };
 
     return (
-        <Fragment>            
+        <>            
             <OpinionsContainer {...props} />            
-        </Fragment>
+        </>
     );
 };
 

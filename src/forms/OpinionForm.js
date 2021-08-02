@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { Button, Col, Form, Row, Spinner } from 'react-bootstrap';
@@ -12,7 +12,7 @@ const OpinionForm = ({ submitOpinion, handleSubmit }) => {
     }));
 
     return (
-        <Fragment>
+        <>
             <Row>
                 <Col xs={12} className="form">
                     <Form className={`${darkTheme ? 'dark' : 'light'}`}>
@@ -48,7 +48,7 @@ const OpinionForm = ({ submitOpinion, handleSubmit }) => {
                     </Form>
                 </Col>
             </Row>
-        </Fragment>
+        </>
     );
 
 };

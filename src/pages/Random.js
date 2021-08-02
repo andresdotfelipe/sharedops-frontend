@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
 import { Button, Col, Container, Row } from 'react-bootstrap';
@@ -43,7 +43,7 @@ const Random = () => {
     }, [dispatch]);
 
     return (
-        <Fragment>            
+        <>            
             <Container className="opinions-container">
                 <Row className={`${darkTheme ? 'dark' : 'light'}`}>                    
                     {                        
@@ -133,7 +133,7 @@ const Random = () => {
                     }
                 </Row>
             </Container>            
-        </Fragment>
+        </>
     );
 };
 

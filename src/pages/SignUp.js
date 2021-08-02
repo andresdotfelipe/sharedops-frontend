@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
@@ -27,7 +27,7 @@ const SignUp = () => {
     if (!unauthenticated) return <Redirect to={{ pathname: '/' }} />            
 
     return (
-        <Fragment>            
+        <>            
             <Container className="sign-up">
                 <Row className={`${darkTheme && 'dark'} justify-content-center`}>                                    
                     <Col xs={12} md={6} className="hero">
@@ -44,7 +44,7 @@ const SignUp = () => {
                     </Col>                     
                 </Row>
             </Container>                     
-        </Fragment>
+        </>
     );
 };
 

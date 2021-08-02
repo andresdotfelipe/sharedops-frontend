@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import OpinionsContainer from '../components/OpinionsContainer';
@@ -45,9 +45,9 @@ const Search = () => {
     };
 
     return (
-        <Fragment>            
+        <>            
             <OpinionsContainer {...props} />            
-        </Fragment>
+        </>
     );
 };
 

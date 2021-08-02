@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import OpinionsContainer from '../components/OpinionsContainer';
@@ -25,9 +25,9 @@ const MyOpinions = () => {
     if (!session) return <Redirect to={{ pathname: '/' }} />
 
     return (
-        <Fragment>            
+        <>            
             <OpinionsContainer {...props} />            
-        </Fragment>
+        </>
     );
 };
 
