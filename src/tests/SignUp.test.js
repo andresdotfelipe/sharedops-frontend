@@ -20,7 +20,7 @@ describe('SignUp component', () => {
     let store, wrapper;
 
     beforeEach(() => {
-        store = mockStore({ submitting: false });
+        store = mockStore({ unauthenticated: true, submitting: false });
         jest
             .spyOn(reactRedux, 'useSelector')
             .mockImplementation(state => store.getState());
@@ -39,8 +39,20 @@ describe('SignUp component', () => {
         wrapper.setProps({ children: <BrowserRouter> <SignUp {...defaultProps} /> </BrowserRouter> });
     });
 
-    it('has Sign In as title for SignUpForm', () => {        
-        expect(wrapper.find('FormText').at(0).text()).toEqual('Sign Up');
+    it('has a Join Sharedops title', () => {
+        expect(wrapper.find('h2').text()).toEqual('Join Sharedops');
+    });
+
+    it('has a paragraph with sign up description', () => {
+        expect(wrapper.find('p').text()).toEqual('When you join Sharedops you can share what you think, see other people thoughts and opine about them.');
+    });
+
+    it('has an opinions image', () => {
+        expect(wrapper.find('.opinions-img')).toHaveLength(1);
+    });
+
+    it('has Sign up as title for SignUpForm', () => {        
+        expect(wrapper.find('FormText').at(0).text()).toEqual('Sign up');
     });
 
     it('has a name field for SignUpForm', () => {        
@@ -74,7 +86,7 @@ describe('SignUp component', () => {
     });
 
     it('disables SignUpForm Submit button while submitting', () => {
-        store = mockStore({ submitting: true });    
+        store = mockStore({ unauthenticated: true, submitting: true });    
         wrapper = mount(
             <Provider store={store}> 
                 <BrowserRouter> 
@@ -86,7 +98,7 @@ describe('SignUp component', () => {
         expect(submitButton.prop('disabled')).toBe(true);        
     });
 
-    it('signs in user on SignUpForm submit', () => {        
+    it('signs up user on SignUpForm submit', () => {                
         const data = {};                
         const submitButton = wrapper.find({ type: 'submit' }).at(0);
         submitButton.simulate('click');        

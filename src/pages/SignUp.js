@@ -35,9 +35,9 @@ const SignUp = () => {
                         <p>When you join Sharedops you can share what you think, see other people
                         thoughts and opine about them.
                         </p>                            
-                            <div className="opinions-img">
-                                <img src={darkTheme ? OpinionsImgDarkTheme : OpinionsImg} alt="Opinions" />
-                            </div>                                                    
+                        <div className="opinions-img">
+                            <img src={darkTheme ? OpinionsImgDarkTheme : OpinionsImg} alt="Opinions" />
+                        </div>                                                    
                     </Col>
                     <Col xs={12} md={6} className="sign-up-form">
                         <SignUpForm submitSignUp={handleSubmitSignUp} />
