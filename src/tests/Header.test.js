@@ -32,7 +32,7 @@ describe('Header component (user signed out)', () => {
             .mockImplementation(() => store.dispatch);
         store.clearActions();
         store.dispatch = jest.fn();
-        wrapper = shallow(<Header/>);
+        wrapper = shallow(<Header />);
     });    
     
     it('has a brand link that redirects to Homepage', () => {                

@@ -12,7 +12,7 @@ describe('Footer component', () => {
     jest
         .spyOn(reactRedux, 'useSelector')
         .mockImplementation(state => store.getState());       
-    wrapper = shallow(<Footer/>);    
+    wrapper = shallow(<Footer />);    
 
     it('has a link to portfolio', () => {               
         expect(wrapper.find('a').prop('href')).toEqual('https://andresfelipedev.github.io/resume/');            
