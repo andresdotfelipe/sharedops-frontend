@@ -76,7 +76,7 @@ describe('OpinionsContainer component (user signed out)', () => {
     });
 
     it('sets opinion on click', () => {        
-        wrapper.find('Col.opinion-box').at(2).simulate('click');
+        wrapper.find('Link.opinion-link').at(2).simulate('click');
         expect(store.dispatch).toHaveBeenCalledWith(setOpinion(opinions[2]));        
     });    
 });
