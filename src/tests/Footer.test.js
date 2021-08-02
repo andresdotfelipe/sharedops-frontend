@@ -15,6 +15,6 @@ describe('Footer component', () => {
     wrapper = shallow(<Footer/>);    
 
     it('has a link to portfolio', () => {               
-        expect(wrapper.find('a').prop('href')).toEqual('https://andresfelipedev.github.io/resume');            
+        expect(wrapper.find('a').prop('href')).toEqual('https://andresfelipedev.github.io/resume/');            
     });
 });
