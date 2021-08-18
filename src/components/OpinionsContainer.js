@@ -73,7 +73,7 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
     };
     
     const handleFavorites = (e, opinion, confirmation = undefined) => {        
-        e.stopPropagation(); 
+        e.preventDefault(); 
         // If there's no session, redirect to sign in page.
         if (!session) {            
             history.push('/signin');            
@@ -199,8 +199,7 @@ const OpinionsContainer = ({ initialMessage, opinions, pageCount, currentCount, 
                                                         </Button>       
                                                         {
                                                             /*
-                                                                Check comment button if there are one or more
-                                                                comments in opinion.
+                                                                Check comment button if there is one comment or more in the opinion.
                                                             */
                                                         }                                             
                                                         <Button className={`${opinion.comments.length > 0 ? 'comment-checked' : 'comment'}`}>
