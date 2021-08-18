@@ -20,7 +20,7 @@ const Random = () => {
 
     // If there's no session, redirect to sign in page. Otherwise, update user's favorite opinions.
     const handleFavorites = (e, opinion) => {        
-        e.stopPropagation();
+        e.preventDefault();
         if (!session) {
             history.push('/signin');
         } else {                                                
