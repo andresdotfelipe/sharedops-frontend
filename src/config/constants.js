@@ -1,7 +1,7 @@
 /*
-    Production: https://sharedopsapi.onrender.com
+    Production: https://sharedopsapi.vercel.app/api
     Development: http://localhost:4000/api
 */
 export const config = {
-  api: "https://sharedopsapi.onrender.com",
+  api: "https://sharedopsapi.vercel.app/api",
 };
