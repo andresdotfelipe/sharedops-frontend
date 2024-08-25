@@ -1,7 +1,7 @@
 /*
-    Production: https://sharedopsapi.herokuapp.com/api
+    Production: https://sharedopsapi.onrender.com
     Development: http://localhost:4000/api
 */
 export const config = {
-    api: 'https://sharedopsapi.herokuapp.com/api'
+  api: "https://sharedopsapi.onrender.com",
 };
